@@ -1,0 +1,30 @@
+# 🧳 Backend - Agencia de Viajes
+
+Este proyecto es el **backend oficial de la Agencia de Viajes**, desarrollado con **Node.js** y **Express**.  
+Provee una **API REST** que permitirá gestionar **usuarios, reservas, vuelos y destinos turísticos**.
+
+---
+
+##  Colaboradores
+
+- **Kevin Duarte**  
+- **Tania Villa**  
+- **Yael Imanol**
+
+---
+
+##  Tecnologías utilizadas
+
+- **Node.js** → Entorno de ejecución de JavaScript.  
+- **Express** → Framework minimalista para crear APIs.  
+- **Nodemon** → Reinicia el servidor automáticamente durante el desarrollo.  
+- **ES Modules (import/export)** → Sintaxis moderna de JavaScript.  
+- **MySQL** → Base de datos relacional para el almacenamiento de la información.
+
+---
+
+## Estructura del proyecto
+
+> El proyecto está diseñado bajo una **arquitectura en capas (Modelo - Vista - Controlador)**, lo que permite una mejor organización, mantenimiento y escalabilidad del código.  
+> Además, se aplica el **patrón de diseño de inyección de dependencias**, promoviendo una programación más modular y reutilizable.
+
