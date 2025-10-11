@@ -7,5 +7,6 @@ const app = express();
 app.use(express.json());
 
 app.listen(PUERTO, ()=>{
-  console.log(`Servidor corriendo en http://localhost:${PUERTO}`);
+  console.log(`Servidor venido en http://localhost:${PUERTO}`);
 })
+
