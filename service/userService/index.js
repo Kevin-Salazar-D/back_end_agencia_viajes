@@ -1,30 +1,21 @@
 import bcrypt from "bcryptjs";
-
+import validarDatos from "../../utils/validarDatos.js";
 const userService = (modelo) => {
   return {
     crearUsuario: async (usuarioData) => {
-      if (Object.values(usuarioData).some((value) => value == null)) {
-        throw new Error(
-          "No se proporcionaron todos los datos de usuario para ingresarlos a la base de datos"
-        );
+      const validar = validarDatos(usuarioData, "Faltan datos del usuario");
+
+      if (validar) {
+        const salt = await bcrypt.genSalt(10);
+        usuarioData.contra = await bcrypt.hash(usuarioData.contra, salt);
+        return await modelo.crearUsuario(usuarioData);
       }
-
-      const salt = await bcrypt.genSalt(10);
-      usuarioData.contra = await bcrypt.hash(usuarioData.contra, salt);
-
-      // Insertar usuario en la base de datos
-      return await modelo.crearUsuario(usuarioData);
     },
 
     // Actualizar un usuario
     actualizarUsuario: async (usuarioData) => {
-      if (Object.values(usuarioData).some((value) => value == null)) {
-        throw new Error(
-          "No se proporcionaron todos los datos de usuario para actualizarlos"
-        );
-      }
-
-      return await modelo.actualizarUsuario(usuarioData);
+      const validar = validarDatos(usuarioData, "Faltan datos del usuario");
+      if (validar) return await modelo.actualizarUsuario(usuarioData);
     },
 
     // Borrar un usuario
@@ -35,7 +26,6 @@ const userService = (modelo) => {
       return await modelo.borrarUsuario(id);
     },
 
-    // Obtener todos los usuarios
     mostrarTodosUsuarios: async () => {
       return await modelo.mostrarTodosUsuarios();
     },
