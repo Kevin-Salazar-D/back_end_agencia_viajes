@@ -1,5 +1,5 @@
 import { Router } from "express";
-import usuarioRutasFactory from "./userRoutes/index.js"; // ← ruta relativa a la carpeta userRoutes
+import usuarioRutasFactory from "./userRoutes/index.js";
 
 const router = Router();
 
