@@ -3,31 +3,29 @@ import validarDatos from "../../utils/validarDatos.js";
 const userService = (modelo) => {
   return {
     crearUsuario: async (usuarioData) => {
-      const validar = validarDatos(usuarioData, "Faltan datos del usuario");
-
-      if (validar) {
+       validarDatos(usuarioData, "Faltan datos del usuario");
+      // Hashear la contraseña antes de guardarla
         const salt = await bcrypt.genSalt(10);
         usuarioData.contra = await bcrypt.hash(usuarioData.contra, salt);
-        return await modelo.crearUsuario(usuarioData);
-      }
+        return  modelo.crearUsuario(usuarioData);
     },
 
     // Actualizar un usuario
     actualizarUsuario: async (usuarioData) => {
-      const validar = validarDatos(usuarioData, "Faltan datos del usuario");
-      if (validar) return await modelo.actualizarUsuario(usuarioData);
+      validarDatos(usuarioData, "Faltan datos del usuario");
+      return modelo.actualizarUsuario(usuarioData);
     },
 
     // Borrar un usuario
     borrarUsuario: async (id) => {
-      if (!id) {
-        throw new Error("No se proporcionó el ID del usuario a eliminar");
-      }
-      return await modelo.borrarUsuario(id);
+      validarDatos(id, "Falta el ID del usuario a eliminar");
+      const filaAfectadas =  modelo.borrarUsuario(id);
+      if (filaAfectadas === 0) throw new Error("No se encontró el usuario con el ID proporcionado");
+      
+      return filaAfectadas;
     },
-
     mostrarTodosUsuarios: async () => {
-      return await modelo.mostrarTodosUsuarios();
+      return  modelo.mostrarTodosUsuarios();
     },
   };
 };

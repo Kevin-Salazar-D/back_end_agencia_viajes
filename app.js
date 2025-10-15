@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 
 // modelos
-import mysqlModel from "./model/modelMysql/index.js"; 
+import userModel from "./model/userModelMysql/index.js"; 
 
 // servicios
 import userService from "./service/userService/index.js";
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 // --- INYECCIÓN DE DEPENDENCIAS ---
-const usuarioServicio = userService(mysqlModel); // modelo → servicio
+const usuarioServicio = userService(userModel); // modelo → servicio
 const usuarioControlador = userController(usuarioServicio); // servicio → controlador
 const usuarioRutas = usuarioRutasFactory(usuarioControlador); // controlador → rutas
 
