@@ -1,33 +1,44 @@
 import express from "express";
 import morgan from "morgan";
 
-// modelos
-import userModel from "./model/userModelMysql/index.js"; 
+// --- Modelos ---
+import userModel from "./model/userModelMysql/index.js";
+import cityModel from "./model/cityModelMysql/index.js";
 
-// servicios
+// --- Servicios ---
 import userService from "./service/userService/index.js";
+import cityService from "./service/cityService/index.js";
 
-// controladores
+// --- Controladores ---
 import userController from "./controllers/userController/index.js";
+import cityController from "./controllers/cityController/index.js";
 
-// rutas
-import router, { usuarioRutasFactory } from "./routes/index.js";
+// --- Rutas (factories) ---
+import { usuarioRutasFactory, ciudadRutasFactory } from "./routes/index.js";
 
-const PUERTO = 3000;
 const app = express();
+const PUERTO = 3000;
 
-// --- MIDDLEWARES GLOBALES ---
+// --- MIDDLEWARES ---
 app.use(express.json());
 app.use(morgan("dev"));
 
 // --- INYECCIÓN DE DEPENDENCIAS ---
-const usuarioServicio = userService(userModel); // modelo → servicio
-const usuarioControlador = userController(usuarioServicio); // servicio → controlador
-const usuarioRutas = usuarioRutasFactory(usuarioControlador); // controlador → rutas
+// Usuarios
+const usuarioServicio = userService(userModel);
+const usuarioControlador = userController(usuarioServicio);
+const usuarioRutas = usuarioRutasFactory(usuarioControlador);
+
+// Ciudades
+const ciudadServicio = cityService(cityModel);
+const ciudadControlador = cityController(ciudadServicio);
+const ciudadRutas = ciudadRutasFactory(ciudadControlador);
 
 // --- RUTAS PRINCIPALES ---
-app.use("/agenciaViajes", usuarioRutas);
+app.use("/agenciaViajes/usuarios", usuarioRutas);
+app.use("/agenciaViajes/ciudades", ciudadRutas);
 
+// --- INICIO DEL SERVIDOR ---
 app.listen(PUERTO, () => {
-  console.log(` Servidor arrancando en http://localhost:${PUERTO}`);
+  console.log(`Servidor arrancando en http://localhost:${PUERTO}`);
 });
