@@ -1,14 +1,7 @@
 // models/usuarioModel.js
-import mysql2 from "mysql2/promise";
+import conexionMysql from "../../config/mysql.js";
 
-// Pool de conexiones (recomendado para producción)
-const conexionMysql = mysql2.createPool({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "agenciaDB"
-});
-
+//Trae la conexion a la base de datos
 const mysqlCliente = conexionMysql;
 
 /**
