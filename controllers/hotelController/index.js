@@ -63,7 +63,8 @@ const hotelControlador = (servicioHotel) => {
         try {
             const { id } = req.body;
             const hotelBorrado = await servicioHotel.borrarHotel(id);
-            res.status(200).json(hotelBorrado);
+
+            res.status(200).json({message: hotelBorrado===0 ? "Hotel no se elimino" : "Hotel eliminado correctamente"});
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
