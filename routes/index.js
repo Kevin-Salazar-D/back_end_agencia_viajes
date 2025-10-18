@@ -1,6 +1,7 @@
 import { Router } from "express";
 import usuarioRutasFactory from "./userRoutes/index.js";
 import ciudadRutasFactory from "./cityRoutes/index.js";
+import hotelRutasFactory from "./hotelRoutes/index.js"
 
 const router = Router();
 
@@ -8,4 +9,8 @@ const router = Router();
 
 
 export default router;
-export { usuarioRutasFactory, ciudadRutasFactory }; 
+export { 
+    usuarioRutasFactory, 
+    ciudadRutasFactory,
+    hotelRutasFactory
+}; 
