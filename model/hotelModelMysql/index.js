@@ -73,7 +73,7 @@ const mostrarTodosHoteles = async () => {
 };
 
 // Mostrar hoteles por ciudad
-const mostrarHotelesCiudad = async (hotelData) => {
+const mostrarHotelesCiudad = async (ciudad_id) => {
   try {
     const sqlQuery = `
       SELECT h.id, h.nombre, h.direccion, h.estrellas, h.telefono,
@@ -81,11 +81,11 @@ const mostrarHotelesCiudad = async (hotelData) => {
       FROM hoteles h
       JOIN ciudades c ON h.ciudad_id = c.id
       WHERE c.id = ?`;
-    const [rows] = await mysqlCliente.query(sqlQuery, [hotelData.ciudad_id]);
+    const [rows] = await mysqlCliente.query(sqlQuery, [ciudad_id]);
     return rows;
   } catch (error) {
     console.error(
-      `Error mostrando los hoteles asociados a la ciudad ${hotelData.ciudad_id}:`,
+      `Error mostrando los hoteles asociados a la ciudad ${ciudad_id}:`,
       error
     );
   }

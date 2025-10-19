@@ -49,14 +49,14 @@ const hotelControlador = (servicioHotel) => {
 
     // Mostrar hoteles por ciudad
     const mostrarHotelesCiudad = async (req, res) => {
-        try {
-            const { ciudad_id } = req.body;
-            const hotelCiudad = await servicioHotel.mostrarHotelesCiudad({ ciudad_id });
-            res.status(200).json(hotelCiudad);
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    };
+    try {
+        const { ciudad_id } = req.query;
+        const hoteles = await servicioHotel.mostrarHotelesCiudad(ciudad_id);
+        res.status(200).json(hoteles);
+    } catch (error) {
+        res.status(error.status || 500).json({ error: error.message });
+    }
+};
 
     // Borrar hotel por ID
     const borrarHotel = async (req, res) => {

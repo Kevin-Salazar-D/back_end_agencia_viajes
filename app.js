@@ -18,6 +18,8 @@ import hotelController from "./controllers/hotelController/index.js";
 // --- Rutas (factories) ---
 import { usuarioRutasFactory, ciudadRutasFactory, hotelRutasFactory} from "./routes/index.js";
 
+import setupSwagger from "./config/swaggerConfig.js";
+
 const app = express();
 const PUERTO = 3000;
 
@@ -45,6 +47,8 @@ const hotelRutas = hotelRutasFactory(hotelControlador);
 app.use("/agenciaViajes/usuarios", usuarioRutas);
 app.use("/agenciaViajes/ciudades", ciudadRutas);
 app.use("/agenciaViajes/hoteles", hotelRutas);
+
+setupSwagger(app)
 
 // --- INICIO DEL SERVIDOR ---
 app.listen(PUERTO, () => {
