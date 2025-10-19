@@ -15,9 +15,9 @@ const hotelServicio = (modeloHotel) => {
     },
 
     // Actualizar solo la ciudad del hotel
-    actualizarCiudadIdHotel: (hotelData) => {
-      validarDatos(hotelData, "Faltaron datos para actualizar la ciudad del hotel");
-      const filasAfectadas = modeloHotel.actualizarCiudadIdHotel(hotelData);
+    actualizarCiudadIdHotel: (ciudad_id) => {
+      validarDatos(ciudad_id, "Faltaron datos para actualizar la ciudad del hotel");
+      const filasAfectadas = modeloHotel.actualizarCiudadIdHotel(ciudad_id);
       if (filasAfectadas === 0) throw new Error("No se encontró ningúna ciudad  con el ID proporcionado");
 
       return filasAfectadas;
