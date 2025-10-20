@@ -14,7 +14,8 @@ const swaggerOptions ={
     apis: [
         "./swagger/swagger-endpoint-usuarios.js",
         "./swagger/swagger-endpoint-ciudades.js",
-        "./swagger/swagger-endpoint-hoteles.js"
+        "./swagger/swagger-endpoint-hoteles.js",
+        "./swagger/swagger-endpoint-habitaciones.js"
     ],
 };
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
