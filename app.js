@@ -6,20 +6,23 @@ import userModel from "./model/userModelMysql/index.js";
 import cityModel from "./model/cityModelMysql/index.js";
 import hotelModel from "./model/hotelModelMysql/index.js";
 import roomModel from "./model/roomModelMMysql/index.js";
+import transportModel from "./model/transportModelMysql/index.js";
 
 // --- Servicios ---
 import userService from "./service/userService/index.js";
 import cityService from "./service/cityService/index.js";
 import hotelService from "./service/hotelService/index.js";
 import roomService  from "./service/roomService/index.js";
+import transportService from "./service/transportService/index.js";
 // --- Controladores ---
 import userController from "./controllers/userController/index.js";
 import cityController from "./controllers/cityController/index.js";
 import hotelController from "./controllers/hotelController/index.js";
 import roomController from "./controllers/roomController/index.js";
+import transportController from "./controllers/transportController/index.js";
 
 // --- Rutas (factories) ---
-import { usuarioRutasFactory, ciudadRutasFactory, hotelRutasFactory, roomRutasFactory} from "./routes/index.js";
+import { usuarioRutasFactory, ciudadRutasFactory, hotelRutasFactory, roomRutasFactory, transportFactory} from "./routes/index.js";
 
 import setupSwagger from "./config/swaggerConfig.js";
 
@@ -51,11 +54,17 @@ const habitacionServicio = roomService(roomModel);
 const habitacionControlador = roomController(habitacionServicio);
 const habitacionRutas = roomRutasFactory(habitacionControlador);
 
+//transportes
+const transportServicio = transportService(transportModel);
+const transportControlador = transportController(transportServicio);
+const transportRutas = transportFactory(transportControlador);
+
 // --- RUTAS PRINCIPALES ---
 app.use("/agenciaViajes/usuarios", usuarioRutas);
 app.use("/agenciaViajes/ciudades", ciudadRutas);
 app.use("/agenciaViajes/hoteles", hotelRutas);
 app.use("/agenciaViajes/habitaciones", habitacionRutas);
+app.use("/agenciaViajes/transportes", transportRutas);
 
 setupSwagger(app)
 
