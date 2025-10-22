@@ -1,29 +1,60 @@
 /**
  * @swagger
- * /transporte/obtenerTodosTransportes:
+ * tags:
+ *   name: Transportes
+ *   description: Endpoints para la gestión de transportes
+ *
+ * /transportes/obtenerTodosTransportes:
  *   get:
  *     tags:
- *       - Transporte
- *     summary: Obtiene todos los transportes
- *     description: Retorna una lista con todos los transportes disponibles.
+ *       - Transportes
+ *     summary: Obtiene todos los transportes registrados
  *     responses:
  *       200:
- *         description: Lista de transportes obtenida exitosamente
+ *         description: Lista de transportes
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Transporte'
- *       500:
- *         description: Error interno del servidor
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   tipo:
+ *                     type: string
+ *                   nombre:
+ *                     type: string
+ *                   modelo:
+ *                     type: string
+ *                   capacidad:
+ *                     type: integer
+ *                   asientos_disponibles:
+ *                     type: integer
+ *                   estatus:
+ *                     type: integer
  *
- * /transporte/crearTransporte:
+ * /transportes/buscarTransportePorTipo:
+ *   get:
+ *     tags:
+ *       - Transportes
+ *     description: Obtiene todos los transportes de un tipo específico
+ *     parameters:
+ *       - in: query
+ *         name: tipo
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Tipo de transporte (por ejemplo, "camion" o "avion")
+ *     responses:
+ *       200:
+ *         description: Lista de transportes del tipo solicitado
+ *
+ * /transportes/crearTransporte:
  *   post:
  *     tags:
- *       - Transporte
+ *       - Transportes
  *     summary: Crea un nuevo transporte
- *     description: Permite registrar un nuevo transporte en el sistema.
  *     requestBody:
  *       required: true
  *       content:
@@ -32,50 +63,98 @@
  *             type: object
  *             required:
  *               - tipo
+ *               - nombre
+ *               - modelo
  *               - capacidad
+ *               - asientos_disponibles
  *             properties:
  *               tipo:
  *                 type: string
- *                 example: "Avión"
+ *                 example: "camion"
+ *               nombre:
+ *                 type: string
+ *                 example: "Mercedes Benz"
+ *               modelo:
+ *                 type: string
+ *                 example: "Sprinter 2024"
  *               capacidad:
  *                 type: integer
- *                 example: 180
- *               matricula:
- *                 type: string
- *                 example: "EC-GHI"
- *               disponible:
- *                 type: boolean
- *                 example: true
+ *                 example: 20
+ *               asientos_disponibles:
+ *                 type: integer
+ *                 example: 18
  *     responses:
  *       201:
- *         description: Transporte creado correctamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Transporte'
- *       400:
- *         description: Datos inválidos
- *       500:
- *         description: Error interno del servidor
+ *         description: Transporte creado exitosamente
  *
- * components:
- *   schemas:
- *     Transporte:
- *       type: object
- *       properties:
- *         id:
- *           type: string
- *           example: "615c1234abcd5678"
- *         tipo:
- *           type: string
- *           example: "Avión"
- *         capacidad:
+ * /transportes/actualizarTransporte:
+ *   put:
+ *     tags:
+ *       - Transportes
+ *     summary: Actualiza los datos de un transporte existente
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - id
+ *             properties:
+ *               id:
+ *                 type: integer
+ *                 example: 1
+ *               tipo:
+ *                 type: string
+ *                 example: "avion"
+ *               nombre:
+ *                 type: string
+ *                 example: "Boeing"
+ *               modelo:
+ *                 type: string
+ *                 example: "737 MAX"
+ *               capacidad:
+ *                 type: integer
+ *                 example: 150
+ *               asientos_disponibles:
+ *                 type: integer
+ *                 example: 145
+ *     responses:
+ *       200:
+ *         description: Transporte actualizado exitosamente
+ *
+ * /transportes/eliminarTransporte:
+ *   delete:
+ *     tags:
+ *       - Transportes
+ *     summary: Borra un transporte por ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: integer
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: Transporte eliminado correctamente
+ *
+ * /transportes/buscarTransportePorId:
+ *   get:
+ *     tags:
+ *       - Transportes
+ *     description: Obtiene un transporte específico según su ID
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         required: true
+ *         schema:
  *           type: integer
- *           example: 180
- *         matricula:
- *           type: string
- *           example: "EC-GHI"
- *         disponible:
- *           type: boolean
- *           example: true
+ *         description: ID del transporte
+ *     responses:
+ *       200:
+ *         description: Transporte encontrado exitosamente
  */

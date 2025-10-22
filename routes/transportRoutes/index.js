@@ -5,6 +5,9 @@ const transporteRutas = (transportController) => {
 
     // Rutas GET   
     router.get("/obtenerTodosTransportes", transportController.mostrarTodosTransportes);
+    router.get("/buscarTransportePorId", transportController.buscarTransportePorId);
+    router.get("/buscarTransportePorTipo", transportController.buscarTransportePorTipo);
+
     // Rutas POST
     router.post("/crearTransporte", transportController.crearTransporte);
     // Rutas PUT

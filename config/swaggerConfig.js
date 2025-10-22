@@ -11,11 +11,13 @@ const swaggerOptions ={
         },
         servers: [{url:"http://localhost:3000/agenciaViajes",}]
     },
+    //te falto agregar al swagger trasportes
     apis: [
         "./swagger/swagger-endpoint-usuarios.js",
         "./swagger/swagger-endpoint-ciudades.js",
         "./swagger/swagger-endpoint-hoteles.js",
-        "./swagger/swagger-endpoint-habitaciones.js"
+        "./swagger/swagger-endpoint-habitaciones.js",
+        "./swagger/swagger-endpoint-transporte.js"
     ],
 };
 const swaggerDocs = swaggerJSDoc(swaggerOptions);

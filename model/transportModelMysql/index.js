@@ -29,7 +29,7 @@ const actualizarTransporte = async (transporteData) => {
     try {
         const sqlQuery = ` 
         UPDATE transportes
-        SET tipo = ?, nombre = ?, modelo = ?, capacidad = ?, asientos_disponibles = ?, estatus = ?
+        SET tipo = ?, nombre = ?, modelo = ?, capacidad = ?, asientos_disponibles = ?
         WHERE id = ? `;
         const [result] = await mysqlCliente.query(sqlQuery, [
             transporteData.tipo,
