@@ -24,7 +24,12 @@ import transportController from "./controllers/transportController/index.js";
 // --- Rutas (factories) ---
 import { usuarioRutasFactory, ciudadRutasFactory, hotelRutasFactory, roomRutasFactory, transportFactory} from "./routes/index.js";
 
+//--Swagger--------
 import setupSwagger from "./config/swaggerConfig.js";
+
+
+ //---Uso de Cors------
+import corsConfig from "./config/corsConfig.js";
 
 const app = express();
 const PUERTO = 3000;
@@ -32,6 +37,7 @@ const PUERTO = 3000;
 // --- MIDDLEWARES ---
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(corsConfig);
 
 // --- INYECCIÓN DE DEPENDENCIAS ---
 // Usuarios
