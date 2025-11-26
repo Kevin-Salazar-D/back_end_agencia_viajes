@@ -1,42 +1,44 @@
 import validarDatos from "../../utils/validarDatos.js";
 
-// Servicio principal de habitaciones
 const roomService = (modelo) => {
   return {
+    
     // Crear habitación
     crearHabitacion: async (roomData) => {
-      validarDatos(roomData, "Faltan datos para crear la habitacion");
+      validarDatos(roomData, "Faltan datos para crear la habitación");
       const nuevaHabitacion = { ...roomData, estatus: 0 };
       return await modelo.crearHabitacion(nuevaHabitacion);
     },
 
-    // Actualizar datos de una habitación
+    // Actualizar habitación
     actualizarHabitacion: async (roomData) => {
-      validarDatos(roomData, "Faltan datos para actualizar la habitacion");
+      validarDatos(roomData, "Faltan datos para actualizar la habitación");
       return await modelo.actualizarHabitacion(roomData);
     },
 
-    // Actualizar id del hotel asociado
+    // Cambiar id del hotel asociado
     actualizarIdHabitacion: async (roomData) => {
-      validarDatos(roomData, "Falta ID o hotel_id para hacer la actualización");
+      validarDatos(roomData, "Falta id o hotel_id para hacer la actualización");
       return await modelo.actualizarIdHabitacion(roomData);
     },
 
     // Apartar habitación
     apartarEstatusHabitacion: async (id) => {
       const habitacion = { estatus: 1, id };
-      validarDatos(habitacion, "Faltan datos para apartar la habitacion");
-      const filaAfectada = await modelo.apartarEstatusHabitacion(habitacion);
-      return filaAfectada;
+      validarDatos(habitacion, "Faltan datos para apartar la habitación");
+      return await modelo.apartarEstatusHabitacion(habitacion);
     },
 
+    // Mostrar estatus por ID
     mostrarEstatusHabitacion: async (id) => {
       validarDatos(id, "No se proporcionó el ID de la habitación");
       const habitacion = await modelo.mostrarHabitacionID(id);
+
       if (!habitacion || habitacion.length === 0) {
         throw new Error("No se encontró ninguna habitación asociada");
       }
-      return habitacion[0].estatus; // Devolvemos solo el valor del estatus
+
+      return habitacion[0].estatus;
     },
 
     // Mostrar todas las habitaciones
@@ -44,19 +46,22 @@ const roomService = (modelo) => {
       return await modelo.mostrarTodasHabitaciones();
     },
 
-    // Mostrar una habitación por ID
-    mostrarHabitacionID: async (id) => {
-      validarDatos(id, "No se encontró ningún ID de habitación");
-      const habitacion = await modelo.mostrarHabitacionID(id);
-      if (!habitacion || habitacion.length === 0) {
-        throw new Error("No se encontró ninguna habitación asociada");
+    // Mostrar habitaciones por hotel
+    mostrarHabitacionesPorHotel: async (hotel_id) => {
+      validarDatos(hotel_id, "No se proporcionó el ID del hotel");
+      const habitaciones = await modelo.mostrarHabitacionesPorHotel(hotel_id);
+
+      if (!habitaciones || habitaciones.length === 0) {
+        throw new Error("No se encontraron habitaciones asociadas a ese hotel");
       }
-      return habitacion;
+
+      return habitaciones;
     },
 
-    // Borrar una habitación
+    // Borrar habitación
     borrarHabitacion: async (id) => {
-      validarDatos(id, "No se encontró ningún ID de habitación");
+      console.log(id);
+      validarDatos(id, "No se proporcionó el ID de la habitación");
       return await modelo.borrarHabitacion(id);
     },
   };

@@ -28,8 +28,7 @@ const userController = (servicioUsuario) => {
         try {
             const { id } = req.body;
             const resultado = await servicioUsuario.borrarUsuario(id);
-            const message = (resultado.affectedRows || resultado) === 0 ? "No se encontró el usuario con el ID proporcionado" : "Usuario borrado exitosamente";
-            res.status(200).json({ message: message, affectedRows: resultado.affectedRows || resultado });
+            res.status(200).json({ message: "Usuario borrado exitosamente", resultado: resultado.affectedRows || resultado });
             
         } catch (error) {
             res.status(error.status || 500).json({ error: error.message });

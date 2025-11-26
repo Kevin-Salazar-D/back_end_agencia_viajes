@@ -48,7 +48,7 @@ const transportController = (servicioTransporte) => {
         .status(200)
         .json({
           message: "Transporte actualizado exitosamente",
-          affectedRows: resultado.affectedRows || resultado,
+          resultado: resultado.affectedRows || resultado,
         });
     } catch (error) {
       res.status(error.status || 500).json({ error: error.message });
@@ -59,15 +59,11 @@ const transportController = (servicioTransporte) => {
     try {
       const { id } = req.body;
       const resultado = await servicioTransporte.borrarTransporte(id);
-      const message =
-        (resultado.affectedRows || resultado) === 0
-          ? "No se encontró el transporte con el ID proporcionado"
-          : "Transporte borrado exitosamente";
       res
         .status(200)
         .json({
-          message: message,
-          affectedRows: resultado.affectedRows || resultado,
+          message: "Trasporte borrado correctamente",
+          resultado: resultado.affectedRows || resultado,
         });
     } catch (error) {
       res.status(error.status || 500).json({ error: error.message });

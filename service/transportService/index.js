@@ -1,6 +1,7 @@
 import validarDatos from "../../utils/validarDatos.js";
-import validarValor from "../../utils/validarValor.js";
-
+import validarOpcionesPermitidas from "../../utils/validarOpcionesPermitidas.js";
+import validarFilaAfectada from "../../utils/validarFilaAfectada.js";
+import validarLista from "../../utils/validarLista.js";
 const transportService = (modelo) => {
   const tiposTransporte = ["avion", "camion"];
 
@@ -8,7 +9,7 @@ const transportService = (modelo) => {
     crearTransporte: async (transporteData) => {
       validarDatos(transporteData, "Se requieren los datos del transporte.");
 
-      const tipoValidado = validarValor(
+      const tipoValidado = validarOpcionesPermitidas(
         transporteData.tipo,
         tiposTransporte,
         "Tipos permitidos: 'avion', 'camion'",
@@ -26,25 +27,28 @@ const transportService = (modelo) => {
     actualizarTransporte: async (transporteData) => {
       validarDatos(transporteData, "Se requieren los datos del transporte.");
 
-       const tipoValidado = validarValor(
+       const tipoValidado = validarOpcionesPermitidas(
         transporteData.tipo,
         tiposTransporte,
         "Tipos permitidos: 'avion', 'camion'",
       );
+
+      validarFilaAfectada
 
       const actualizarTransporte = {
         ...transporteData,
         tipo: tipoValidado,
       };
 
-      return await modelo.actualizarTransporte(actualizarTransporte);
+      const trasporteActualizado = await modelo.actualizarTransporte(actualizarTransporte);
+      validarFilaAfectada(trasporteActualizado, "El ID del trasporte no existe");
+      return trasporteActualizado
     },
 
     borrarTransporte: async (id) => {
       validarDatos(id, "Debe proporcionar el ID del transporte a eliminar.");
       const filasAfectadas = await modelo.borrarTransporte(id);
-      if (filasAfectadas === 0)
-        throw new Error("No se encontró el transporte con el ID proporcionado.");
+      validarFilaAfectada(filasAfectadas, "No se encontro el trasporte para eliminarlo")
       return filasAfectadas;
     },
 
@@ -55,7 +59,7 @@ const transportService = (modelo) => {
     buscarTransportePorId: async (id) => {
       validarDatos(id, "Debe proporcionar el ID del transporte a buscar.");
       const transporte = await modelo.buscarTransportePorId(id);
-      if (!transporte) throw new Error("No se encontró el transporte con el ID proporcionado.");
+      validarLista(transporte, "No se encontro el ID asociado a un trasporte");
       return transporte;
     },
 
@@ -63,8 +67,7 @@ const transportService = (modelo) => {
      
       validarDatos(tipo, "Debe proporcionar el tipo de transporte a buscar.");
       const transportes = await modelo.buscarTransportePorTipo(tipo);
-      if (transportes.length === 0)
-        throw new Error("No se encontraron transportes del tipo proporcionado.");
+      validarLista(transportes, "Trasportes permitidos aviones o  camiones");
       return transportes;
     },
   };

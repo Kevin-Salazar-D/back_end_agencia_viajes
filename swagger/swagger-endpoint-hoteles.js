@@ -20,7 +20,7 @@
  *                 type: object
  *                 properties:
  *                   id:
- *                     type: integer
+ *                     type: string
  *                   nombre:
  *                     type: string
  *                   direccion:
@@ -31,12 +31,14 @@
  *                     type: string
  *                   ciudad_id:
  *                     type: integer
+ *                   imagen:
+ *                     type: string
  *
  * /hoteles/mostrarHotelesCiudad:
  *   get:
  *     tags:
  *       - Hoteles
- *     description: Obtiene todos los hoteles de una ciudad específica
+ *     summary: Obtiene todos los hoteles de una ciudad específica
  *     parameters:
  *       - in: query
  *         name: ciudad_id
@@ -81,6 +83,9 @@
  *               telefono:
  *                 type: string
  *                 example: "+81 3-1234-5678"
+ *               imagen:
+ *                 type: string
+ *                 example: "https://i.pinimg.com/hotel.jpg"
  *     responses:
  *       201:
  *         description: Hotel creado exitosamente
@@ -102,6 +107,9 @@
  *               id:
  *                 type: integer
  *                 example: 1
+ *               ciudad_id:
+ *                 type: integer
+ *                 example: 1
  *               nombre:
  *                 type: string
  *                 example: "Hotel Sakura Renovado"
@@ -114,6 +122,8 @@
  *               telefono:
  *                 type: string
  *                 example: "+81 3-9876-5432"
+ *               imagen:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Hotel actualizado exitosamente
@@ -154,6 +164,8 @@
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - id
  *             properties:
  *               id:
  *                 type: integer

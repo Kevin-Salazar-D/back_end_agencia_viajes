@@ -35,6 +35,32 @@
  *                     type: integer
  *                     example: 0
  *
+ * /habitaciones/mostrarEstatusHabitacion:
+ *   get:
+ *     tags:
+ *       - Habitaciones
+ *     summary: Obtiene el estatus de una habitación específica según su ID
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID de la habitación
+ *     responses:
+ *       200:
+ *         description: Estatus de la habitación
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 estatus:
+ *                   type: string
+ *                   example: "Disponible"
  * /habitaciones/crearHabitacion:
  *   post:
  *     tags:
@@ -172,11 +198,11 @@
  *                   type: integer
  *                   example: 1
  *
- * /habitaciones/apartarHabitacion:
- *   put:
+ * /habitaciones/borrarHabitacion:
+ *   delete:
  *     tags:
  *       - Habitaciones
- *     summary: Cambia el estatus de una habitación a "apartada"
+ *     summary: Elimina una habitación por su ID
  *     requestBody:
  *       required: true
  *       content:
@@ -187,30 +213,6 @@
  *               id:
  *                 type: integer
  *                 example: 1
- *     responses:
- *       200:
- *         description: Habitacion apartada correctamente
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 estatus:
- *                   type: string
- *                   example: "Se apartó correctamente la habitación"
- *
- * /habitaciones/borrarHabitacion/{id}:
- *   delete:
- *     tags:
- *       - Habitaciones
- *     summary: Elimina una habitación por su ID
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID de la habitación a eliminar
  *     responses:
  *       200:
  *         description: Número de registros eliminados

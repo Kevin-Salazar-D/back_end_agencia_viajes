@@ -28,3 +28,47 @@ Provee una **API REST** que permitirá gestionar **usuarios, reservas, vuelos y 
 > El proyecto está diseñado bajo una **arquitectura en capas (Modelo - Vista - Controlador)**, lo que permite una mejor organización, mantenimiento y escalabilidad del código.  
 > Además, se aplica el **patrón de diseño de inyección de dependencias**, promoviendo una programación más modular y reutilizable.
 
+
+
+## Versión: 2.0.1
+
+>  Actualización importante en la Base de Datos
+
+> Se realizaron modificaciones críticas en la estructura de la base de datos:
+
+- **Tablas nuevas agregadas**
+
+
+>detalles_hoteles
+
+>imagenes_hoteles
+
+>reservas
+
+## Dependencias eliminadas
+
+>Se eliminó la dependencia de paquetes hacia habitaciones para un diseño más limpio y desacoplado.
+
+## Correcciones en Swagger
+
+>Se corrigió la documentación completa de los endpoints.
+
+>Se agregaron los status codes correctos según cada operación.
+
+>Se actualizaron rutas y ejemplos.
+
+>Se aseguró que cada endpoint refleje su comportamiento real en el backend.
+
+# Correcciones internas en el código
+
+Se corrigieron y estandarizaron los endpoints de:
+
+>Ciudades
+
+>Transporte
+
+>Hoteles
+ 
+>Habitaciones
+
+>También se ajustaron controladores y servicios para que respondan con su correspondiente status HTTP, mejorando la consistencia y depuración.

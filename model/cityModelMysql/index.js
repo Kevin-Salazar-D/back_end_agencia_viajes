@@ -70,7 +70,8 @@ const mostrarTodasCiudades = async ()=>{
 try {
     const sqlQuery = `
     SELECT * FROM ciudades
-    ORDER BY nombre ASC
+    ORDER BY id ASC;
+
     `;
     const [rows] = await mysqlCliente.query(sqlQuery);
     return rows; //Devolvemos todas las filas obtenidas por la consulta

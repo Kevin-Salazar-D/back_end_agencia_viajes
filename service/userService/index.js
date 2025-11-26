@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import validarDatos from "../../utils/validarDatos.js";
+import validarFilaAfectada from "../../utils/validarFilaAfectada.js";
 const userService = (modelo) => {
   return {
     crearUsuario: async (usuarioData) => {
@@ -7,7 +8,7 @@ const userService = (modelo) => {
       // Hashear la contraseña antes de guardarla
         const salt = await bcrypt.genSalt(10);
         usuarioData.contra = await bcrypt.hash(usuarioData.contra, salt);
-        return  modelo.crearUsuario(usuarioData);
+        return await modelo.crearUsuario(usuarioData);
     },
 
     // Actualizar un usuario
@@ -19,13 +20,14 @@ const userService = (modelo) => {
     // Borrar un usuario
     borrarUsuario: async (id) => {
       validarDatos(id, "Falta el ID del usuario a eliminar");
-      const filaAfectadas =  modelo.borrarUsuario(id);
-      if (filaAfectadas === 0) throw new Error("No se encontró el usuario con el ID proporcionado");
+     
+      const filaAfectadas =  await modelo.borrarUsuario(id);
+      validarFilaAfectada(filaAfectadas, "No se encontro el usuarioo con el ID proporcionado")
       
       return filaAfectadas;
     },
     mostrarTodosUsuarios: async () => {
-      return  modelo.mostrarTodosUsuarios();
+      return   await modelo.mostrarTodosUsuarios();
     },
   };
 };
