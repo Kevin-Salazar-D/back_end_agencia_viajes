@@ -17,7 +17,8 @@ const swaggerOptions ={
         "./swagger/swagger-endpoint-ciudades.js",
         "./swagger/swagger-endpoint-hoteles.js",
         "./swagger/swagger-endpoint-habitaciones.js",
-        "./swagger/swagger-endpoint-transporte.js"
+        "./swagger/swagger-endpoint-transporte.js",
+        "./swagger/swagger-endpoint-detallesHotel.js"
     ],
 };
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
