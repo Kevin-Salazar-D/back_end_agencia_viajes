@@ -1,5 +1,5 @@
 
-const validarValor = (valor, valoresPermitidos, mensaje, normalizar = true) => {
+const validarOpcionesPermitidas = (valor, valoresPermitidos, mensaje, normalizar = true) => {
   const valorProcesado = normalizar ? String(valor).toLowerCase().trim() : valor;
 
   // También normalizamos la lista si se usa comparación en minúsculas
@@ -8,12 +8,16 @@ const validarValor = (valor, valoresPermitidos, mensaje, normalizar = true) => {
     : valoresPermitidos;
 
   if (!lista.includes(valorProcesado)) {
-    throw new Error(
+    const error = new Error(
       mensaje ||
         `Valor no válido. Valores permitidos: ${valoresPermitidos.join(", ")}`
     );
+
+    error.status = 400;
+
+    throw error;
   }
 
   return valorProcesado;
 };
- export default validarValor;
+ export default validarOpcionesPermitidas;

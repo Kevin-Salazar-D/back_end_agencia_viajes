@@ -1,4 +1,5 @@
 import conexionMysql from "../../config/mysql.js";
+import validarErrorModelo from "../../utils/validarErrorModelo.js";
 
 const mysqlCliente = conexionMysql;
 
@@ -6,18 +7,23 @@ const mysqlCliente = conexionMysql;
 const crearHotel = async (hotelData) => {
   try {
     const sqlQuery = `
-      INSERT INTO hoteles (ciudad_id, nombre, direccion, estrellas, telefono)
-      VALUES (?, ?, ?, ?, ?)`;
+      INSERT INTO hoteles 
+        (ciudad_id, nombre, direccion, imagen, estrellas, telefono)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `;
     const [result] = await mysqlCliente.query(sqlQuery, [
       hotelData.ciudad_id,
       hotelData.nombre,
       hotelData.direccion,
+      hotelData.imagen,
       hotelData.estrellas,
       hotelData.telefono,
     ]);
-    return result.insertId; // ID generado automáticamente
+
+    return result.insertId;
   } catch (error) {
-    console.error("Error creando el hotel:", error);
+     validarErrorModelo(error, "Ciudad no encontrada ");
+     throw error;
   }
 };
 
@@ -25,22 +31,34 @@ const crearHotel = async (hotelData) => {
 const actualizarHotel = async (hotelData) => {
   try {
     const sqlQuery = `
-      UPDATE hoteles 
-      SET nombre = ?, direccion = ?, estrellas = ?, telefono = ?, ciudad_id = ?
-      WHERE id = ?`;
+      UPDATE hoteles
+      SET nombre = ?, direccion = ?, imagen = ?, estrellas = ?, telefono = ?, ciudad_id = ?
+      WHERE id = ?
+    `;
+
     const [result] = await mysqlCliente.query(sqlQuery, [
       hotelData.nombre,
       hotelData.direccion,
+      hotelData.imagen,
       hotelData.estrellas,
       hotelData.telefono,
       hotelData.ciudad_id,
       hotelData.id,
     ]);
-    return result.affectedRows;
+
+    if (result.affectedRows === 0) {
+      const e = new Error("No se encontró el hotel con ese ID");
+      e.status = 404;
+      throw e;
+    }
+
+    return result;
   } catch (error) {
-    console.error("Error actualizando el hotel:", error);
+    validarErrorModelo(error, "La ciudad indicada no existe");
+    throw error;
   }
 };
+
 
 // Actualizar solo la ciudad del hotel
 const actualizarCiudadIdHotel = async (hotelIDs) => {
@@ -48,14 +66,18 @@ const actualizarCiudadIdHotel = async (hotelIDs) => {
     const sqlQuery = `
       UPDATE hoteles 
       SET ciudad_id = ?
-      WHERE id = ?`;
+      WHERE id = ?
+    `;
+
     const [result] = await mysqlCliente.query(sqlQuery, [
       hotelIDs.ciudad_id,
       hotelIDs.id,
     ]);
+
     return result.affectedRows;
   } catch (error) {
-    console.error("Error actualizando la nueva ciudad del hotel:", error);
+    validarErrorModelo(error, "Error actualizando ciudad del hotel:");
+    throw error;
   }
 };
 
@@ -64,11 +86,14 @@ const mostrarTodosHoteles = async () => {
   try {
     const sqlQuery = `
       SELECT * FROM hoteles
-      ORDER BY nombre ASC`;
+      ORDER BY id ASC
+    `;
+
     const [rows] = await mysqlCliente.query(sqlQuery);
     return rows;
   } catch (error) {
-    console.error("Error mostrando todos los hoteles disponibles:", error);
+    console.error("Error mostrando hoteles:", error);
+    throw error;
   }
 };
 
@@ -76,18 +101,34 @@ const mostrarTodosHoteles = async () => {
 const mostrarHotelesCiudad = async (ciudad_id) => {
   try {
     const sqlQuery = `
-      SELECT h.id, h.nombre, h.direccion, h.estrellas, h.telefono,
-             c.nombre AS nombre_ciudad, c.pais, c.region
+      SELECT 
+        h.id, h.nombre, h.direccion, h.imagen, h.estrellas, h.telefono,
+        c.nombre AS nombre_ciudad, c.pais, c.region
       FROM hoteles h
       JOIN ciudades c ON h.ciudad_id = c.id
-      WHERE c.id = ?`;
+      WHERE c.id = ?
+    `;
+
     const [rows] = await mysqlCliente.query(sqlQuery, [ciudad_id]);
     return rows;
   } catch (error) {
-    console.error(
-      `Error mostrando los hoteles asociados a la ciudad ${ciudad_id}:`,
-      error
-    );
+    validarErrorModelo(error, "Error mostrando los  hoteles" );
+    throw error;
+  }
+};
+
+// Obtener un hotel
+const obtenerHotel = async (id) => {
+  try {
+    const sqlQuery = `
+      SELECT * FROM hoteles
+      WHERE id = ?
+    `;
+
+    const [rows] = await mysqlCliente.query(sqlQuery, [id]);
+    return rows[0];
+  } catch (error) {
+    throw error;
   }
 };
 
@@ -96,11 +137,13 @@ const borrarHotel = async (id) => {
   try {
     const sqlQuery = `
       DELETE FROM hoteles
-      WHERE id = ?`;
+      WHERE id = ?
+    `;
+
     const [result] = await mysqlCliente.query(sqlQuery, [id]);
     return result.affectedRows;
   } catch (error) {
-    console.error("Error borrando el hotel:", error);
+    throw error;
   }
 };
 
@@ -110,5 +153,6 @@ export default {
   actualizarCiudadIdHotel,
   mostrarTodosHoteles,
   mostrarHotelesCiudad,
+  obtenerHotel,
   borrarHotel,
 };

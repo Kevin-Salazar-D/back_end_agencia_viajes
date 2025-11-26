@@ -1,20 +1,47 @@
+// rutas/habitaciones.routes.ts
 import { Router } from "express";
 
 const rutasHabitaciones = (habitacionControlador) => {
   const router = Router();  
 
-  // GET → mostrar todo sobre Habitaciones
+  // =========================
+  //       GET
+  // =========================
+
+  // Mostrar todos los estatus de habitaciones
   router.get('/mostrarEstatusHabitacion', habitacionControlador.mostrarEstatusHabitacion);
+
+  // Mostrar todas las habitaciones
   router.get('/mostrarTodasHabitaciones', habitacionControlador.mostrarTodasHabitaciones);
-  router.get('/mostrarHabitacionID', habitacionControlador.mostrarHabitacionID);
-  // POST → crear Habitacion
+
+  // Mostrar habitaciones por hotel (se recibe hotel_id desde query)
+  router.get('/mostrarHabitacionID', habitacionControlador.mostrarHabitacionesPorHotel);
+
+
+  // =========================
+  //       POST
+  // =========================
+
+  // Crear nueva habitación
   router.post('/crearHabitacion', habitacionControlador.crearHabitacion);
-  
-  // PUT → actualizar datos de Habitacion
+
+
+  // =========================
+  //       PUT
+  // =========================
+
+  // Actualizar campos de habitación
   router.put('/actualizarHabitacion', habitacionControlador.actualizarHabitacion);
+
+  // Actualizar ID de habitación (reenumerar)
   router.put('/actualizarIdHabitacion', habitacionControlador.actualizarIdHabitacion);
 
-  // DELETE → borrar hotel
+
+  // =========================
+  //       DELETE
+  // =========================
+
+  // Borrar una habitación
   router.delete('/borrarHabitacion', habitacionControlador.borrarHabitacion);
 
   return router;

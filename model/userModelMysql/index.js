@@ -1,6 +1,7 @@
 // models/usuarioModel.js
 import conexionMysql from "../../config/mysql.js";
-
+//validaciones
+import validarErrorModelo from "../../utils/validarErrorModelo.js";
 //Trae la conexion a la base de datos
 const mysqlCliente = conexionMysql;
 
@@ -18,15 +19,18 @@ const crearUsuario = async (usuarioDB) => {
     const [result] = await mysqlCliente.query(sqlQuery, [
       usuarioDB.usuario,
       usuarioDB.correo,
-      usuarioDB.contra, 
+      usuarioDB.contra,
       usuarioDB.nombre,
       usuarioDB.apellido,
-      usuarioDB.telefono
+      usuarioDB.telefono,
     ]);
 
     return result.insertId; // Devuelve el ID generado automáticamente
   } catch (error) {
-    console.error("Error creando usuario:", error);
+    validarErrorModelo(
+      error,
+      "Se duplico un campo, no puede ser igual el correo o usuario"
+    );
     throw error;
   }
 };
@@ -49,12 +53,16 @@ const actualizarUsuario = async (usuarioDB) => {
       usuarioDB.nombre,
       usuarioDB.apellido,
       usuarioDB.telefono,
-      usuarioDB.id // Necesario para identificar el usuario a actualizar
+      usuarioDB.id, // Necesario para identificar el usuario a actualizar
     ]);
 
     return result.affectedRows; // Cuántas filas se actualizaron
   } catch (error) {
-    console.error("Error actualizando usuario:", error);
+    validarErrorModelo(
+      error,
+      "Se duplico un campo, no puede ser igual el correo o usuario"
+    );
+
     throw error;
   }
 };
@@ -96,4 +104,9 @@ const mostrarTodosUsuarios = async () => {
   }
 };
 
-export default { crearUsuario, actualizarUsuario, borrarUsuario, mostrarTodosUsuarios };
+export default {
+  crearUsuario,
+  actualizarUsuario,
+  borrarUsuario,
+  mostrarTodosUsuarios,
+};
