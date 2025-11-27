@@ -83,3 +83,18 @@ Se agrego la enditad hoteles_detalles se puede consumir los detalles de un hotel
  
 # 2.4.0
 Se agrego la entidas hoteles_imagenes para manipular la cantidad de imagenes que puede tener un hotel
+
+# VERSION 2.5.0
+ Se agregó la entidad Viajes con su CRUD completo.
+
+> Se añadieron filtros de viajes por ciudad de origen y ciudad destino.
+
+> Se integraron relaciones entre ciudades, transportes y viajes.
+
+> Se incorporaron nuevas rutas al módulo Swagger, permitiendo interacción completa vía UI.
+
+> Mejoras en validaciones de fecha para evitar errores de formato (YYYY-MM-DD HH:mm:ss).
+
+> Limpieza y estandarización de controladores bajo arquitectura MVC + Services + Models.
+
+> Documentación extendida del API en /api-docs
