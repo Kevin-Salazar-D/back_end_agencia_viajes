@@ -9,6 +9,7 @@ import roomModel from "./model/roomModelMMysql/index.js";
 import transportModel from "./model/transportModelMysql/index.js";
 import hotelDetailsMysql from "./model/hotelDetailsMysql/index.js";
 import hotelImagenesMysql from "./model/hotelImagenesMysql/index.js";
+import journeyModel from "./model/journeyModelMysql/index.js";
 
 // --- Servicios ---
 import userService from "./service/userService/index.js";
@@ -17,7 +18,8 @@ import hotelService from "./service/hotelService/index.js";
 import roomService from "./service/roomService/index.js";
 import transportService from "./service/transportService/index.js";
 import hotelDetailsService from "./service/hotelDetailsService/index.js";
-import hotelesImagenesService from "./service/hotelImagenesService/index.js";
+import hotelImagenesService from "./service/hotelImagenesService/index.js";
+import journeyService from "./service/journeyService/index.js";
 
 // --- Controladores ---
 import userController from "./controllers/userController/index.js";
@@ -27,6 +29,7 @@ import roomController from "./controllers/roomController/index.js";
 import transportController from "./controllers/transportController/index.js";
 import hotelDetailsController from "./controllers/hotelDetailsController/index.js";
 import hotelImagenesController from "./controllers/hotelImagenesController/index.js";
+import journeyController from "./controllers/journeyController/index.js";
 
 // --- Rutas (factories) ---
 import { 
@@ -36,7 +39,8 @@ import {
   roomRutasFactory, 
   transportFactory, 
   hotelDetailsFactory,
-  hotelesImagenesFactory
+  hotelesImagenesFactory,
+  journeyRutasFactory
 } from "./routes/index.js";
 
 // Swagger
@@ -85,10 +89,15 @@ const hotelDetallesServicio = hotelDetailsService(hotelDetailsMysql);
 const hotelDetallesControlador = hotelDetailsController(hotelDetallesServicio);
 const hotelDetallesRutas = hotelDetailsFactory(hotelDetallesControlador);
 
-// Imágenes de hoteles (YA INCLUIDO)
-const hotelImagenServicio = hotelesImagenesService(hotelImagenesMysql);
+// Imágenes de hoteles 
+const hotelImagenServicio = hotelImagenesService(hotelImagenesMysql);
 const hotelImagenesControlador = hotelImagenesController(hotelImagenServicio);
 const hotelImagenRutas = hotelesImagenesFactory(hotelImagenesControlador);
+
+// Viajes
+const viajeServicio = journeyService(journeyModel);
+const viajeControlador = journeyController(viajeServicio);
+const viajeRutas = journeyRutasFactory(viajeControlador);
 
 // --- RUTAS PRINCIPALES ---
 app.use("/agenciaViajes/usuarios", usuarioRutas);
@@ -98,6 +107,7 @@ app.use("/agenciaViajes/habitaciones", habitacionRutas);
 app.use("/agenciaViajes/transportes", transportRutas);
 app.use("/agenciaViajes/hotelDetalles", hotelDetallesRutas);
 app.use("/agenciaViajes/hotelImagenes", hotelImagenRutas);
+app.use("/agenciaViajes/viajes", viajeRutas);
 
 // Swagger
 setupSwagger(app);
