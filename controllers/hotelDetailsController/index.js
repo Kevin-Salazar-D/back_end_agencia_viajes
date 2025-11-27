@@ -118,7 +118,6 @@ const mostrarDetallesDeUnHotel = async (req, res) => {
   const borrarDetalleHotel = async (req, res) => {
     try {
       const { id } = req.query;
-
       const resultado = await servicioDetalles.borrarDetalleHotel(id);
 
       res.status(200).json({

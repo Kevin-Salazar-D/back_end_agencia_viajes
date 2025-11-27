@@ -75,12 +75,11 @@ Se corrigieron y estandarizaron los endpoints de:
 
 # 2.2.3
 Se agrego la enditad hoteles_detalles se puede consumir los detalles de un hotel
->Ciudades
+>Su nombre
 
->Transporte
+>Descripcion
 
->Hoteles
+>Noche por habitacion
  
->Habitaciones
-
->También se ajustaron controladores y servicios para que respondan con su correspondiente status HTTP, mejorando la consistencia y depuración.
+# 2.4.0
+Se agrego la entidas hoteles_imagenes para manipular la cantidad de imagenes que puede tener un hotel
