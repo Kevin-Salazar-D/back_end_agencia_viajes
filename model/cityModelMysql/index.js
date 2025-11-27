@@ -1,5 +1,6 @@
 //modelo para la creacion de ciudades en mysql
 import conexionMysql from "../../config/mysql.js";
+import validarErrorModelo from "../../utils/validarErrorModelo.js";
 
 //traer la conexion a la base de datos
 const mysqlCliente = conexionMysql;
@@ -60,7 +61,7 @@ const borrarCiudad = async (id)=>{
     const [result] = await mysqlCliente.query(sqlQuery, [id])
     return result.affectedRows; //Devolvemos la cantidad de filas afectadas
  } catch (error) {
-    console.error("Error borrando la ciudad:", error);
+    validarErrorModelo(error, "No se pudo borrar la ciudad ya que esta asociados a hoteles")
     
  }
 }

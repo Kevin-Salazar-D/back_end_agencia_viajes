@@ -143,9 +143,9 @@ const borrarHotel = async (id) => {
     const [result] = await mysqlCliente.query(sqlQuery, [id]);
     return result.affectedRows;
   } catch (error) {
-    throw error;
+    validarErrorModelo(error, "No se pudo borrar el hotel ya que tiene habitaciones asociadas")};
   }
-};
+;
 
 export default {
   crearHotel,

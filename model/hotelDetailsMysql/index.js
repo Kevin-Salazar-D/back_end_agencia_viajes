@@ -21,7 +21,7 @@ const crearDetallesHoteles = async (hotelData) => {
       hotelData.check_in,
       hotelData.check_out,
       hotelData.cancelacion,
-      hotelData.retriccciones, // coincide con tabla actual
+      hotelData.retricciones, 
       hotelData.precio_noche,
     ]);
 
@@ -37,13 +37,12 @@ const actualizarDetallesHotel = async (hotelData) => {
   try {
     const sqlQuery = `
       UPDATE hoteles_detalles
-      SET hotel_id = ?, descripcion = ?, amenidades = ?, total_resenas = ?, politicas = ?, 
+      SET descripcion = ?, amenidades = ?, total_resenas = ?, politicas = ?, 
           check_in = ?, check_out = ?, cancelacion = ?, retricciones = ?, precio_noche = ?
-      WHERE id = ?
+      WHERE hotel_id = ?
     `;
 
     const [result] = await mysqlCliente.query(sqlQuery, [
-      hotelData.hotel_id,
       hotelData.descripcion,
       hotelData.amenidades,
       hotelData.total_resenas,
@@ -53,12 +52,11 @@ const actualizarDetallesHotel = async (hotelData) => {
       hotelData.cancelacion,
       hotelData.retriccciones,
       hotelData.precio_noche,
-      hotelData.id,
+      hotelData.hotel_id,
     ]);
 
     return result.affectedRows;
   } catch (error) {
-    validarErrorModelo(error, "Error actualizando detalles del hotel");
     throw error;
   }
 };
