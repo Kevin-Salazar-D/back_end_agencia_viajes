@@ -72,3 +72,15 @@ Se corrigieron y estandarizaron los endpoints de:
 >Habitaciones
 
 >También se ajustaron controladores y servicios para que respondan con su correspondiente status HTTP, mejorando la consistencia y depuración.
+
+# 2.2.3
+Se agrego la enditad hoteles_detalles se puede consumir los detalles de un hotel
+>Ciudades
+
+>Transporte
+
+>Hoteles
+ 
+>Habitaciones
+
+>También se ajustaron controladores y servicios para que respondan con su correspondiente status HTTP, mejorando la consistencia y depuración.

@@ -60,7 +60,6 @@ const roomService = (modelo) => {
 
     // Borrar habitación
     borrarHabitacion: async (id) => {
-      console.log(id);
       validarDatos(id, "No se proporcionó el ID de la habitación");
       return await modelo.borrarHabitacion(id);
     },

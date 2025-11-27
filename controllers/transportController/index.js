@@ -13,7 +13,6 @@ const transportController = (servicioTransporte) => {
       const resultado = await servicioTransporte.crearTransporte(
         nuevoTransporte
       );
-      console.log(resultado);
       res.status(201).json({
         message: "Transporte creado exitosamente",
         transporteId: resultado,
