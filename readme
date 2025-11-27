@@ -98,3 +98,14 @@ Se agrego la entidas hoteles_imagenes para manipular la cantidad de imagenes que
 > Limpieza y estandarización de controladores bajo arquitectura MVC + Services + Models.
 
 > Documentación extendida del API en /api-docs
+
+# VERSION 2.6.0
+ Se agregó la entidad Paquetes con su CRUD completo.
+
+> Se añadieron 8 endpoints para buscar crerar, borrar todo con paquetes.
+
+> Se integraron relaciones entre ciudades, transportes y hoteles.
+
+> Se incorporaron la nueva ruta con swagger para paquetes.
+
+> Documentación extendida del API en /api-docs

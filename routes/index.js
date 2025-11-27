@@ -7,6 +7,7 @@ import transportFactory from "./transportRoutes/index.js";
 import hotelDetailsFactory from "./hotelDetailsRutes/index.js";
 import hotelesImagenesFactory from "./hotelImageRutes/indeX.js";
 import journeyRutasFactory from "./journeyRoutes/index.js";
+import packageRutasFactory from "./packageRoutes/index.js"
 
 const router = Router();
 
@@ -22,5 +23,6 @@ export {
     transportFactory,
     hotelDetailsFactory,
     hotelesImagenesFactory,
-    journeyRutasFactory
+    journeyRutasFactory,
+    packageRutasFactory
 }; 
