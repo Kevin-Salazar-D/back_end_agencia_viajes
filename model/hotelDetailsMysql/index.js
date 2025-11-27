@@ -21,7 +21,7 @@ const crearDetallesHoteles = async (hotelData) => {
       hotelData.check_in,
       hotelData.check_out,
       hotelData.cancelacion,
-      hotelData.retricciones, 
+      hotelData.retricciones,
       hotelData.precio_noche,
     ]);
 
@@ -65,8 +65,17 @@ const actualizarDetallesHotel = async (hotelData) => {
 const mostrarTodosDetallesHoteles = async () => {
   try {
     const sqlQuery = `
-      SELECT * FROM hoteles_detalles
-      ORDER BY id ASC
+     SELECT 
+    hd.*,
+    h.nombre AS nombre_hotel,
+    h.direccion,
+    h.estrellas,
+    h.telefono,
+    c.nombre AS nombre_ciudad
+    FROM hoteles_detalles hd
+    JOIN hoteles h ON hd.hotel_id = h.id
+    JOIN ciudades c ON h.ciudad_id = c.id
+    ORDER BY hd.id ASC;
     `;
 
     const [rows] = await mysqlCliente.query(sqlQuery);
@@ -81,8 +90,18 @@ const mostrarTodosDetallesHoteles = async () => {
 const mostrarDetallesDeUnHotel = async (hotel_id) => {
   try {
     const sqlQuery = `
-      SELECT * FROM hoteles_detalles
-      WHERE hotel_id = ?
+      SELECT 
+    hd.*,
+    h.nombre AS nombre_hotel,
+    h.direccion,
+    h.estrellas,
+    h.telefono,
+    c.nombre AS nombre_ciudad
+    FROM hoteles_detalles hd
+    JOIN hoteles h ON hd.hotel_id = h.id
+    JOIN ciudades c ON h.ciudad_id = c.id
+    WHERE hotel_id = ?
+    ORDER BY hd.id ASC;
     `;
 
     const [rows] = await mysqlCliente.query(sqlQuery, [hotel_id]);

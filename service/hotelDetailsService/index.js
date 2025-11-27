@@ -39,7 +39,6 @@ const detallesHotelesServicio = (modelDetalles) => {
       const detallesHotel = await modelDetalles.mostrarDetallesDeUnHotel(hotel_id);
       const infoTrasformar = ["amenidades", "politicas"];
       const infoTraformada = transformarLista(detallesHotel, infoTrasformar);
-      validarLista(infoTraformada, "No se encontro el ID proporcionado");
       return infoTraformada;
     },
 
