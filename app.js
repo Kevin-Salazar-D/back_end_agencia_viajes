@@ -10,6 +10,7 @@ import transportModel from "./model/transportModelMysql/index.js";
 import hotelDetailsMysql from "./model/hotelDetailsMysql/index.js";
 import hotelImagenesMysql from "./model/hotelImagenesMysql/index.js";
 import journeyModel from "./model/journeyModelMysql/index.js";
+import packageModel from "./model/packegeModelMysql/index.js";
 
 // --- Servicios ---
 import userService from "./service/userService/index.js";
@@ -20,6 +21,7 @@ import transportService from "./service/transportService/index.js";
 import hotelDetailsService from "./service/hotelDetailsService/index.js";
 import hotelImagenesService from "./service/hotelImagenesService/index.js";
 import journeyService from "./service/journeyService/index.js";
+import packageService from "./service/packageService/index.js";
 
 // --- Controladores ---
 import userController from "./controllers/userController/index.js";
@@ -30,6 +32,7 @@ import transportController from "./controllers/transportController/index.js";
 import hotelDetailsController from "./controllers/hotelDetailsController/index.js";
 import hotelImagenesController from "./controllers/hotelImagenesController/index.js";
 import journeyController from "./controllers/journeyController/index.js";
+import packageController from "./controllers/packageController/index.js";
 
 // --- Rutas (factories) ---
 import { 
@@ -40,7 +43,8 @@ import {
   transportFactory, 
   hotelDetailsFactory,
   hotelesImagenesFactory,
-  journeyRutasFactory
+  journeyRutasFactory,
+  packageRutasFactory
 } from "./routes/index.js";
 
 // Swagger
@@ -99,6 +103,11 @@ const viajeServicio = journeyService(journeyModel);
 const viajeControlador = journeyController(viajeServicio);
 const viajeRutas = journeyRutasFactory(viajeControlador);
 
+// paquetes
+const paquetesServicio = packageService(packageModel);
+const paqueteControlador = packageController(paquetesServicio);
+const paqueteRutas = packageRutasFactory(paqueteControlador);
+
 // --- RUTAS PRINCIPALES ---
 app.use("/agenciaViajes/usuarios", usuarioRutas);
 app.use("/agenciaViajes/ciudades", ciudadRutas);
@@ -108,6 +117,7 @@ app.use("/agenciaViajes/transportes", transportRutas);
 app.use("/agenciaViajes/hotelDetalles", hotelDetallesRutas);
 app.use("/agenciaViajes/hotelImagenes", hotelImagenRutas);
 app.use("/agenciaViajes/viajes", viajeRutas);
+app.use("/agenciaViajes/paquetes", paqueteRutas);
 
 // Swagger
 setupSwagger(app);
