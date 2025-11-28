@@ -19,9 +19,7 @@ const habitacionControlador = (servicio) => {
         habitacionID: insertId,
       });
     } catch (error) {
-      res.status(error.status || 500).json({
-        error: error.message,
-      });
+      res.status(error.status || 500).json({ error: error.message });
     }
   };
 
@@ -49,9 +47,7 @@ const habitacionControlador = (servicio) => {
         affectedRows: affected,
       });
     } catch (error) {
-      res.status(error.status || 500).json({
-        error: error.message,
-      });
+      res.status(error.status || 500).json({ error: error.message });
     }
   };
 
@@ -74,9 +70,7 @@ const habitacionControlador = (servicio) => {
         affectedRows: affected,
       });
     } catch (error) {
-      res.status(error.status || 500).json({
-        error: error.message,
-      });
+      res.status(error.status || 500).json({ error: error.message });
     }
   };
 
@@ -90,19 +84,28 @@ const habitacionControlador = (servicio) => {
       const affected = await servicio.apartarEstatusHabitacion(id);
 
       res.status(200).json({
-        message:
-          affected === 0
-            ? "No se pudo apartar la habitación"
-            : "Habitación apartada correctamente",
-        affectedRows: affected,
+        message: "Habiatacion apartada correctamente",
+        affectedRows: affected.affectedRows,
       });
     } catch (error) {
-      res.status(500).json({
-        error: error.message,
-      });
+      res.status(error.status || 500).json({ error: error.message });
     }
   };
 
+    const desapartarEstatusHabitacion = async (req, res) => {
+    try {
+      const { id } = req.body;
+
+      const affected = await servicio.desapartarEstatusHabitacion(id);
+
+      res.status(200).json({
+        message: "La habitacion ha sido desocupada",
+        affectedRows: affected,
+      });
+    } catch (error) {
+      res.status(error.status || 500).json({ error: error.message });
+    }
+  };
   /**
    * Obtener estatus de una habitación
    */
@@ -179,6 +182,7 @@ const habitacionControlador = (servicio) => {
     actualizarHabitacion,
     actualizarIdHabitacion,
     apartarEstatusHabitacion,
+    desapartarEstatusHabitacion,
     mostrarEstatusHabitacion,
     mostrarTodasHabitaciones,
     mostrarHabitacionesPorHotel,

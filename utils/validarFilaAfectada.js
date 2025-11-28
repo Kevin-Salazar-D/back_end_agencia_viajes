@@ -1,7 +1,7 @@
-const validarFilaAfectada = (filas, mensaje) => {
+const validarFilaAfectada = (filas, mensaje, estatus = 404) => {
   if (!filas || filas === 0) {
     const error = new Error(mensaje);
-    error.status = 404;
+    error.status = estatus;
     throw error;
   }
 };
