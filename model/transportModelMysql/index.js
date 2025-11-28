@@ -7,13 +7,14 @@ const mysqlCliente = conexionMysql;
 const crearTransporte = async (transporteData) => {
   try {
     const sqlQuery = `
-        INSERT INTO transporte (tipo, nombre, modelo, capacidad, asientos_disponibles, estatus)
+        INSERT INTO transporte (tipo, nombre, modelo, capacidad, precio asientos_disponibles, estatus)
         VALUES (?, ?, ?, ?, ?, ?) `;
     const [result] = await mysqlCliente.query(sqlQuery, [
       transporteData.tipo,
       transporteData.nombre,
       transporteData.modelo,
       transporteData.capacidad,
+      transporteData.precio,
       transporteData.asientos_disponibles,
       transporteData.estatus,
     ]);
@@ -28,13 +29,14 @@ const actualizarTransporte = async (transporteData) => {
   try {
     const sqlQuery = ` 
         UPDATE transporte
-        SET tipo = ?, nombre = ?, modelo = ?, capacidad = ?, asientos_disponibles = ?
+        SET tipo = ?, nombre = ?, modelo = ?, capacidad = ?, precio = ? asientos_disponibles = ?
         WHERE id = ? `;
     const [result] = await mysqlCliente.query(sqlQuery, [
       transporteData.tipo,
       transporteData.nombre,
       transporteData.modelo,
       transporteData.capacidad,
+      transporteData.precio,
       transporteData.asientos_disponibles,
       transporteData.id,
     ]);

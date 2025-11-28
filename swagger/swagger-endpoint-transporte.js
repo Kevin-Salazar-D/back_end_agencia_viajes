@@ -67,6 +67,7 @@
  *               - modelo
  *               - capacidad
  *               - asientos_disponibles
+ *               - precio
  *             properties:
  *               tipo:
  *                 type: string
@@ -80,6 +81,9 @@
  *               capacidad:
  *                 type: integer
  *                 example: 20
+ *               precio:
+ *                 type: integer
+ *                 example: 100
  *               asientos_disponibles:
  *                 type: integer
  *                 example: 18
@@ -116,6 +120,9 @@
  *               capacidad:
  *                 type: integer
  *                 example: 150
+ *               precio:
+ *                 type: integer
+ *                 example: 100
  *               asientos_disponibles:
  *                 type: integer
  *                 example: 145
