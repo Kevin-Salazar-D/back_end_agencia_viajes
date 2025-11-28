@@ -23,6 +23,7 @@ const swaggerOptions ={
         "./swagger/swagger-endpoint-viajes.js",
         "./swagger/swagger-endpoint-paquetes.js",
         "./swagger/swagger-endpoint-reservaciones.js",
+        "./swagger/swagger-endpoint-pagos.js",
     ],
 };
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
