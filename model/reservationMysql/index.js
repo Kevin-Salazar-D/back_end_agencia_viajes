@@ -63,6 +63,7 @@ const mostrarReservacion = async (numero_reserva) => {
   try {
     const sqlQuery = `
       SELECT 
+         r.id AS reservacion_id,
         r.numero_reserva,
         r.fecha_entrada,
         r.fecha_salida,
@@ -92,6 +93,7 @@ const mostrarTodasReservaciones = async () => {
   try {
     const sqlQuery = `
       SELECT 
+        r.id AS reservacion_id,
         r.numero_reserva,
         r.fecha_entrada,
         r.fecha_salida,

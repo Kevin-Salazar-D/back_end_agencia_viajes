@@ -9,6 +9,7 @@ import hotelesImagenesFactory from "./hotelImageRutes/indeX.js";
 import journeyRutasFactory from "./journeyRoutes/index.js";
 import packageRutasFactory from "./packageRoutes/index.js"
 import reservationFactory from "./reservationRoutes/index.js";
+import payFactory from "./payRoute/index.js";
 
 const router = Router();
 
@@ -26,5 +27,6 @@ export {
     hotelesImagenesFactory,
     journeyRutasFactory,
     packageRutasFactory,
-    reservationFactory
+    reservationFactory,
+    payFactory
 }; 

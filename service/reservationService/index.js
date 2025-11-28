@@ -3,8 +3,7 @@ import validarFilaAfectada from "../../utils/validarFilaAfectada.js";
 import validarLista from "../../utils/validarLista.js";
 import validarOpcionesPermitidas from "../../utils/validarOpcionesPermitidas.js";
 import validarObjeto from "../../utils/validarObjeto.js";
-import generarNumeroReservacion from "../../utils/numeroReservacion.js";
-
+import generarCodigosUnicos from "../../utils/generarCodigosUnicos.js"
 
 const reservacionServicio = (modeloReservacion, habitacionServicio) => {
   return {
@@ -13,7 +12,7 @@ const reservacionServicio = (modeloReservacion, habitacionServicio) => {
         reservacionData,
         "Faltaron campos para la creación de la reservación"
       );
-      const numeroReserva = generarNumeroReservacion(6);
+      const numeroReserva = generarCodigosUnicos("RES-",6);
       const reservacionCompleta = {
         ...reservacionData,
         numero_reserva: numeroReserva,

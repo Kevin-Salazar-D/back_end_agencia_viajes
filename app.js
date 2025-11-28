@@ -12,6 +12,7 @@ import hotelImagenesMysql from "./model/hotelImagenesMysql/index.js";
 import journeyModel from "./model/journeyModelMysql/index.js";
 import packageModel from "./model/packegeModelMysql/index.js";
 import reservationModel from "./model/reservationMysql/index.js";
+import payModel from "./model/payModelMysql/index.js";
 
 // --- Servicios ---
 import userService from "./service/userService/index.js";
@@ -24,6 +25,7 @@ import hotelImagenesService from "./service/hotelImagenesService/index.js";
 import journeyService from "./service/journeyService/index.js";
 import packageService from "./service/packageService/index.js";
 import reservationService from "./service/reservationService/index.js";
+import payService from "./service/payService/idnex.js";
 
 // --- Controladores ---
 import userController from "./controllers/userController/index.js";
@@ -36,6 +38,7 @@ import hotelImagenesController from "./controllers/hotelImagenesController/index
 import journeyController from "./controllers/journeyController/index.js";
 import packageController from "./controllers/packageController/index.js";
 import reservationController from "./controllers/reservationController/index.js";
+import payControlloer from "./controllers/payController/index.js";
 
 // --- Rutas (factories) ---
 import { 
@@ -48,7 +51,8 @@ import {
   hotelesImagenesFactory,
   journeyRutasFactory,
   packageRutasFactory,
-  reservationFactory
+  reservationFactory,
+  payFactory
 } from "./routes/index.js";
 
 // Swagger
@@ -117,6 +121,11 @@ const reservacionServicio = reservationService(reservationModel,habitacionServic
 const reservacionControlador = reservationController(reservacionServicio);
 const reservacionRutas = reservationFactory(reservacionControlador);
 
+// PAGOS
+const pagosServicio = payService(payModel);
+const pagosControlador = payControlloer(pagosServicio);
+const pagosRutas = payFactory(pagosControlador);
+
 // --- RUTAS PRINCIPALES ---
 app.use("/agenciaViajes/usuarios", usuarioRutas);
 app.use("/agenciaViajes/ciudades", ciudadRutas);
@@ -128,6 +137,7 @@ app.use("/agenciaViajes/hotelImagenes", hotelImagenRutas);
 app.use("/agenciaViajes/viajes", viajeRutas);
 app.use("/agenciaViajes/paquetes", paqueteRutas);
 app.use("/agenciaViajes/reservaciones", reservacionRutas);
+app.use("/agenciaViajes/pagos", pagosRutas);
 
 // Swagger
 setupSwagger(app);
