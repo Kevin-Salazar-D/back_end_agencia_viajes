@@ -109,3 +109,14 @@ Se agrego la entidas hoteles_imagenes para manipular la cantidad de imagenes que
 > Se incorporaron la nueva ruta con swagger para paquetes.
 
 > Documentación extendida del API en /api-docs
+
+# VERSION 2.7.2
+ Se agregó la entidad Reservacviones con su CRUD completo.
+
+> Se añadieron 5 endpoints para buscar crerar, borrar en reservas y 2 mas para apartar y desocupar habitaciones.
+
+> Se inyecto 1 mas al mmodelo Reservaciones el cual fue Habitaciones
+
+> Se pueden crear reservaciones
+
+> Documentación extendida del API en /api-docs

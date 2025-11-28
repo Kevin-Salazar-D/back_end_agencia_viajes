@@ -11,6 +11,7 @@ import hotelDetailsMysql from "./model/hotelDetailsMysql/index.js";
 import hotelImagenesMysql from "./model/hotelImagenesMysql/index.js";
 import journeyModel from "./model/journeyModelMysql/index.js";
 import packageModel from "./model/packegeModelMysql/index.js";
+import reservationModel from "./model/reservationMysql/index.js";
 
 // --- Servicios ---
 import userService from "./service/userService/index.js";
@@ -22,6 +23,7 @@ import hotelDetailsService from "./service/hotelDetailsService/index.js";
 import hotelImagenesService from "./service/hotelImagenesService/index.js";
 import journeyService from "./service/journeyService/index.js";
 import packageService from "./service/packageService/index.js";
+import reservationService from "./service/reservationService/index.js";
 
 // --- Controladores ---
 import userController from "./controllers/userController/index.js";
@@ -33,6 +35,7 @@ import hotelDetailsController from "./controllers/hotelDetailsController/index.j
 import hotelImagenesController from "./controllers/hotelImagenesController/index.js";
 import journeyController from "./controllers/journeyController/index.js";
 import packageController from "./controllers/packageController/index.js";
+import reservationController from "./controllers/reservationController/index.js";
 
 // --- Rutas (factories) ---
 import { 
@@ -44,7 +47,8 @@ import {
   hotelDetailsFactory,
   hotelesImagenesFactory,
   journeyRutasFactory,
-  packageRutasFactory
+  packageRutasFactory,
+  reservationFactory
 } from "./routes/index.js";
 
 // Swagger
@@ -108,6 +112,11 @@ const paquetesServicio = packageService(packageModel);
 const paqueteControlador = packageController(paquetesServicio);
 const paqueteRutas = packageRutasFactory(paqueteControlador);
 
+// reservaciones
+const reservacionServicio = reservationService(reservationModel,habitacionServicio);
+const reservacionControlador = reservationController(reservacionServicio);
+const reservacionRutas = reservationFactory(reservacionControlador);
+
 // --- RUTAS PRINCIPALES ---
 app.use("/agenciaViajes/usuarios", usuarioRutas);
 app.use("/agenciaViajes/ciudades", ciudadRutas);
@@ -118,6 +127,7 @@ app.use("/agenciaViajes/hotelDetalles", hotelDetallesRutas);
 app.use("/agenciaViajes/hotelImagenes", hotelImagenRutas);
 app.use("/agenciaViajes/viajes", viajeRutas);
 app.use("/agenciaViajes/paquetes", paqueteRutas);
+app.use("/agenciaViajes/reservaciones", reservacionRutas);
 
 // Swagger
 setupSwagger(app);

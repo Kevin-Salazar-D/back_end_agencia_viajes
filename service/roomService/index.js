@@ -1,4 +1,5 @@
 import validarDatos from "../../utils/validarDatos.js";
+import validarFilaAfectada from "../../utils/validarFilaAfectada.js";
 
 const roomService = (modelo) => {
   return {
@@ -26,7 +27,21 @@ const roomService = (modelo) => {
     apartarEstatusHabitacion: async (id) => {
       const habitacion = { estatus: 1, id };
       validarDatos(habitacion, "Faltan datos para apartar la habitación");
-      return await modelo.apartarEstatusHabitacion(habitacion);
+      const habitacionApartada = await modelo.modificarEstatusHabitacion(habitacion);
+      validarFilaAfectada(habitacionApartada.affectedRows, "No existe la habiatacion");
+      validarFilaAfectada(habitacionApartada.changedRows, "La habitación ya esta apartada",400);
+
+      return habitacion.estatus;
+
+    },
+
+    desapartarEstatusHabitacion: async (id) => {
+      const habitacion = { estatus: 0, id };
+      validarDatos(habitacion, "Faltan datos para apartar la habitación");
+      const habitacionApartada = await modelo.modificarEstatusHabitacion(habitacion);
+      validarFilaAfectada(habitacionApartada.affectedRows, "La habitacion no existe");
+      validarFilaAfectada(habitacionApartada.changedRows, "La habitacion esta desocupada", 400);
+      return habitacion.estatus;
     },
 
     // Mostrar estatus por ID

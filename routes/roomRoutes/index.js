@@ -5,43 +5,49 @@ const rutasHabitaciones = (habitacionControlador) => {
   const router = Router();  
 
   // =========================
-  //       GET
+  //          GET
   // =========================
 
-  // Mostrar todos los estatus de habitaciones
+  // Obtener el estatus de una habitación
   router.get('/mostrarEstatusHabitacion', habitacionControlador.mostrarEstatusHabitacion);
 
   // Mostrar todas las habitaciones
   router.get('/mostrarTodasHabitaciones', habitacionControlador.mostrarTodasHabitaciones);
 
-  // Mostrar habitaciones por hotel (se recibe hotel_id desde query)
-  router.get('/mostrarHabitacionID', habitacionControlador.mostrarHabitacionesPorHotel);
+  // Mostrar habitaciones filtradas por hotel (hotel_id por query)
+  router.get('/mostrarHabitacionesPorHotel', habitacionControlador.mostrarHabitacionesPorHotel);
 
 
   // =========================
-  //       POST
+  //          POST
   // =========================
 
-  // Crear nueva habitación
+  // Crear una nueva habitación
   router.post('/crearHabitacion', habitacionControlador.crearHabitacion);
 
 
   // =========================
-  //       PUT
+  //          PUT
   // =========================
 
-  // Actualizar campos de habitación
+  // Actualizar datos completos de una habitación
   router.put('/actualizarHabitacion', habitacionControlador.actualizarHabitacion);
 
-  // Actualizar ID de habitación (reenumerar)
+  // Actualizar el hotel asignado a una habitación (mover habitación)
   router.put('/actualizarIdHabitacion', habitacionControlador.actualizarIdHabitacion);
 
+  // Apartar una habitación (estatus = 1)
+  router.put('/apartarEstatusHabitacion', habitacionControlador.apartarEstatusHabitacion);
+
+  // desocuparHabitacion
+  router.put('/desocuparEstatusHabitacion', habitacionControlador.desapartarEstatusHabitacion);
+
 
   // =========================
-  //       DELETE
+  //         DELETE
   // =========================
 
-  // Borrar una habitación
+  // Borrar una habitación por ID
   router.delete('/borrarHabitacion', habitacionControlador.borrarHabitacion);
 
   return router;

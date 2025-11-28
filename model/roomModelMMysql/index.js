@@ -85,7 +85,7 @@ const actualizarIdHabitacion = async ({ id, hotel_id }) => {
 /**
  * Cambiar estatus (apartar, mantenimiento, disponible)
  */
-const apartarEstatusHabitacion = async ({ id, estatus }) => {
+const modificarEstatusHabitacion = async ({ estatus, id }) => {
   try {
     const sqlQuery = `
       UPDATE habitaciones
@@ -95,12 +95,13 @@ const apartarEstatusHabitacion = async ({ id, estatus }) => {
 
     const [result] = await conexionMysql.query(sqlQuery, [estatus, id]);
 
-    return result.affectedRows;
+    return result;
   } catch (error) {
     console.error("Error actualizando estatus de habitación:", error);
     throw error;
   }
 };
+
 
 /**
  * Obtener habitación por ID
@@ -152,6 +153,7 @@ const mostrarHabitacionesPorHotel = async (hotelId) => {
   }
 };
 
+
 /**
  * Eliminar habitación
  */
@@ -173,7 +175,7 @@ export default {
   crearHabitacion,
   actualizarHabitacion,
   actualizarIdHabitacion,
-  apartarEstatusHabitacion,
+  modificarEstatusHabitacion,
   mostrarHabitacionID,
   mostrarTodasHabitaciones,
   mostrarHabitacionesPorHotel,

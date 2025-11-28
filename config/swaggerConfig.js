@@ -21,7 +21,8 @@ const swaggerOptions ={
         "./swagger/swagger-endpoint-detallesHotel.js",
         "./swagger/swagger-endpoint-imagenes-hoteles.js",
         "./swagger/swagger-endpoint-viajes.js",
-        "./swagger/swagger-endpoint-paquetes.js"
+        "./swagger/swagger-endpoint-paquetes.js",
+        "./swagger/swagger-endpoint-reservaciones.js",
     ],
 };
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
