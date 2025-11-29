@@ -57,7 +57,7 @@ const actualizarHabitacion = async ({
 
     return result.affectedRows;
   } catch (error) {
-    console.error("Error actualizando la habitación:", error);
+    validarErrorModelo(error, "El hotel asociado no existe");
     throw error;
   }
 };
@@ -77,7 +77,7 @@ const actualizarIdHabitacion = async ({ id, hotel_id }) => {
 
     return result.affectedRows;
   } catch (error) {
-    console.error("Error actualizando hotel de habitación:", error);
+    validarErrorModelo(error, "El hotel asociado no existe");
     throw error;
   }
 };
