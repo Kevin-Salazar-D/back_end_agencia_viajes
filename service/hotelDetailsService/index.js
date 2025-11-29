@@ -1,7 +1,8 @@
 import validarDatos from "../../utils/validarDatos.js";
 import validarFilaAfectada from "../../utils/validarFilaAfectada.js";
 import transformarLista from "../../utils/trasformarLista.js";
-
+import validarObjeto from "../../utils/validarObjeto.js";
+import validarLista from "../../utils/validarLista.js";
 const detallesHotelesServicio = (modelDetalles) => {
   return {
 
@@ -37,8 +38,10 @@ const detallesHotelesServicio = (modelDetalles) => {
     mostrarDetallesDeUnHotel: async (hotel_id) => {
       validarDatos(hotel_id, "Faltó el ID para mostrar los detalles del hotel");
       const detallesHotel = await modelDetalles.mostrarDetallesDeUnHotel(hotel_id);
+      validarObjeto(detallesHotel, "No se encontro los detalles del hotel")
       const infoTrasformar = ["amenidades", "politicas"];
       const infoTraformada = transformarLista(detallesHotel, infoTrasformar);
+      
       return infoTraformada;
     },
 
