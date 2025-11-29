@@ -128,6 +128,4 @@ Se agrego la entidas hoteles_imagenes para manipular la cantidad de imagenes que
 
 > Se añadiero 1 campos en los  endpoint mostrarReservciones para retornar el id de la habitacion
 
-> Se pueden crear reservaciones
-
 > Documentación extendida del API en /api-docs
