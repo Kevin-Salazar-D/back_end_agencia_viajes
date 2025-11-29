@@ -60,7 +60,7 @@ const transportService = (modelo) => {
     buscarTransportePorId: async (id) => {
       validarDatos(id, "Debe proporcionar el ID del transporte a buscar.");
       const transporte = await modelo.buscarTransportePorId(id);
-      validarLista(transporte, "No se encontro el ID asociado a un trasporte");
+      validarObjeto(transporte, "No se encontro el ID asociado a un trasporte");
       return transporte;
     },
 
