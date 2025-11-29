@@ -16,7 +16,7 @@ const PagosServicio = (modeloPago) => {
       const folio = generarCodigosUnicos("FOLIO-", 6);
       const nuevoPago = {
         ...pagoData,
-        estatus: 2, // por defecto 2 si no viene
+        estatus: 2, 
         cvv: await bcrypt.hash(pagoData.cvv, salt), // CORREGIDO
         folio: folio
       };

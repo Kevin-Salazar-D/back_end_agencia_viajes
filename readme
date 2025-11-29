@@ -120,3 +120,14 @@ Se agrego la entidas hoteles_imagenes para manipular la cantidad de imagenes que
 > Se pueden crear reservaciones
 
 > Documentación extendida del API en /api-docs
+
+# VERSION 2.7.5
+ Se actualizo los endpoint de mostrarpaquete mostrarReservaciones y mostrarReservaciones por numero re reserva.
+
+> Se añadieron 2 campos en el  endpoint mostrarpaquete para retornar el id de ciudad y trasporte.
+
+> Se añadiero 1 campos en los  endpoint mostrarReservciones para retornar el id de la habitacion
+
+> Se pueden crear reservaciones
+
+> Documentación extendida del API en /api-docs

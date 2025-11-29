@@ -113,8 +113,13 @@ const mostrarTodosPaquetes = async () => {
         p.fecha_inicio,
         p.fecha_fin,
         p.tiempo_estadia,
+
         t.nombre AS transporte,
+        t.id AS trasporte_id,
+
+        c.id AS ciudad_id,
         c.nombre AS ciudad,
+        
         h.id AS hotel_id,
         h.nombre AS hotel_nombre,
         h.direccion AS hotel_direccion,
@@ -150,6 +155,8 @@ const mostrarPaqueteID = async (id) => {
     p.fecha_fin,
     p.tiempo_estadia,
     t.nombre AS transporte,
+    t.id AS trasporte_id,
+    c.id AS ciudad_id,
     c.nombre AS ciudad,
     h.id AS hotel_id,
     h.nombre AS hotel_nombre,

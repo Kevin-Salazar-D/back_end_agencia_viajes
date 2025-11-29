@@ -68,10 +68,14 @@ const mostrarReservacion = async (numero_reserva) => {
         r.fecha_entrada,
         r.fecha_salida,
         r.estatus AS reservacion_estatus,
+
         h.numero_habitacion,
         h.tipo_habitacion,
+        h.id AS habiatacion_id,
+
         p.tipo_paquete,
         p.descripcion AS nombre_paquete,
+        
         u.nombre AS nombre_usuario,
         u.usuario AS username
       FROM reservaciones r
@@ -101,6 +105,7 @@ const mostrarTodasReservaciones = async () => {
         
         h.numero_habitacion,
         h.tipo_habitacion,
+        h.id AS habiatacion_id,
         
         p.tipo_paquete,
         p.descripcion AS nombre_paquete,
