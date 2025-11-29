@@ -1,5 +1,6 @@
 //Modelo para crear transportes en mysql
 import conexionMysql from "../../config/mysql.js";
+import validarErrorModelo from "../../utils/validarErrorModelo.js";
 //taer la conexion a la base de datos
 const mysqlCliente = conexionMysql;
 
@@ -7,8 +8,8 @@ const mysqlCliente = conexionMysql;
 const crearTransporte = async (transporteData) => {
   try {
     const sqlQuery = `
-        INSERT INTO transporte (tipo, nombre, modelo, capacidad, precio asientos_disponibles, estatus)
-        VALUES (?, ?, ?, ?, ?, ?) `;
+        INSERT INTO transporte (tipo, nombre, modelo, capacidad, precio, asientos_disponibles, estatus)
+        VALUES (?, ?, ?, ?, ?, ?,?) `;
     const [result] = await mysqlCliente.query(sqlQuery, [
       transporteData.tipo,
       transporteData.nombre,
@@ -20,7 +21,7 @@ const crearTransporte = async (transporteData) => {
     ]);
     return result.insertId; //Devolvemos el ID generado automaticamente
   } catch (error) {
-    console.error("Error creando el transporte:", error);
+    validarErrorModelo("No se pudo ingresar un trasporte")
   }
 };
 

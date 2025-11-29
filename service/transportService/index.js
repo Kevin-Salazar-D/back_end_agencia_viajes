@@ -2,6 +2,7 @@ import validarDatos from "../../utils/validarDatos.js";
 import validarOpcionesPermitidas from "../../utils/validarOpcionesPermitidas.js";
 import validarFilaAfectada from "../../utils/validarFilaAfectada.js";
 import validarLista from "../../utils/validarLista.js";
+import validarObjeto from "../../utils/validarObjeto.js";
 const transportService = (modelo) => {
   const tiposTransporte = ["avion", "camion"];
 
