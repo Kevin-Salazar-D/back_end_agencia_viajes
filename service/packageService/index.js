@@ -1,6 +1,7 @@
 import validarDatos from "../../utils/validarDatos.js";
 import validarFilaAfectada from "../../utils/validarFilaAfectada.js";
 import validarLista from "../../utils/validarLista.js";
+import validarObjeto from "../../utils/validarObjeto.js"
 
 const PaquetesServicio = (modeloPaquete) => {
   return {
@@ -49,10 +50,11 @@ const PaquetesServicio = (modeloPaquete) => {
 
     // Mostrar paquete por ID
     mostrarPaqueteID: async (id) => {
+      console.log(id);
       validarDatos(id, "No se proporcionó el id para buscar el paquete");
       const paquete = await modeloPaquete.mostrarPaqueteID(id);
-
-      validarLista(paquete, "No se encontro el ID para encontrar un hotel");
+      
+      validarObjeto(paquete, "No se encontro el ID para encontrar un hotel");
 
       return paquete;
     },

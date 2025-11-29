@@ -1,6 +1,6 @@
 {
   "name": "back_agencia_viajes",
-  "version": "1.0.0",
+  "version": "2.7.3",
   "type": "module",
   "main": "app.js",
   "scripts": {
