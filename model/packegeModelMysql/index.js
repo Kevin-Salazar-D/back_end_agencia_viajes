@@ -141,7 +141,28 @@ const mostrarTodosPaquetes = async () => {
 
 const mostrarPaqueteID = async (id) => {
   try {
-    const sqlQuery = `SELECT * FROM paquetes WHERE id = ?`;
+    const sqlQuery = `SELECT 
+    p.id AS paquete_id,
+    p.tipo_paquete,
+    p.descripcion AS paquete_descripcion,
+    p.precio,
+    p.fecha_inicio,
+    p.fecha_fin,
+    p.tiempo_estadia,
+    t.nombre AS transporte,
+    c.nombre AS ciudad,
+    h.id AS hotel_id,
+    h.nombre AS hotel_nombre,
+    h.direccion AS hotel_direccion,
+    h.estrellas AS hotel_estrellas,
+    h.telefono AS hotel_telefono,
+    h.imagen AS hotel_imagen
+      FROM paquetes p
+        LEFT JOIN hoteles h ON p.hotel_id = h.id
+        LEFT JOIN ciudades c ON p.ciudad_id = c.id
+        LEFT JOIN transporte t ON p.transporte_id = t.id
+        WHERE p.id = 2
+        ORDER BY p.id;`;
     const [rows] = await mysqlCliente.query(sqlQuery, [id]);
     return rows[0] || null; // devuelve un solo paquete o null si no existe
   } catch (error) {
