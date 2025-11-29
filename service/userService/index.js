@@ -6,8 +6,8 @@ const userService = (modelo) => {
     crearUsuario: async (usuarioData) => {
        validarDatos(usuarioData, "Faltan datos del usuario");
       // Hashear la contraseña antes de guardarla
-        const salt = await bcrypt.genSalt(10);
-        usuarioData.contra = await bcrypt.hash(usuarioData.contra, salt);
+        //const salt = await bcrypt.genSalt(10);
+        //.contra = await bcrypt.hash(usuarioData.contra, salt);
         return await modelo.crearUsuario(usuarioData);
     },
 
