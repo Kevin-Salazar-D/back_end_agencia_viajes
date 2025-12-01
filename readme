@@ -129,3 +129,13 @@ Se agrego la entidas hoteles_imagenes para manipular la cantidad de imagenes que
 > Se añadiero 1 campos en los  endpoint mostrarReservciones para retornar el id de la habitacion
 
 > Documentación extendida del API en /api-docs
+
+# VERSION 2.8.5
+ Se actualizo los endpoint de apartar y desapartar y correciones doble registro a la hora de crear reserevas.
+
+> Se actulizaron los endpoitns de reservaciones y habitaciones.
+
+> Se arreglo un error al intentar apartar habitaciones, cuando se crea una reserva
+
+> Documentación extendida del API en /api-docs
+

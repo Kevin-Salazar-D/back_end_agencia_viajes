@@ -8,20 +8,24 @@ import generarCodigosUnicos from "../../utils/generarCodigosUnicos.js"
 const reservacionServicio = (modeloReservacion, habitacionServicio) => {
   return {
     crearReservacion: async (reservacionData) => {
-      validarDatos(
-        reservacionData,
-        "Faltaron campos para la creación de la reservación"
-      );
-      const numeroReserva = generarCodigosUnicos("RES-",6);
-      const reservacionCompleta = {
-        ...reservacionData,
-        numero_reserva: numeroReserva,
-        estatus: 0,
-      };
-       const resultadoCreado = await modeloReservacion.crearReservacion(reservacionCompleta);
-       await habitacionServicio.apartarEstatusHabitacion(reservacionCompleta.habitacion_id);
-       return { numero_reserva: numeroReserva, resultado: resultadoCreado };
-    },
+  validarDatos(
+    reservacionData,
+    "Faltaron campos para la creación de la reservación"
+  );
+
+  await habitacionServicio.apartarEstatusHabitacion(reservacionData.habitacion_id);
+  const numeroReserva = generarCodigosUnicos("RES-", 6);
+  const reservacionCompleta = {
+    ...reservacionData,
+    numero_reserva: numeroReserva,
+    estatus: 0,
+  };
+
+  const resultadoCreado = await modeloReservacion.crearReservacion(reservacionCompleta);
+  validarFilaAfectada(resultadoCreado, "No se pudo crear la reservación");
+
+  return { numero_reserva: numeroReserva, resultado: resultadoCreado };
+},
 
     actualizarReservacion: async (reservacionData) => {
       validarDatos(
