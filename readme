@@ -74,7 +74,7 @@ Se corrigieron y estandarizaron los endpoints de:
 >También se ajustaron controladores y servicios para que respondan con su correspondiente status HTTP, mejorando la consistencia y depuración.
 
 # 2.2.3
-Se agrego la enditad hoteles_detalles se puede consumir los detalles de un hotel
+Se agrego la endtidad hoteles_detalles se puede consumir los detalles de un hotel
 >Su nombre
 
 >Descripcion
@@ -138,4 +138,15 @@ Se agrego la entidas hoteles_imagenes para manipular la cantidad de imagenes que
 > Se arreglo un error al intentar apartar habitaciones, cuando se crea una reserva
 
 > Documentación extendida del API en /api-docs
+
+# VERSION 2.9.0 Estable
+ Implementación de balanceador de carga interno con cluster
+
+> El servidor ahora inicia desde cluster.js La inicialización principal del backend fue movida del archivo app.js al nuevo archivo cluster.js, encargado de crear, monitorear y reiniciar los workers cuando es necesario..
+
+> mejora a la hora de repartir las peticiones desde el front
+
+>Mejor manejo de fallos Si un worker deja de funcionar, el cluster crea automáticamente uno nuevo para mantener la disponibilidad del servicio.
+
+>Mayor estabilidad y rendimiento en el manejo del frontend Las solicitudes enviadas desde el frontend se reparten entre varios procesos, reduciendo tiempos de respuesta y evitando que una sola instancia se sature.
 
