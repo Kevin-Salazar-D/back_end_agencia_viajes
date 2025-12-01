@@ -62,7 +62,7 @@ import setupSwagger from "./config/swaggerConfig.js";
 import corsConfig from "./config/corsConfig.js";
 
 const app = express();
-const PUERTO = 3000;
+//const PUERTO = 3000;
 
 // --- MIDDLEWARES ---
 app.use(express.json());
@@ -143,6 +143,9 @@ app.use("/agenciaViajes/pagos", pagosRutas);
 setupSwagger(app);
 
 // --- INICIO DEL SERVIDOR ---
-app.listen(PUERTO, () => {
-  console.log(`Servidor arrancando en http://localhost:${PUERTO}`);
-});
+//app.listen(PUERTO, () => {
+ // console.log(`Servidor arrancando en http://localhost:${PUERTO}`);
+//});
+
+//exportamos la app principal
+export default app;
