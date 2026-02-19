@@ -115,14 +115,14 @@ Se agrego la entidas hoteles_imagenes para manipular la cantidad de imagenes que
 
 > Se añadieron 5 endpoints para buscar crerar, borrar en reservas y 2 mas para apartar y desocupar habitaciones.
 
-> Se inyecto 1 mas al mmodelo Reservaciones el cual fue Habitaciones
+> Se inyecto 1 mas al modelo Reservaciones el cual fue Habitaciones
 
 > Se pueden crear reservaciones
 
 > Documentación extendida del API en /api-docs
 
 # VERSION 2.7.5
- Se actualizo los endpoint de mostrarpaquete mostrarReservaciones y mostrarReservaciones por numero re reserva.
+ Se actualizo los endpoint de mostrarpaquete mostrarReservaciones por numero de reserva.
 
 > Se añadieron 2 campos en el  endpoint mostrarpaquete para retornar el id de ciudad y trasporte.
 
@@ -149,4 +149,10 @@ Se agrego la entidas hoteles_imagenes para manipular la cantidad de imagenes que
 >Mejor manejo de fallos Si un worker deja de funcionar, el cluster crea automáticamente uno nuevo para mantener la disponibilidad del servicio.
 
 >Mayor estabilidad y rendimiento en el manejo del frontend Las solicitudes enviadas desde el frontend se reparten entre varios procesos, reduciendo tiempos de respuesta y evitando que una sola instancia se sature.
+
+# VERSION 2.10.0 
+ Hasheo de contraseña al crear usuario
+
+> El api ahora hashea la contraseña del usuario una vez creado. Apartir de ahora cualquier usuario registrado se hasheara su contraseña
+
 

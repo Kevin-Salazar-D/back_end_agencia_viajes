@@ -4,11 +4,17 @@ import validarFilaAfectada from "../../utils/validarFilaAfectada.js";
 const userService = (modelo) => {
   return {
     crearUsuario: async (usuarioData) => {
-       validarDatos(usuarioData, "Faltan datos del usuario");
-      // Hashear la contraseña antes de guardarla
-        //const salt = await bcrypt.genSalt(10);
-        //.contra = await bcrypt.hash(usuarioData.contra, salt);
-        return await modelo.crearUsuario(usuarioData);
+      validarDatos(usuarioData, "Faltan datos del usuario");
+
+      const salt = await bcrypt.genSalt(10);
+      const contraHash = await bcrypt.hash(usuarioData.contra, salt);
+
+      const usuarioHash = {
+        ...usuarioData,
+        contra: contraHash
+      };
+
+      return await modelo.crearUsuario(usuarioHash);
     },
 
     // Actualizar un usuario

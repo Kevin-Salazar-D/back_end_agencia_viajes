@@ -6,12 +6,12 @@ const swaggerOptions ={
         openapi: "3.0.0",
         info:{
             title: "API de agencia de viajes",
-            version: "1.0.0",
+            version: "2.9.10",
             description: "Gestiona usuarios, ciudades y hoteles",
         },
         servers: [{url:"http://localhost:3000/agenciaViajes",}]
     },
-    //te falto agregar al swagger trasportes
+    
     apis: [
         "./swagger/swagger-endpoint-usuarios.js",
         "./swagger/swagger-endpoint-ciudades.js",

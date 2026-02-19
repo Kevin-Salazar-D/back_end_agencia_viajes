@@ -1,6 +1,6 @@
 {
   "name": "back_agencia_viajes",
-  "version": "2.7.3",
+  "version": "2.10.0",
   "type": "module",
   "main": "cluster.js",
   "scripts": {
