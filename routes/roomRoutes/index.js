@@ -1,6 +1,10 @@
 // rutas/habitaciones.routes.ts
 import { Router } from "express";
 
+//importamos los middlewares
+import verificarJWT  from "../../middlewares/authMiddlewares.js";
+import rolesPermitidos from "../../middlewares/rolesPermitidos.js";
+
 const rutasHabitaciones = (habitacionControlador) => {
   const router = Router();  
 
@@ -23,7 +27,7 @@ const rutasHabitaciones = (habitacionControlador) => {
   // =========================
 
   // Crear una nueva habitación
-  router.post('/crearHabitacion', habitacionControlador.crearHabitacion);
+  router.post('/crearHabitacion', verificarJWT, rolesPermitidos(["admin"]), habitacionControlador.crearHabitacion);
 
 
   // =========================
@@ -31,10 +35,10 @@ const rutasHabitaciones = (habitacionControlador) => {
   // =========================
 
   // Actualizar datos completos de una habitación
-  router.put('/actualizarHabitacion', habitacionControlador.actualizarHabitacion);
+  router.put('/actualizarHabitacion',verificarJWT, rolesPermitidos(["admin"]), habitacionControlador.actualizarHabitacion);
 
   // Actualizar el hotel asignado a una habitación (mover habitación)
-  router.put('/actualizarIdHabitacion', habitacionControlador.actualizarIdHabitacion);
+  router.put('/actualizarIdHabitacion', verificarJWT, rolesPermitidos(["admin"]), habitacionControlador.actualizarIdHabitacion);
 
   // Apartar una habitación (estatus = 1)
   router.put('/apartarEstatusHabitacion', habitacionControlador.apartarEstatusHabitacion);
@@ -48,7 +52,7 @@ const rutasHabitaciones = (habitacionControlador) => {
   // =========================
 
   // Borrar una habitación por ID
-  router.delete('/borrarHabitacion', habitacionControlador.borrarHabitacion);
+  router.delete('/borrarHabitacion', verificarJWT, rolesPermitidos(["admin"]), habitacionControlador.borrarHabitacion);
 
   return router;
 }

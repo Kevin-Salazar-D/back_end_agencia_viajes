@@ -1,5 +1,9 @@
 import { Router } from "express";
 
+//importamos los middlewares
+import verificarJWT  from "../../middlewares/authMiddlewares.js";
+import rolesPermitidos from "../../middlewares/rolesPermitidos.js";
+
 const paqueteRutas = (paqueteControlador) => {
   const router = Router();
 
@@ -11,13 +15,13 @@ const paqueteRutas = (paqueteControlador) => {
   router.get("/mostrarPaquetesPorHotel/:hotel_id", paqueteControlador.mostrarPaquetesPorHotel);
 
   // POST: crear paquete
-  router.post("/crearPaquete", paqueteControlador.crearPaquete);
+  router.post("/crearPaquete", verificarJWT, rolesPermitidos(["admin", "user"]), paqueteControlador.crearPaquete);
 
   // PUT: actualizar paquete
-  router.put("/actualizarPaquete",paqueteControlador.actualizarPaquete );
+  router.put("/actualizarPaquete",  verificarJWT, rolesPermitidos(["admin", "user"]), paqueteControlador.actualizarPaquete );
 
   // DELETE: borrar paquete
-  router.delete("/borrarPaquete",paqueteControlador.borrarPaquete);
+  router.delete("/borrarPaquete",  verificarJWT, rolesPermitidos(["admin"]),paqueteControlador.borrarPaquete);
 
   return router;
 };

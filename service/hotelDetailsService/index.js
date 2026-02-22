@@ -2,7 +2,6 @@ import validarDatos from "../../utils/validarDatos.js";
 import validarFilaAfectada from "../../utils/validarFilaAfectada.js";
 import transformarLista from "../../utils/trasformarLista.js";
 import validarObjeto from "../../utils/validarObjeto.js";
-import validarLista from "../../utils/validarLista.js";
 const detallesHotelesServicio = (modelDetalles) => {
   return {
 

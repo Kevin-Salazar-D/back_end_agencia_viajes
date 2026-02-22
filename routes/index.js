@@ -10,6 +10,7 @@ import journeyRutasFactory from "./journeyRoutes/index.js";
 import packageRutasFactory from "./packageRoutes/index.js"
 import reservationFactory from "./reservationRoutes/index.js";
 import payFactory from "./payRoute/index.js";
+import authRutasFactory from "./authRoutes/index.js";
 
 const router = Router();
 
@@ -28,5 +29,6 @@ export {
     journeyRutasFactory,
     packageRutasFactory,
     reservationFactory,
-    payFactory
+    payFactory,
+    authRutasFactory
 }; 
