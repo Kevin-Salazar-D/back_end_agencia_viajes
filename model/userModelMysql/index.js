@@ -104,9 +104,33 @@ const mostrarTodosUsuarios = async () => {
   }
 };
 
+
+/**
+ * buscar un usuario por correo 
+ * @returns {Array} usuarios
+ */
+const buscarUsuarioPorCorreo = async (correo,usuario) => {
+  try {
+    const sqlQuery = `
+      SELECT * FROM usuarios
+      WHERE correo = ? OR usuario = ?
+       LIMIT 1
+    `;
+    const [rows] = await mysqlCliente.query(sqlQuery,[
+      correo,
+      usuario
+    ]);
+    return rows[0] || null;
+
+  } catch (error) {
+    console.error("Error buscando a un usuarios:", error);
+    throw error;
+  }
+};
 export default {
   crearUsuario,
   actualizarUsuario,
   borrarUsuario,
   mostrarTodosUsuarios,
+  buscarUsuarioPorCorreo
 };

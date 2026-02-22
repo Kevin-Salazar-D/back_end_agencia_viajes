@@ -1,5 +1,9 @@
 import { Router } from "express";
 
+//importamos los middlewares
+import verificarJWT  from "../../middlewares/authMiddlewares.js";
+import rolesPermitidos from "../../middlewares/rolesPermitidos.js";
+
 const hotelesDetallesRutas = (detallesHotelesControlador) => {
   const router = Router();
 
@@ -18,18 +22,24 @@ const hotelesDetallesRutas = (detallesHotelesControlador) => {
   // POST: crear detalles del hotel
   router.post(
     "/crearDetallesHotel",
+    verificarJWT,
+    rolesPermitidos(["admin"]),
     detallesHotelesControlador.crearDetallesHoteles
   );
 
   // PUT: actualizar detalles
   router.put(
     "/actualizarDetallesHotel",
+    verificarJWT,
+    rolesPermitidos(["admin"]),
     detallesHotelesControlador.actualizarDetallesHotel
   );
 
   // DELETE: borrar detalle
   router.delete(
     "/borrarDetalleHotel",
+    verificarJWT,
+    rolesPermitidos(["admin"]),
     detallesHotelesControlador.borrarDetalleHotel
   );
 

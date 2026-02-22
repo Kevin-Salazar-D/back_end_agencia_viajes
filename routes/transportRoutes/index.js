@@ -1,5 +1,9 @@
 import { Router } from "express";
 
+//importamos los middlewares
+import verificarJWT  from "../../middlewares/authMiddlewares.js";
+import rolesPermitidos from "../../middlewares/rolesPermitidos.js";
+
 const transporteRutas = (transportController) => {
   const router = Router();
 
@@ -9,11 +13,11 @@ const transporteRutas = (transportController) => {
     router.get("/buscarTransportePorTipo", transportController.buscarTransportePorTipo);
 
     // Rutas POST
-    router.post("/crearTransporte", transportController.crearTransporte);
+    router.post("/crearTransporte", verificarJWT, rolesPermitidos(["admin"]), transportController.crearTransporte);
     // Rutas PUT
-    router.put("/actualizarTransporte", transportController.actualizarTransporte);  
+    router.put("/actualizarTransporte", verificarJWT, rolesPermitidos(["admin"]), transportController.actualizarTransporte);  
     // Rutas DELETE
-    router.delete("/eliminarTransporte", transportController.borrarTransporte);
+    router.delete("/eliminarTransporte", verificarJWT, rolesPermitidos(["admin"]), transportController.borrarTransporte);
     return router;
 };
 

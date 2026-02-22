@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
 
 // --- Modelos ---
 import userModel from "./model/userModelMysql/index.js";
@@ -26,6 +27,7 @@ import journeyService from "./service/journeyService/index.js";
 import packageService from "./service/packageService/index.js";
 import reservationService from "./service/reservationService/index.js";
 import payService from "./service/payService/idnex.js";
+import authService from "./service/authentication/index.js";
 
 // --- Controladores ---
 import userController from "./controllers/userController/index.js";
@@ -39,6 +41,7 @@ import journeyController from "./controllers/journeyController/index.js";
 import packageController from "./controllers/packageController/index.js";
 import reservationController from "./controllers/reservationController/index.js";
 import payControlloer from "./controllers/payController/index.js";
+import authController from "./controllers/authentication/index.js";
 
 // --- Rutas (factories) ---
 import { 
@@ -52,7 +55,8 @@ import {
   journeyRutasFactory,
   packageRutasFactory,
   reservationFactory,
-  payFactory
+  payFactory,
+  authRutasFactory
 } from "./routes/index.js";
 
 // Swagger
@@ -68,6 +72,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(corsConfig);
+app.use(cookieParser());
 
 // --- INYECCIÓN DE DEPENDENCIAS ---
 
@@ -126,6 +131,12 @@ const pagosServicio = payService(payModel);
 const pagosControlador = payControlloer(pagosServicio);
 const pagosRutas = payFactory(pagosControlador);
 
+
+//Autorizacion
+const autorizacionServicio = authService(userModel);
+const autorizacionControlador = authController(autorizacionServicio);
+const autorizacionRutas = authRutasFactory(autorizacionControlador)
+
 // --- RUTAS PRINCIPALES ---
 app.use("/agenciaViajes/usuarios", usuarioRutas);
 app.use("/agenciaViajes/ciudades", ciudadRutas);
@@ -138,6 +149,8 @@ app.use("/agenciaViajes/viajes", viajeRutas);
 app.use("/agenciaViajes/paquetes", paqueteRutas);
 app.use("/agenciaViajes/reservaciones", reservacionRutas);
 app.use("/agenciaViajes/pagos", pagosRutas);
+app.use("/agenciaViajes/autenticacion", autorizacionRutas);
+
 
 // Swagger
 setupSwagger(app);

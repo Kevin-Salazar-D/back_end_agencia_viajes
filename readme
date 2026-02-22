@@ -82,7 +82,7 @@ Se agrego la endtidad hoteles_detalles se puede consumir los detalles de un hote
 >Noche por habitacion
  
 # 2.4.0
-Se agrego la entidas hoteles_imagenes para manipular la cantidad de imagenes que puede tener un hotel
+Se agrego la entidad hoteles_imagenes para manipular la cantidad de imagenes que puede tener un hotel
 
 # VERSION 2.5.0
  Se agregó la entidad Viajes con su CRUD completo.
@@ -154,5 +154,21 @@ Se agrego la entidas hoteles_imagenes para manipular la cantidad de imagenes que
  Hasheo de contraseña al crear usuario
 
 > El api ahora hashea la contraseña del usuario una vez creado. Apartir de ahora cualquier usuario registrado se hasheara su contraseña
+
+
+# VERSION 3.0.0 Sistema de Autenticación y Autorización  --21/02/2026
+
+Se implemento un modulo completo para la seguridad de la API
+
+> Registro de usuarios (la API es capaz de hacer registros de usuarios)
+> Login del sistema
+> Generador de JWT en el login y en el registro de cuentas
+> Logout del sistema
+> Creacion de Cookies y almecenamiento de Token por cookie HTTP only
+> Middleware verificarToken para proteger rutas
+> Middleware rolesPermitidos para control de acceso de endpoints (Dependel del rol son los endpoints que se pueden consumir)
+> Mejor manejo en los estatus de la API
+> Documentación extendida del API en /api-docs
+> Seguridad reforzada para evitar exposición del token en el frontend
 
 

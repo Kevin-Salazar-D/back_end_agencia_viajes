@@ -1,5 +1,9 @@
 import { Router } from "express";
 
+//importamos los middlewares
+import verificarJWT  from "../../middlewares/authMiddlewares.js";
+import rolesPermitidos from "../../middlewares/rolesPermitidos.js";
+
 const hotelesRutas = (hotelControlador) => {
   const router = Router();  
 
@@ -8,14 +12,14 @@ const hotelesRutas = (hotelControlador) => {
   router.get('/mostrarHotelesCiudad', hotelControlador.mostrarHotelesCiudad);
 
   // POST → crear hotel
-  router.post('/crearHotel', hotelControlador.crearHotel);
+  router.post('/crearHotel',  verificarJWT, rolesPermitidos(["admin"]), hotelControlador.crearHotel);
   
   // PUT → actualizar datos o ciudad del hotel
-  router.put('/actualizarHotel', hotelControlador.actualizarHotel);
-  router.put('/actualizarCiudadIdHotel', hotelControlador.actualizarCiudadIdHotel);
+  router.put('/actualizarHotel',  verificarJWT, rolesPermitidos(["admin"]), hotelControlador.actualizarHotel);
+  router.put('/actualizarCiudadIdHotel',  verificarJWT, rolesPermitidos(["admin"]), hotelControlador.actualizarCiudadIdHotel);
 
   // DELETE → borrar hotel
-  router.delete('/borrarHotel', hotelControlador.borrarHotel);
+  router.delete('/borrarHotel',  verificarJWT, rolesPermitidos(["admin"]), hotelControlador.borrarHotel);
 
   return router;
 }
