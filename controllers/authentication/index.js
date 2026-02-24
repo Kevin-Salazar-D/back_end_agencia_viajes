@@ -8,12 +8,23 @@ const authenticationController = (servicioAuth) => {
 
       const datoUsuario = await servicioAuth.login(dataLogin);
 
+      //validamos si el usuario tiene activada la autenticacion de dos pasos
+      if (datoUsuario.requiere2FA) {
+        return res.status(200).json({
+          nombre: datoUsuario.nombre,
+          userId: datoUsuario.userId,
+          requiere2FA: true,
+          mensaje: "Ingrese el código de verificación para continuar",
+        });
+      }
+
       //creamoos la cookie
       res.cookie("token", datoUsuario.token, cookieOptions);
 
       res.status(200).json({
         message: "Has accedido correctamente a tu cuenta",
         usuario: datoUsuario.usuario,
+        requiere2FA: false,
       });
     } catch (error) {
       res.status(error.status || 500).json({ error: error.message });
@@ -64,7 +75,82 @@ const authenticationController = (servicioAuth) => {
     }
   };
 
-  return { login, crearCuenta, logout };
+  const activarDosPasos = async (req, res) => {
+    try {
+      //por medio del JWT nos traemos el ID del usuario
+      const userId = req.usuario.id;
+
+      
+
+      //creamos la QR para que el usuario pueda autenticar
+      const  {qr}  = await servicioAuth.activarDosPasos(userId);
+
+      console.log("Este es el QR");
+
+      return res.status(200).json({
+        mensaje: "QR creado correctamente",
+        codigoQR: qr
+      });
+    } catch (error) {
+      return res.status(error.status || 500).json({
+        error: error.message,
+      });
+    }
+  };
+
+  const confirmarDosPasos = async (req, res) => {
+    try {
+      //por medio del JWT nos traemos el ID del usuario
+      const userId = req.usuario.id;
+      //por medio del body traemos el codigo del usuario
+      const { codigo } = req.body;
+
+      const data = await servicioAuth.confirmarDosPasos(userId, codigo);
+
+      return res.status(200).json({
+        mensaje: data.mensaje,
+        result: data.resultado,
+      });
+    } catch (error) {
+      return res.status(error.status || 500).json({
+        error: error.message,
+      });
+    }
+  };
+
+   const verificarAuth2FA = async (req, res) => {
+    try {
+      //por medio del body traemos el codigo del usuario
+      const { codigo, userId } = req.body;
+
+      //obtenemos el token y la data del usuario
+      const verificacionCuenta = await servicioAuth.verificarAuth2FA(userId, codigo);
+
+      //creamos la cookies para el usuario
+      res.cookie("token", verificacionCuenta.token, cookieOptions);
+
+      //si todo esta bien mandamos un 200
+      res.status(200).json({
+        message: "Has accedido correctamente a tu cuenta",
+        usuario: verificacionCuenta.usuario,
+        requiere2FA: false,
+      });
+
+    } catch (error) {
+      return res.status(error.status || 500).json({
+        error: error.message,
+      });
+    }
+  };
+
+  return { 
+    login, 
+    crearCuenta, 
+    logout, 
+    activarDosPasos,
+    confirmarDosPasos, 
+    verificarAuth2FA 
+  };
 };
 
 export default authenticationController;

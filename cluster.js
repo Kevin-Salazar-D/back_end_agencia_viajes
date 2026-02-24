@@ -22,19 +22,19 @@ if (cluster.isPrimary) {
 
   // Si un worker muere, crear otro
   cluster.on("exit", (worker) => {
-    console.log(`Worker ${worker.process.pid} murió. Creando nuevo...`);
+    //console.log(`Worker ${worker.process.pid} murió. Creando nuevo...`);
     cluster.fork();
   });
 
 } else {
   // Middleware para ver qué worker atiende cada petición
   app.use((req, res, next) => {
-    console.log(` Worker ${process.pid} atendió: ${req.method} ${req.url}`);
+   // console.log(` Worker ${process.pid} atendió: ${req.method} ${req.url}`);
     next();
   });
 
   // Iniciar servidor en cada worker
   app.listen(PORT, () => {
-    console.log(`Worker ${process.pid} escuchando en http://localhost:${PORT}`);
+    //console.log(`Worker ${process.pid} escuchando en http://localhost:${PORT}`);
   });
 }

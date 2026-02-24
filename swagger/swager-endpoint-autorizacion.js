@@ -116,4 +116,95 @@
  *                   example: "Cuenta cerrada correctamente"
  *       401:
  *         description: Usuario no autenticado
+ *
+ * /autenticacion/verificarAuth2FA:
+ *   post:
+ *     tags:
+ *       - Autenticación
+ *     summary: Verifica el código de autenticación en dos pasos
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - userId
+ *               - codigo
+ *             properties:
+ *               userId:
+ *                 type: integer
+ *                 example: 1
+ *               codigo:
+ *                 type: string
+ *                 example: "123456"
+ *     responses:
+ *       200:
+ *         description: Código verificado correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Has accedido correctamente a tu cuenta"
+ *                 usuario:
+ *                   type: object
+ *                   description: Información básica del usuario autenticado
+ *       401:
+ *         description: Código inválido o usuario no autorizado
+ *
+ * /autenticacion/activarDosPasos:
+ *   post:
+ *     tags:
+ *       - Autenticación
+ *     summary: Genera el código QR para activar autenticación en dos pasos
+ *     responses:
+ *       200:
+ *         description: QR generado correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensaje:
+ *                   type: string
+ *                   example: "QR creado correctamente"
+ *                 qr:
+ *                   type: string
+ *                   description: Imagen QR en formato base64
+ *       401:
+ *         description: Usuario no autenticado
+ *
+ * /autenticacion/confirmarDosPasos:
+ *   post:
+ *     tags:
+ *       - Autenticación
+ *     summary: Confirma la activación del 2FA con el código generado
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - codigo
+ *             properties:
+ *               codigo:
+ *                 type: string
+ *                 example: "123456"
+ *     responses:
+ *       200:
+ *         description: Autenticación en dos pasos activada correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensaje:
+ *                   type: string
+ *                   example: "Autorizacion creada correctamente"
+ *       401:
+ *         description: Código inválido o usuario no autenticado
  */

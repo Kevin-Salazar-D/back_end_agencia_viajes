@@ -172,3 +172,18 @@ Se implemento un modulo completo para la seguridad de la API
 > Seguridad reforzada para evitar exposición del token en el frontend
 
 
+
+# VERSION 3.4.0 Sistema de Autenticación 2FA 24/02/2026
+
+Se implemento un sistema de autenticacion 2FA (doble paso)
+
+> Desde el login se puede activar la autenciacion
+> Actualizacion de columnas de la tabla Usuarios para autenticacion 2FA
+> Si el login detecta que tienes la autenticacion a 2 pasos la verifica
+> Generación de código QR para vinculación con aplicaciones Authenticator.
+> Verifica que el ussuario tenga activado el 2FA
+> Validación de código TOTP de 6 dígitos.
+> Manejo de errores para códigos inválidos o expirados.
+>Emisión de token JWT únicamente después de validar el segundo factor.
+
+
