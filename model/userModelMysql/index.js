@@ -29,7 +29,7 @@ const crearUsuario = async (usuarioDB) => {
   } catch (error) {
     validarErrorModelo(
       error,
-      "Se duplico un campo, no puede ser igual el correo o usuario"
+      "Se duplico un campo, no puede ser igual el correo o usuario",
     );
     throw error;
   }
@@ -60,7 +60,7 @@ const actualizarUsuario = async (usuarioDB) => {
   } catch (error) {
     validarErrorModelo(
       error,
-      "Se duplico un campo, no puede ser igual el correo o usuario"
+      "Se duplico un campo, no puede ser igual el correo o usuario",
     );
 
     throw error;
@@ -104,33 +104,91 @@ const mostrarTodosUsuarios = async () => {
   }
 };
 
-
 /**
- * buscar un usuario por correo 
+ * buscar un usuario por correo
  * @returns {Array} usuarios
  */
-const buscarUsuarioPorCorreo = async (correo,usuario) => {
+const buscarUsuarioPorCorreo = async (correo, usuario) => {
   try {
     const sqlQuery = `
       SELECT * FROM usuarios
       WHERE correo = ? OR usuario = ?
        LIMIT 1
     `;
-    const [rows] = await mysqlCliente.query(sqlQuery,[
-      correo,
-      usuario
-    ]);
+    const [rows] = await mysqlCliente.query(sqlQuery, [correo, usuario]);
     return rows[0] || null;
-
   } catch (error) {
     console.error("Error buscando a un usuarios:", error);
     throw error;
   }
 };
+
+const buscarUsuariosID = async (usuario_id) => {
+  try {
+    const sqlQuery = `
+   SELECT id, usuario, correo, nombre, apellido, telefono, rol,
+             secreto_temporal_dos_pasos,
+             secreto_dos_pasos,
+             activacion_dos_pasos
+      FROM usuarios
+      WHERE id = ?
+      LIMIT 1
+   `;
+
+    const [rows] = await mysqlCliente.query(sqlQuery, [usuario_id]);
+    
+    return rows[0];
+  } catch (error) {
+    validarErrorModelo(
+      "No se pudo hacer la consulta para encontrar el Usuario",
+    );
+    throw error;
+  }
+};
+
+const guardarSecretoTemporal2FA = async (userId, secreto) => {
+  try {
+    const sqlQuery = `
+      UPDATE usuarios
+      SET secreto_temporal_dos_pasos = ?
+      WHERE id = ?
+    `;
+
+    const [result] = await mysqlCliente.query(sqlQuery, [secreto, userId]);
+
+    return result.affectedRows;
+  } catch (error) {
+    validarErrorModelo(error, "No se pudo guardar el dato temporal");
+    throw error;
+  }
+};
+
+const guardarSecreto2FA = async (userId, secreto) => {
+  try {
+    const sqlQuery = `
+  UPDATE usuarios
+  SET secreto_dos_pasos = ?,
+      activacion_dos_pasos = true,
+      secreto_temporal_dos_pasos = null
+  WHERE id = ?
+`;
+
+    const [result] = await mysqlCliente.query(sqlQuery, [secreto, userId]);
+
+    return result.affectedRows;
+  } catch (error) {
+    validarErrorModelo(error, "No se pudo guardar el dato temporal");
+    throw error;
+  }
+};
+
 export default {
   crearUsuario,
   actualizarUsuario,
   borrarUsuario,
   mostrarTodosUsuarios,
-  buscarUsuarioPorCorreo
+  buscarUsuarioPorCorreo,
+  guardarSecretoTemporal2FA,
+  buscarUsuariosID,
+  guardarSecreto2FA
 };
