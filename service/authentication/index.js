@@ -59,7 +59,7 @@ const authenticationServicio = (usuarioModelo) => {
       }
 
       //generamos el token de autorizacion
-      const token = generarToken(usuarioEncontrado.id, usuarioEncontrado.rol);
+      const token = generarToken(usuarioEncontrado.id, usuarioEncontrado.rol, usuarioEncontrado.usuario );
 
       return {
         token,
@@ -103,11 +103,10 @@ const authenticationServicio = (usuarioModelo) => {
         nombre: usuarioHash.nombre,
         apellido: usuarioHash.apellido,
         telefono: usuarioHash.telefono,
-        rol: "user",
         activacion_dos_pasos: false
       };
 
-      const token = generarToken(usuarioCreadoId, usuarioFormado.rol);
+      const token = generarToken(usuarioFormado.id, usuarioFormado.rol, usuarioFormado.usuario );
 
       return {
         token,
@@ -126,6 +125,7 @@ const authenticationServicio = (usuarioModelo) => {
       //validamos si se encontro el usuario
       validarAutorizacion(usuario, "Usuario no encontrado");
 
+      
       // generamos el codigo de autorizacion
       const secret = generarCodigoAutorizacion({
         correo: usuario.correo,
@@ -185,20 +185,20 @@ const authenticationServicio = (usuarioModelo) => {
       validarDatos({ usuario_id, codigo }, "Error al obtener id o usuario ");
 
       //buscamos al usuario solicitado
-      const usuario = await usuarioModelo.buscarUsuariosID(usuario_id);
+      const usuarioEncontrado = await usuarioModelo.buscarUsuariosID(usuario_id);
 
       //validamos si se encontro el usuario
-      validarAutorizacion(usuario, "No se encontro el usuario");
+      validarAutorizacion(usuarioEncontrado, "No se encontro el usuario");
 
       //validamos si tiene el 2FA activado
       validarAutorizacion(
-        usuario.activacion_dos_pasos,
+        usuarioEncontrado.activacion_dos_pasos,
         "Este usuario no tiene 2FA activado"
       );
 
       //Verificacmos que el codigo sea correcto
       const verificado = speakeasy.totp.verify({
-        secret: usuario.secreto_dos_pasos,
+        secret: usuarioEncontrado.secreto_dos_pasos,
         encoding: "base32",
         token: codigo,
         window: 1,
@@ -211,12 +211,29 @@ const authenticationServicio = (usuarioModelo) => {
       );
 
       //generamos el token de autorizacion
-      const token = generarToken(usuario.id, usuario.rol);
+      const token = generarToken(usuarioEncontrado.id, usuarioEncontrado.rol, usuarioEncontrado.usuario );
 
       return {
         token,
-        usuario: formatearUsuario(usuario)
+        usuario: formatearUsuario(usuarioEncontrado)
       };
+    },
+
+    //traemos la informacion del perfil del usuario
+    perfil: async (usuario_id) => {
+      //validamos si los datos llegaron
+      validarDatos(usuario_id, "Error al obtener el ID del usuario ");
+
+      
+
+      //buscamos al usuario solicitado
+      const usuario = await usuarioModelo.buscarUsuariosID(usuario_id);
+     
+
+      //validamos si se encontro el usuario
+      validarAutorizacion(usuario, "No se encontro el usuario");
+
+       return formatearUsuario(usuario);
     }
     
   };

@@ -5,20 +5,20 @@ Provee una **API REST** que permitirá gestionar **usuarios, reservas, vuelos y 
 
 ---
 
-##  Colaboradores
+## Colaboradores
 
-- **Kevin Duarte**  
-- **Tania Villa**  
+- **Kevin Duarte**
+- **Tania Villa**
 - **Yael Gonzalez**
 
 ---
 
-##  Tecnologías utilizadas
+## Tecnologías utilizadas
 
-- **Node.js** → Entorno de ejecución de JavaScript.  
-- **Express** → Framework minimalista para crear APIs.  
-- **Nodemon** → Reinicia el servidor automáticamente durante el desarrollo.  
-- **ES Modules (import/export)** → Sintaxis moderna de JavaScript.  
+- **Node.js** → Entorno de ejecución de JavaScript.
+- **Express** → Framework minimalista para crear APIs.
+- **Nodemon** → Reinicia el servidor automáticamente durante el desarrollo.
+- **ES Modules (import/export)** → Sintaxis moderna de JavaScript.
 - **MySQL** → Base de datos relacional para el almacenamiento de la información.
 
 ---
@@ -28,64 +28,65 @@ Provee una **API REST** que permitirá gestionar **usuarios, reservas, vuelos y 
 > El proyecto está diseñado bajo una **arquitectura en capas (Modelo - Vista - Controlador)**, lo que permite una mejor organización, mantenimiento y escalabilidad del código.  
 > Además, se aplica el **patrón de diseño de inyección de dependencias**, promoviendo una programación más modular y reutilizable.
 
-
-
 ## Versión: 2.0.1
 
->  Actualización importante en la Base de Datos
+> Actualización importante en la Base de Datos
 
 > Se realizaron modificaciones críticas en la estructura de la base de datos:
 
 - **Tablas nuevas agregadas**
 
+> detalles_hoteles
 
->detalles_hoteles
+> imagenes_hoteles
 
->imagenes_hoteles
-
->reservas
+> reservas
 
 ## Dependencias eliminadas
 
->Se eliminó la dependencia de paquetes hacia habitaciones para un diseño más limpio y desacoplado.
+> Se eliminó la dependencia de paquetes hacia habitaciones para un diseño más limpio y desacoplado.
 
 ## Correcciones en Swagger
 
->Se corrigió la documentación completa de los endpoints.
+> Se corrigió la documentación completa de los endpoints.
 
->Se agregaron los status codes correctos según cada operación.
+> Se agregaron los status codes correctos según cada operación.
 
->Se actualizaron rutas y ejemplos.
+> Se actualizaron rutas y ejemplos.
 
->Se aseguró que cada endpoint refleje su comportamiento real en el backend.
+> Se aseguró que cada endpoint refleje su comportamiento real en el backend.
 
 # Correcciones internas en el código
 
 Se corrigieron y estandarizaron los endpoints de:
 
->Ciudades
+> Ciudades
 
->Transporte
+> Transporte
 
->Hoteles
- 
->Habitaciones
+> Hoteles
 
->También se ajustaron controladores y servicios para que respondan con su correspondiente status HTTP, mejorando la consistencia y depuración.
+> Habitaciones
+
+> También se ajustaron controladores y servicios para que respondan con su correspondiente status HTTP, mejorando la consistencia y depuración.
 
 # 2.2.3
+
 Se agrego la endtidad hoteles_detalles se puede consumir los detalles de un hotel
->Su nombre
 
->Descripcion
+> Su nombre
 
->Noche por habitacion
- 
+> Descripcion
+
+> Noche por habitacion
+
 # 2.4.0
+
 Se agrego la entidad hoteles_imagenes para manipular la cantidad de imagenes que puede tener un hotel
 
 # VERSION 2.5.0
- Se agregó la entidad Viajes con su CRUD completo.
+
+Se agregó la entidad Viajes con su CRUD completo.
 
 > Se añadieron filtros de viajes por ciudad de origen y ciudad destino.
 
@@ -100,7 +101,8 @@ Se agrego la entidad hoteles_imagenes para manipular la cantidad de imagenes que
 > Documentación extendida del API en /api-docs
 
 # VERSION 2.6.0
- Se agregó la entidad Paquetes con su CRUD completo.
+
+Se agregó la entidad Paquetes con su CRUD completo.
 
 > Se añadieron 8 endpoints para buscar crerar, borrar todo con paquetes.
 
@@ -111,7 +113,8 @@ Se agrego la entidad hoteles_imagenes para manipular la cantidad de imagenes que
 > Documentación extendida del API en /api-docs
 
 # VERSION 2.7.2
- Se agregó la entidad Reservacviones con su CRUD completo.
+
+Se agregó la entidad Reservacviones con su CRUD completo.
 
 > Se añadieron 5 endpoints para buscar crerar, borrar en reservas y 2 mas para apartar y desocupar habitaciones.
 
@@ -122,16 +125,18 @@ Se agrego la entidad hoteles_imagenes para manipular la cantidad de imagenes que
 > Documentación extendida del API en /api-docs
 
 # VERSION 2.7.5
- Se actualizo los endpoint de mostrarpaquete mostrarReservaciones por numero de reserva.
 
-> Se añadieron 2 campos en el  endpoint mostrarpaquete para retornar el id de ciudad y trasporte.
+Se actualizo los endpoint de mostrarpaquete mostrarReservaciones por numero de reserva.
 
-> Se añadiero 1 campos en los  endpoint mostrarReservciones para retornar el id de la habitacion
+> Se añadieron 2 campos en el endpoint mostrarpaquete para retornar el id de ciudad y trasporte.
+
+> Se añadiero 1 campos en los endpoint mostrarReservciones para retornar el id de la habitacion
 
 > Documentación extendida del API en /api-docs
 
 # VERSION 2.8.5
- Se actualizo los endpoint de apartar y desapartar y correciones doble registro a la hora de crear reserevas.
+
+Se actualizo los endpoint de apartar y desapartar y correciones doble registro a la hora de crear reserevas.
 
 > Se actulizaron los endpoitns de reservaciones y habitaciones.
 
@@ -140,23 +145,24 @@ Se agrego la entidad hoteles_imagenes para manipular la cantidad de imagenes que
 > Documentación extendida del API en /api-docs
 
 # VERSION 2.9.0 Estable
- Implementación de balanceador de carga interno con cluster
+
+Implementación de balanceador de carga interno con cluster
 
 > El servidor ahora inicia desde cluster.js La inicialización principal del backend fue movida del archivo app.js al nuevo archivo cluster.js, encargado de crear, monitorear y reiniciar los workers cuando es necesario..
 
 > mejora a la hora de repartir las peticiones desde el front
 
->Mejor manejo de fallos Si un worker deja de funcionar, el cluster crea automáticamente uno nuevo para mantener la disponibilidad del servicio.
+> Mejor manejo de fallos Si un worker deja de funcionar, el cluster crea automáticamente uno nuevo para mantener la disponibilidad del servicio.
 
->Mayor estabilidad y rendimiento en el manejo del frontend Las solicitudes enviadas desde el frontend se reparten entre varios procesos, reduciendo tiempos de respuesta y evitando que una sola instancia se sature.
+> Mayor estabilidad y rendimiento en el manejo del frontend Las solicitudes enviadas desde el frontend se reparten entre varios procesos, reduciendo tiempos de respuesta y evitando que una sola instancia se sature.
 
-# VERSION 2.10.0 
- Hasheo de contraseña al crear usuario
+# VERSION 2.10.0
+
+Hasheo de contraseña al crear usuario
 
 > El api ahora hashea la contraseña del usuario una vez creado. Apartir de ahora cualquier usuario registrado se hasheara su contraseña
 
-
-# VERSION 3.0.0 Sistema de Autenticación y Autorización  --21/02/2026
+# VERSION 3.0.0 Sistema de Autenticación y Autorización --21/02/2026
 
 Se implemento un modulo completo para la seguridad de la API
 
@@ -171,8 +177,6 @@ Se implemento un modulo completo para la seguridad de la API
 > Documentación extendida del API en /api-docs
 > Seguridad reforzada para evitar exposición del token en el frontend
 
-
-
 # VERSION 3.4.0 Sistema de Autenticación 2FA 24/02/2026
 
 Se implemento un sistema de autenticacion 2FA (doble paso)
@@ -184,6 +188,13 @@ Se implemento un sistema de autenticacion 2FA (doble paso)
 > Verifica que el ussuario tenga activado el 2FA
 > Validación de código TOTP de 6 dígitos.
 > Manejo de errores para códigos inválidos o expirados.
->Emisión de token JWT únicamente después de validar el segundo factor.
+> Emisión de token JWT únicamente después de validar el segundo factor.
 
+# VERSION 3.4.6 Sistema de Aut 24/02/2026 -- 02/03/2026
 
+> Se creo el endpoit perfil, ahora arroja la informacion del usuario
+> Actualizacion de los controladores de auth
+> Mejor manejo de mensajes en la respuesta del servidor.
+
+> Emisión de token JWT únicamente después de validar el segundo factor.
+> Documentación extendida del API en /api-docs
