@@ -7,7 +7,7 @@ const validarErrorModelo = (error, mensajePersonalizado) => {
     ER_BAD_NULL_ERROR: 400,
     ER_DATA_TOO_LONG: 400,
     ER_TRUNCATED_WRONG_VALUE_FOR_FIELD: 400,
-    ER_TRUNCATED_WRONG_VALUE: 400
+    ER_TRUNCATED_WRONG_VALUE: 400,
   };
 
   const status = erroresModelo[error.code];

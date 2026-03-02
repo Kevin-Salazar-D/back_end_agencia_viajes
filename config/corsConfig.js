@@ -5,7 +5,8 @@ const corsInfo = {
   origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   //autorizar por falta de token
-  allowedHeaders: ["Content-Type", "Authorization" ]
+  allowedHeaders: ["Content-Type", "Authorization" ],
+  credentials: true
 }
 
 export default cors(corsInfo);

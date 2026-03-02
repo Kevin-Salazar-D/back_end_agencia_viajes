@@ -41,6 +41,9 @@
  *                 usuario:
  *                   type: object
  *                   description: Información básica del usuario autenticado
+ *                 requiere2FA:
+ *                   type: boolean
+ *                   example: false
  *       401:
  *         description: Credenciales inválidas
  *
@@ -113,7 +116,7 @@
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Cuenta cerrada correctamente"
+ *                   example: "Sesión cerrada correctamente"
  *       401:
  *         description: Usuario no autenticado
  *
@@ -152,6 +155,9 @@
  *                 usuario:
  *                   type: object
  *                   description: Información básica del usuario autenticado
+ *                 requiere2FA:
+ *                   type: boolean
+ *                   example: false
  *       401:
  *         description: Código inválido o usuario no autorizado
  *
@@ -171,7 +177,7 @@
  *                 mensaje:
  *                   type: string
  *                   example: "QR creado correctamente"
- *                 qr:
+ *                 codigoQR:
  *                   type: string
  *                   description: Imagen QR en formato base64
  *       401:
@@ -204,7 +210,40 @@
  *               properties:
  *                 mensaje:
  *                   type: string
- *                   example: "Autorizacion creada correctamente"
+ *                   example: "Autorización creada correctamente"
+ *                 result:
+ *                   type: boolean
+ *                   example: true
  *       401:
  *         description: Código inválido o usuario no autenticado
+ *
+ * /autenticacion/perfil:
+ *   get:
+ *     tags:
+ *       - Autenticación
+ *     summary: Obtiene la información del usuario autenticado
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Usuario autenticado correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 usuario:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     nombre:
+ *                       type: string
+ *                       example: "Kevin"
+ *                     rol:
+ *                       type: string
+ *                       example: "ADMIN"
+ *       401:
+ *         description: Token inválido o usuario no autenticado
  */

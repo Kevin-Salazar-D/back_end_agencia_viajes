@@ -80,16 +80,14 @@ const authenticationController = (servicioAuth) => {
       //por medio del JWT nos traemos el ID del usuario
       const userId = req.usuario.id;
 
-      
-
       //creamos la QR para que el usuario pueda autenticar
-      const  {qr}  = await servicioAuth.activarDosPasos(userId);
+      const { qr } = await servicioAuth.activarDosPasos(userId);
 
       console.log("Este es el QR");
 
       return res.status(200).json({
         mensaje: "QR creado correctamente",
-        codigoQR: qr
+        codigoQR: qr,
       });
     } catch (error) {
       return res.status(error.status || 500).json({
@@ -118,24 +116,26 @@ const authenticationController = (servicioAuth) => {
     }
   };
 
-   const verificarAuth2FA = async (req, res) => {
+  const verificarAuth2FA = async (req, res) => {
     try {
       //por medio del body traemos el codigo del usuario
       const { codigo, userId } = req.body;
 
       //obtenemos el token y la data del usuario
-      const verificacionCuenta = await servicioAuth.verificarAuth2FA(userId, codigo);
+      const verificacionCuenta = await servicioAuth.verificarAuth2FA(
+        userId,
+        codigo,
+      );
 
       //creamos la cookies para el usuario
       res.cookie("token", verificacionCuenta.token, cookieOptions);
 
       //si todo esta bien mandamos un 200
       res.status(200).json({
-        message: "Has accedido correctamente a tu cuenta",
+        mensaje: "Has accedido correctamente a tu cuenta",
         usuario: verificacionCuenta.usuario,
         requiere2FA: false,
       });
-
     } catch (error) {
       return res.status(error.status || 500).json({
         error: error.message,
@@ -143,13 +143,31 @@ const authenticationController = (servicioAuth) => {
     }
   };
 
-  return { 
-    login, 
-    crearCuenta, 
-    logout, 
+  const perfil = async (req, res) => {
+    try {
+        
+      //traemos lod datos del usuario
+      const usuarioAuntenticado =  await servicioAuth.perfil(req.usuario.id);
+
+      res.status(200).json({
+        message: "Datos del usuario",
+        usuario: usuarioAuntenticado,
+      });
+    } catch (error) {
+      return res.status(error.status || 500).json({
+        error: error.message,
+      });
+    }
+  };
+
+  return {
+    login,
+    crearCuenta,
+    logout,
     activarDosPasos,
-    confirmarDosPasos, 
-    verificarAuth2FA 
+    confirmarDosPasos,
+    verificarAuth2FA,
+    perfil
   };
 };
 
