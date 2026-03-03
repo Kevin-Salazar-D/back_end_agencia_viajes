@@ -35,6 +35,16 @@ const userService = (modelo) => {
     mostrarTodosUsuarios: async () => {
       return   await modelo.mostrarTodosUsuarios();
     },
+    //Buscar usuario por ID
+    buscarUsuarioPorId: async (id) => {
+      validarDatos(id, "Falta el ID del usuario a buscar");
+      return await modelo.buscarUsuariosID(id);
+    },
+    //Buscar usuario por correo
+    buscarUsuarioPorCorreo: async (correo) => {
+      validarDatos(correo, "Falta el correo del usuario a buscar");
+      return await modelo.buscarUsuarioPorCorreo(correo);
+    },
   };
 };
 
