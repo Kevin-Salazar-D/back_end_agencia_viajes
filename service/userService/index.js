@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import validarDatos from "../../utils/validarDatos.js";
 import validarFilaAfectada from "../../utils/validarFilaAfectada.js";
+import validarLista from "../../utils/validarLista.js";
 const userService = (modelo) => {
   return {
     crearUsuario: async (usuarioData) => {
@@ -38,6 +39,10 @@ const userService = (modelo) => {
     //Buscar usuario por ID
     buscarUsuarioPorId: async (id) => {
       validarDatos(id, "Falta el ID del usuario a buscar");
+
+      //aqui extraes el objeto en una constante
+       const resultado = modelo.buscarUsuarioPorId(id);
+       
       return await modelo.buscarUsuariosID(id);
     },
     //Buscar usuario por correo
