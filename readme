@@ -198,3 +198,11 @@ Se implemento un sistema de autenticacion 2FA (doble paso)
 
 > Emisión de token JWT únicamente después de validar el segundo factor.
 > Documentación extendida del API en /api-docs
+
+# VERSION 3.5.1 integración de endpoints para la búsqueda de usuarios 07/03/2026
+
+> Se implementó el servicio y el controlador para buscar usuarios mediante su identificador único.
+> Se añadió la funcionalidad de búsqueda de usuarios utilizando su dirección de correo electrónico
+> Se creó una función específica para validar el estado de la autenticación de dos pasos cuando un usuario intenta activarla.
+> Se creo una funcion para la validacion de correos.
+> Documentación extendida del API en /api-docs
