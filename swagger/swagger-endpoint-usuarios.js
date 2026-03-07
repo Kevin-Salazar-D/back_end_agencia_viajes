@@ -99,4 +99,38 @@
  *     responses:
  *       200:
  *         description: Usuario eliminado exitosamente
+ * 
+ * /usuarios/buscarUsuarioPorId/{id}:
+ *   get:
+ *     tags:
+ *       - Usuarios
+ *     summary: Busca un usuario por ID
+ *     description: Retorna la informacion de un usuario especifico segun su ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         example: 1
+ *     responses:
+ *       200:
+ *         description: Usuario encontrado exitosamente
+ *
+ * /usuarios/buscarUsuarioPorCorreo/{correo}:
+ *   get:
+ *     tags:
+ *       - Usuarios
+ *     summary: Busca un usuario por correo
+ *     description: Retorna la informacion de un usuario especifico segun su correo.
+ *     parameters:
+ *       - in: path
+ *         name: correo
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: juana@email.com
+ *     responses:
+ *       200:
+ *         description: Usuario encontrado exitosamente
  */
