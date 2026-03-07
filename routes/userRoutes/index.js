@@ -9,6 +9,8 @@ const usuarioRutas = (usuarioControlador) => {
 
   //rutas get 
   router.get("/obtenerTodosUsuarios", verificarJWT, rolesPermitidos(["admin"]), usuarioControlador.mostrarTodosUsuarios);
+  router.get("/buscarUsuarioPorId/:id", verificarJWT, rolesPermitidos(["admin"]), usuarioControlador.buscarUsuarioPorId);
+  router.get("/buscarUsuarioPorCorreo/:correo",verificarJWT, rolesPermitidos(["admin"]), usuarioControlador.buscarUsuarioPorCorreo);
   // rutas post
   router.post("/crearUsuarios", verificarJWT, rolesPermitidos(["admin"]), usuarioControlador.crearUsuario);
  // rutas put 

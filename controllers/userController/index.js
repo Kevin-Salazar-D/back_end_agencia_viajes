@@ -44,7 +44,27 @@ const userController = (servicioUsuario) => {
         }
     };
 
-    return { crearUsuario, actualizarUsuario, borrarUsuario, mostrarTodosUsuarios };
+    const buscarUsuarioPorId = async (req, res) => {
+        try{
+            const { id } = req.params;
+            const resultado = await servicioUsuario.buscarUsuarioPorId(id);
+            res.status(200).json({message: "Usuario encontrado", usuario: resultado});
+        }catch(error){
+            res.status(error.status|| 500).json({error: error.message});
+        }
+    };
+
+    const buscarUsuarioPorCorreo = async (req, res) => {
+        try{
+            const { correo } = req.params;
+            const resultado = await servicioUsuario.buscarUsuarioPorCorreo(correo);
+            res.status(200).json({message: "Usuario encontrado", usuario: resultado});
+        }catch(error){
+            res.status(error.status|| 500).json({error: error.message});
+        }
+    }
+
+    return { crearUsuario, actualizarUsuario, borrarUsuario, mostrarTodosUsuarios, buscarUsuarioPorId, buscarUsuarioPorCorreo };
 };
 
 export default userController;
