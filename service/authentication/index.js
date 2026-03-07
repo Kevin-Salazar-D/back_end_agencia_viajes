@@ -125,9 +125,7 @@ const authenticationServicio = (usuarioModelo) => {
       //validamos si se encontro el usuario
       validarAutorizacion(usuario, "Usuario no encontrado");
 
-<<<<<<< HEAD
-      
-=======
+
       //Validamos que este activado los dos pasos
       if (usuario.activacion_dos_pasos === 1) {
         return {
@@ -136,7 +134,7 @@ const authenticationServicio = (usuarioModelo) => {
         };
       } 
 
->>>>>>> Agregar-servicio-usuario
+
       // generamos el codigo de autorizacion
       const secret = generarCodigoAutorizacion({
         correo: usuario.correo,
