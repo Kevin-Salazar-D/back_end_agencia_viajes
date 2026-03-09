@@ -177,7 +177,7 @@ Se implemento un modulo completo para la seguridad de la API
 > Documentación extendida del API en /api-docs
 > Seguridad reforzada para evitar exposición del token en el frontend
 
-# VERSION 3.4.0 Sistema de Autenticación 2FA 24/02/2026
+# VERSION 3.4.0 Sistema de Autenticación 2FA --24/02/2026
 
 Se implemento un sistema de autenticacion 2FA (doble paso)
 
@@ -199,10 +199,18 @@ Se implemento un sistema de autenticacion 2FA (doble paso)
 > Emisión de token JWT únicamente después de validar el segundo factor.
 > Documentación extendida del API en /api-docs
 
-# VERSION 3.5.1 integración de endpoints para la búsqueda de usuarios 07/03/2026
+# VERSION 3.5.1 integración de endpoints para la búsqueda de usuarios --07/03/2026
 
 > Se implementó el servicio y el controlador para buscar usuarios mediante su identificador único.
 > Se añadió la funcionalidad de búsqueda de usuarios utilizando su dirección de correo electrónico
+> Se creó una función específica para validar el estado de la autenticación de dos pasos cuando un usuario intenta activarla.
+> Se creo una funcion para la validacion de correos.
+> Documentación extendida del API en /api-docs
+
+# VERSION 3.5.3 Bug Funcion validarCorreo  --09/03/2026
+
+> Se cambio el nombre de como se llamaba la funcion validar Correo para su correcto uso.
+> Se añadió en 
 > Se creó una función específica para validar el estado de la autenticación de dos pasos cuando un usuario intenta activarla.
 > Se creo una funcion para la validacion de correos.
 > Documentación extendida del API en /api-docs

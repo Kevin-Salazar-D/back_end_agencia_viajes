@@ -1,6 +1,6 @@
 import validarDatos from "../../utils/validarDatos.js";
 import generarToken from "../../utils/generarToken.js";
-import validarCorreo from "../../utils/validarObjeto.js";
+import validarCorreo from "../../utils/validarCorreo.js";
 import validarAutorizacion from "../../utils/validarAutorizacion.js";
 import generarCodigoAutorizacion from "../../utils/generarCodigoAutenticacion.js";
 
@@ -75,6 +75,7 @@ const authenticationServicio = (usuarioModelo) => {
       validarDatos(dataCuenta, "Faltan datos para el registro");
 
       const { correo, usuario } = dataCuenta;
+    
 
       validarCorreo(
         correo,

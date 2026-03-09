@@ -1,12 +1,16 @@
-const valdarCorreo = (correo, mensaje)=>{
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const validarCorreo = (correo, mensaje) => {
+   
+    const correoLimpio = correo ? correo.trim() : "";
 
-    if(!correo || !regex.test(correo)){
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    if(!correoLimpio || !regex.test(correoLimpio)){
         const error = new Error(mensaje);
         error.status = 400;
         throw error;
     }
-    return correo;
+    
+    return correoLimpio;
 }
 
-export default valdarCorreo;
+export default validarCorreo;
