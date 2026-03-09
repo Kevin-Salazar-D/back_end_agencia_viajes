@@ -210,7 +210,4 @@ Se implemento un sistema de autenticacion 2FA (doble paso)
 # VERSION 3.5.3 Bug Funcion validarCorreo  --09/03/2026
 
 > Se cambio el nombre de como se llamaba la funcion validar Correo para su correcto uso.
-> Se añadió en 
-> Se creó una función específica para validar el estado de la autenticación de dos pasos cuando un usuario intenta activarla.
-> Se creo una funcion para la validacion de correos.
-> Documentación extendida del API en /api-docs
+> Se añadió una nuevno origen para cors
