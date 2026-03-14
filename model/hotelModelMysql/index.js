@@ -85,8 +85,13 @@ const actualizarCiudadIdHotel = async (hotelIDs) => {
 const mostrarTodosHoteles = async () => {
   try {
     const sqlQuery = `
-      SELECT * FROM hoteles
-      ORDER BY id ASC
+      SELECT 
+        h.*, 
+        hd.precio_noche,
+        hd.total_resenas
+      FROM hoteles h
+      INNER JOIN hoteles_detalles hd ON h.id = hd.hotel_id
+      ORDER BY h.id ASC
     `;
 
     const [rows] = await mysqlCliente.query(sqlQuery);

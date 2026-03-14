@@ -211,3 +211,8 @@ Se implemento un sistema de autenticacion 2FA (doble paso)
 
 > Se cambio el nombre de como se llamaba la funcion validar Correo para su correcto uso.
 > Se añadió una nuevno origen para cors
+
+# VERSION 3.6.1 Actualizacion endpoint Transporte, Actualizar datos para los hotels cars y bug paquete ID --14/03/26
+> Se modifico el endpoint de transporte para agregar la columna "descripcion" 
+> Se creo un inner join para usar "precio por noche" y "total reseñas" para las hotelCards
+> Se arreglo un error en una consulta de buscar paquete por ID donde el where siempre apuntaba al id 2

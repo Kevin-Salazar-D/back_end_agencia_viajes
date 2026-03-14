@@ -1,7 +1,7 @@
 const transportController = (servicioTransporte) => {
   const crearTransporte = async (req, res) => {
     try {
-      const { tipo, nombre, modelo, capacidad, precio, asientos_disponibles } =
+      const { tipo, nombre, modelo, capacidad, precio, asientos_disponibles, descripcion } =
         req.body;
       const nuevoTransporte = {
         tipo,
@@ -10,6 +10,7 @@ const transportController = (servicioTransporte) => {
         capacidad,
         precio,
         asientos_disponibles,
+        descripcion,
       };
       const resultado = await servicioTransporte.crearTransporte(
         nuevoTransporte
@@ -33,6 +34,7 @@ const transportController = (servicioTransporte) => {
         capacidad,
         precio,
         asientos_disponibles,
+        descripcion,
       } = req.body;
       const transporteActualizar = {
         id,
@@ -42,6 +44,7 @@ const transportController = (servicioTransporte) => {
         capacidad,
         precio,
         asientos_disponibles,
+        descripcion,
       };
       const resultado = await servicioTransporte.actualizarTransporte(
         transporteActualizar
