@@ -6,7 +6,7 @@ const swaggerOptions = {
     openapi: "3.0.0",
     info: {
       title: "API de agencia de viajes",
-      version: "3.4.6",
+      version: "3.6.1",
       description: "Gestiona usuarios, ciudades y hoteles",
     },
     servers: [
