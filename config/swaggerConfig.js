@@ -10,7 +10,14 @@ const swaggerOptions = {
       description: "Gestiona usuarios, ciudades y hoteles",
     },
     servers: [
-      { url: "http://localhost:3000/agenciaViajes" }
+      {
+        url: 'https://back-end-agencia-viajes.onrender.com',
+        description: "Servidor en produccion"
+      },
+      { 
+        url: "http://localhost:3000/agenciaViajes",
+        description: "URL local"
+      }
     ],
 
     components: {
