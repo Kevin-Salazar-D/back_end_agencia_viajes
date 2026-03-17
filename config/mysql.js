@@ -13,6 +13,10 @@ try {
     user: process.env.DB_USER || "root",
     password: process.env.DB_PASS || "",
     database: process.env.DB_NAME || "agenciaDB",
+    port: process.env.DB_PORT || 3306,
+    ssl: {
+    rejectUnauthorized: false
+  }
   });
 } catch (error) {
   console.error(" Error al conectar a la base de datos MySQL:", error.message);
