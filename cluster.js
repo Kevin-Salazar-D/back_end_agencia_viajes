@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 
 // Proceso master
 if (cluster.isPrimary) {
-  const numCPUs = os.cpus().length;
+  const numCPUs = process.env.RENDER ? 1 : os.cpus().length;
 
   console.log(`Master PID ${process.pid}`);
   console.log(`Lanzando ${numCPUs} workers...\n`);
