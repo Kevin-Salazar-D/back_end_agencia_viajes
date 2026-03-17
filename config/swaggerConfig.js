@@ -11,7 +11,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'https://back-end-agencia-viajes.onrender.com',
+        url: 'https://back-end-agencia-viajes.onrender.com/agenciaViajes',
         description: "Servidor en produccion"
       },
       { 
