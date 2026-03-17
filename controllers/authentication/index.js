@@ -59,11 +59,7 @@ const authenticationController = (servicioAuth) => {
 
   const logout = (req, res) => {
     try {
-      res.clearCookie("token", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-      });
+      res.clearCookie("token", cookieOptions);
 
       return res.status(200).json({
         message: "Sesión cerrada correctamente",
