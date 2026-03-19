@@ -219,3 +219,7 @@ Se implemento un sistema de autenticacion 2FA (doble paso)
 
 # VERSION 3.7.1 Limpiar cookie al cerrar sesion --14/03/26 (VERSION ESTABLE) --17/03/26 (VERSION ESTABLE)
 > Se modifico el endpoint de logout para que se pueda cerrar sesion correctamente en produccion
+
+# VERSION 3.8.1 Importacion de certificado SSL --18/03/26 
+> Se agrego la certificacion SSL en el archivo cluster.js importando librerias y configurando nuestro https
+> Se creo server.key y server.cert para el uso de este certificado
