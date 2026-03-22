@@ -1,225 +1,151 @@
-# 🧳 Backend - Agencia de Viajes
+# 🧳 Backend - Agencia de Viajes (Arquitectura Modular)
 
-Este proyecto es el **backend oficial de la Agencia de Viajes**, desarrollado con **Node.js** y **Express**.  
-Provee una **API REST** que permitirá gestionar **usuarios, reservas, vuelos y destinos turísticos**.
+Este proyecto es el **backend oficial de la Agencia de Viajes**, desarrollado con **Node.js** y **Express**. 
+Provee una **API REST** robusta que permite gestionar **usuarios, reservas, vuelos y destinos turísticos**.
 
 ---
 
-## Colaboradores
+## 👥 Colaboradores
 
-- **Kevin Duarte**
-- **Tania Villa**
-- **Yael Gonzalez**
+*   **Kevin Duarte**
+*   **Tania Villa**
+*   **Yael Gonzalez**
 
 ---
 
 ## Tecnologías utilizadas
 
-- **Node.js** → Entorno de ejecución de JavaScript.
-- **Express** → Framework minimalista para crear APIs.
-- **Nodemon** → Reinicia el servidor automáticamente durante el desarrollo.
-- **ES Modules (import/export)** → Sintaxis moderna de JavaScript.
-- **MySQL** → Base de datos relacional para el almacenamiento de la información.
+*   **Node.js** → Entorno de ejecución de JavaScript.
+*   **Express** → Framework minimalista para crear APIs.
+*   **MySQL** → Base de datos relacional para el almacenamiento de la información.
+*   **Nodemon** → Reinicia el servidor automáticamente durante el desarrollo.
+*   **ES Modules (import/export)** → Sintaxis moderna de JavaScript.
+*   **Cluster (Nativo)** → Balanceador de carga multiproceso.
 
 ---
 
-## Estructura del proyecto
+##  Estructura del proyecto
 
-> El proyecto está diseñado bajo una **arquitectura en capas (Modelo - Vista - Controlador)**, lo que permite una mejor organización, mantenimiento y escalabilidad del código.  
+> El proyecto está diseñado bajo una **arquitectura en capas (Modelo - Vista - Controlador)**, lo que permite una mejor organización, mantenimiento y escalabilidad del código. 
 > Además, se aplica el **patrón de diseño de inyección de dependencias**, promoviendo una programación más modular y reutilizable.
 
-## Versión: 2.0.1
-
-> Actualización importante en la Base de Datos
-
-> Se realizaron modificaciones críticas en la estructura de la base de datos:
-
-- **Tablas nuevas agregadas**
-
-> detalles_hoteles
-
-> imagenes_hoteles
-
-> reservas
-
-## Dependencias eliminadas
-
-> Se eliminó la dependencia de paquetes hacia habitaciones para un diseño más limpio y desacoplado.
-
-## Correcciones en Swagger
-
-> Se corrigió la documentación completa de los endpoints.
-
-> Se agregaron los status codes correctos según cada operación.
-
-> Se actualizaron rutas y ejemplos.
-
-> Se aseguró que cada endpoint refleje su comportamiento real en el backend.
-
-# Correcciones internas en el código
-
-Se corrigieron y estandarizaron los endpoints de:
-
-> Ciudades
-
-> Transporte
-
-> Hoteles
-
-> Habitaciones
-
-> También se ajustaron controladores y servicios para que respondan con su correspondiente status HTTP, mejorando la consistencia y depuración.
-
-# 2.2.3
-
-Se agrego la endtidad hoteles_detalles se puede consumir los detalles de un hotel
-
-> Su nombre
-
-> Descripcion
-
-> Noche por habitacion
-
-# 2.4.0
-
-Se agrego la entidad hoteles_imagenes para manipular la cantidad de imagenes que puede tener un hotel
-
-# VERSION 2.5.0
-
-Se agregó la entidad Viajes con su CRUD completo.
-
-> Se añadieron filtros de viajes por ciudad de origen y ciudad destino.
-
-> Se integraron relaciones entre ciudades, transportes y viajes.
-
-> Se incorporaron nuevas rutas al módulo Swagger, permitiendo interacción completa vía UI.
-
-> Mejoras en validaciones de fecha para evitar errores de formato (YYYY-MM-DD HH:mm:ss).
-
-> Limpieza y estandarización de controladores bajo arquitectura MVC + Services + Models.
-
-> Documentación extendida del API en /api-docs
-
-# VERSION 2.6.0
-
-Se agregó la entidad Paquetes con su CRUD completo.
-
-> Se añadieron 8 endpoints para buscar crerar, borrar todo con paquetes.
-
-> Se integraron relaciones entre ciudades, transportes y hoteles.
-
-> Se incorporaron la nueva ruta con swagger para paquetes.
-
-> Documentación extendida del API en /api-docs
-
-# VERSION 2.7.2
-
-Se agregó la entidad Reservacviones con su CRUD completo.
-
-> Se añadieron 5 endpoints para buscar crerar, borrar en reservas y 2 mas para apartar y desocupar habitaciones.
-
-> Se inyecto 1 mas al modelo Reservaciones el cual fue Habitaciones
-
-> Se pueden crear reservaciones
-
-> Documentación extendida del API en /api-docs
-
-# VERSION 2.7.5
-
-Se actualizo los endpoint de mostrarpaquete mostrarReservaciones por numero de reserva.
-
-> Se añadieron 2 campos en el endpoint mostrarpaquete para retornar el id de ciudad y trasporte.
-
-> Se añadiero 1 campos en los endpoint mostrarReservciones para retornar el id de la habitacion
-
-> Documentación extendida del API en /api-docs
-
-# VERSION 2.8.5
-
-Se actualizo los endpoint de apartar y desapartar y correciones doble registro a la hora de crear reserevas.
-
-> Se actulizaron los endpoitns de reservaciones y habitaciones.
-
-> Se arreglo un error al intentar apartar habitaciones, cuando se crea una reserva
-
-> Documentación extendida del API en /api-docs
-
-# VERSION 2.9.0 Estable
-
-Implementación de balanceador de carga interno con cluster
-
-> El servidor ahora inicia desde cluster.js La inicialización principal del backend fue movida del archivo app.js al nuevo archivo cluster.js, encargado de crear, monitorear y reiniciar los workers cuando es necesario..
-
-> mejora a la hora de repartir las peticiones desde el front
-
-> Mejor manejo de fallos Si un worker deja de funcionar, el cluster crea automáticamente uno nuevo para mantener la disponibilidad del servicio.
-
-> Mayor estabilidad y rendimiento en el manejo del frontend Las solicitudes enviadas desde el frontend se reparten entre varios procesos, reduciendo tiempos de respuesta y evitando que una sola instancia se sature.
-
-# VERSION 2.10.0
-
-Hasheo de contraseña al crear usuario
-
-> El api ahora hashea la contraseña del usuario una vez creado. Apartir de ahora cualquier usuario registrado se hasheara su contraseña
-
-# VERSION 3.0.0 Sistema de Autenticación y Autorización --21/02/2026
-
-Se implemento un modulo completo para la seguridad de la API
-
-> Registro de usuarios (la API es capaz de hacer registros de usuarios)
-> Login del sistema
-> Generador de JWT en el login y en el registro de cuentas
-> Logout del sistema
-> Creacion de Cookies y almecenamiento de Token por cookie HTTP only
-> Middleware verificarToken para proteger rutas
-> Middleware rolesPermitidos para control de acceso de endpoints (Dependel del rol son los endpoints que se pueden consumir)
-> Mejor manejo en los estatus de la API
-> Documentación extendida del API en /api-docs
-> Seguridad reforzada para evitar exposición del token en el frontend
-
-# VERSION 3.4.0 Sistema de Autenticación 2FA --24/02/2026
-
-Se implemento un sistema de autenticacion 2FA (doble paso)
-
-> Desde el login se puede activar la autenciacion
-> Actualizacion de columnas de la tabla Usuarios para autenticacion 2FA
-> Si el login detecta que tienes la autenticacion a 2 pasos la verifica
-> Generación de código QR para vinculación con aplicaciones Authenticator.
-> Verifica que el ussuario tenga activado el 2FA
-> Validación de código TOTP de 6 dígitos.
-> Manejo de errores para códigos inválidos o expirados.
-> Emisión de token JWT únicamente después de validar el segundo factor.
-
-# VERSION 3.4.6 Sistema de Aut 24/02/2026 -- 02/03/2026
-
-> Se creo el endpoit perfil, ahora arroja la informacion del usuario
-> Actualizacion de los controladores de auth
-> Mejor manejo de mensajes en la respuesta del servidor.
-
-> Emisión de token JWT únicamente después de validar el segundo factor.
-> Documentación extendida del API en /api-docs
-
-# VERSION 3.5.1 integración de endpoints para la búsqueda de usuarios --07/03/2026
-
-> Se implementó el servicio y el controlador para buscar usuarios mediante su identificador único.
-> Se añadió la funcionalidad de búsqueda de usuarios utilizando su dirección de correo electrónico
-> Se creó una función específica para validar el estado de la autenticación de dos pasos cuando un usuario intenta activarla.
-> Se creo una funcion para la validacion de correos.
-> Documentación extendida del API en /api-docs
-
-# VERSION 3.5.3 Bug Funcion validarCorreo  --09/03/2026
-
-> Se cambio el nombre de como se llamaba la funcion validar Correo para su correcto uso.
-> Se añadió una nuevno origen para cors
-
-# VERSION 3.6.1 Actualizacion endpoint Transporte, Actualizar datos para los hotels cars y bug paquete ID --14/03/26
-> Se modifico el endpoint de transporte para agregar la columna "descripcion" 
-> Se creo un inner join para usar "precio por noche" y "total reseñas" para las hotelCards
-> Se arreglo un error en una consulta de buscar paquete por ID donde el where siempre apuntaba al id 2
-
-# VERSION 3.7.1 Limpiar cookie al cerrar sesion --14/03/26 (VERSION ESTABLE) --17/03/26 (VERSION ESTABLE)
-> Se modifico el endpoint de logout para que se pueda cerrar sesion correctamente en produccion
-
-# VERSION 3.8.1 Importacion de certificado SSL --18/03/26 
-> Se agrego la certificacion SSL en el archivo cluster.js importando librerias y configurando nuestro https
-> Se creo server.key y server.cert para el uso de este certificado
+###  Versión 3.x.x (Seguridad, Autenticación y SSL)
+
+**VERSIÓN 3.8.1 (18/03/2026) - Importación de certificado SSL**
+*   Se agregó la certificación SSL en el archivo `cluster.js` importando librerías y configurando nuestro HTTPS local.
+*   Se crearon los archivos `server.key` y `server.cert` para el uso y validación de este certificado.
+
+**VERSIÓN 3.7.1 (14/03/2026 -- 17/03/2026) [VERSIÓN ESTABLE] - Logout Seguro**
+*   Se modificó el endpoint de logout para limpiar la cookie correctamente, asegurando el cierre de sesión en entornos de producción.
+
+**VERSIÓN 3.6.1 (14/03/2026) - Actualización Transporte y Hoteles**
+*   Se modificó el endpoint de transporte para agregar la columna "descripcion".
+*   Se creó un *inner join* para usar "precio por noche" y "total reseñas" en la vista de *hotelCards*.
+*   Se arregló un error (bug) en la consulta de buscar paquete por ID, donde la cláusula `WHERE` siempre apuntaba erróneamente al ID 2.
+
+**VERSIÓN 3.5.3 (09/03/2026) - Bug Fixes y CORS**
+*   Se cambió el nombre de cómo se llamaba la función `validarCorreo` para su correcto uso y ejecución.
+*   Se añadió un nuevo origen a la lista de permitidos para CORS.
+
+**VERSIÓN 3.5.1 (07/03/2026) - Búsqueda de Usuarios**
+*   Se implementó el servicio y el controlador para buscar usuarios mediante su identificador único (ID).
+*   Se añadió la funcionalidad de búsqueda de usuarios utilizando su dirección de correo electrónico.
+*   Se creó una función específica para validar el estado de la autenticación de dos pasos cuando un usuario intenta activarla.
+*   Se creó una función general para la validación de correos.
+*   Documentación extendida de los nuevos endpoints en `/api-docs`.
+
+**VERSIÓN 3.4.6 (24/02/2026 -- 02/03/2026) - Mejoras de Autenticación**
+*   Se creó el endpoint de `perfil`; ahora la API arroja la información completa del usuario autenticado.
+*   Actualización general de los controladores de *Auth*.
+*   Mejor manejo de mensajes en la respuesta del servidor para el usuario.
+*   Garantía de emisión de token JWT **únicamente** después de validar el segundo factor.
+*   Documentación extendida en Swagger (`/api-docs`).
+
+**VERSIÓN 3.4.0 (24/02/2026) - Sistema de Autenticación 2FA**
+*   Implementación completa de sistema de autenticación de doble paso (2FA).
+*   Se permite activar la autenticación 2FA desde el login.
+*   Actualización de columnas en la tabla Usuarios para soportar el 2FA.
+*   Verificación automática: Si el login detecta que tienes el 2FA activado, requiere el código.
+*   Generación de código QR para vinculación con aplicaciones como Google Authenticator.
+*   Validación estricta de código TOTP de 6 dígitos.
+*   Manejo de errores específicos para códigos inválidos o expirados.
+*   Emisión de token JWT protegida por la validación del segundo factor.
+
+**VERSIÓN 3.0.0 (21/02/2026) - Sistema de Autenticación y Autorización**
+*   Implementación de un módulo completo para la seguridad de la API.
+*   **Registro de usuarios:** La API es capaz de hacer registros de nuevas cuentas.
+*   **Login y Logout:** Sistema completo de inicio y cierre de sesión.
+*   Generador de JWT al realizar login y al registrar cuentas nuevas.
+*   Creación de Cookies y almacenamiento seguro del Token mediante cookie `HTTP only`.
+*   Middleware `verificarToken` para proteger rutas privadas.
+*   Middleware `rolesPermitidos` para control de acceso (Dependiendo del rol, son los endpoints que se pueden consumir).
+*   Seguridad reforzada para evitar la exposición del token en el código del frontend.
+*   Mejor manejo en los status HTTP de la API.
+*   Documentación extendida del API en `/api-docs`.
+
+---
+
+### Versión 2.x.x (Arquitectura, Optimización y Entidades)
+
+**VERSIÓN 2.10.0 - Hasheo de contraseñas**
+*   El API ahora hashea (encripta) la contraseña de manera nativa al crear un usuario. A partir de esta versión, cualquier usuario registrado tendrá su contraseña protegida.
+
+**VERSIÓN 2.9.0 [VERSIÓN ESTABLE] - Balanceador de carga interno (Cluster)**
+*   **Arranque con Cluster:** El servidor ahora inicia desde `cluster.js`. La inicialización principal del backend fue movida del archivo `app.js` al nuevo archivo `cluster.js`, el cual se encarga de crear, monitorear y reiniciar los workers cuando es necesario.
+*   Mejora en el reparto de peticiones provenientes del frontend.
+*   **Manejo de fallos:** Si un worker deja de funcionar, el cluster crea automáticamente uno nuevo para mantener la alta disponibilidad del servicio.
+*   **Mayor estabilidad y rendimiento:** Las solicitudes se reparten entre varios procesos, reduciendo los tiempos de respuesta y evitando la saturación de una sola instancia.
+
+**VERSIÓN 2.8.5 - Correcciones en Reservas**
+*   Actualización y corrección de endpoints para apartar y desapartar habitaciones.
+*   Corrección de error de doble registro a la hora de crear reservas en la base de datos.
+*   Se arregló un error al intentar apartar habitaciones simultáneamente cuando se crea una reserva.
+*   Documentación extendida en `/api-docs`.
+
+**VERSIÓN 2.7.5 - Optimización de Vistas**
+*   Se actualizaron los endpoints de `mostrarpaquete` y `mostrarReservaciones` filtrando por número de reserva.
+*   Se añadieron 2 campos en el endpoint `mostrarpaquete` para retornar los IDs exactos de la ciudad y el transporte.
+*   Se añadió 1 campo en los endpoints de `mostrarReservciones` para retornar el ID de la habitación.
+*   Documentación extendida en `/api-docs`.
+
+**VERSIÓN 2.7.2 - Módulo de Reservaciones**
+*   Se agregó la entidad Reservaciones con su CRUD completo.
+*   Se añadieron 5 endpoints para buscar, crear y borrar reservas.
+*   Se añadieron 2 endpoints exclusivos para apartar y desocupar habitaciones.
+*   Se inyectó una dependencia más al modelo de Reservaciones: Habitaciones.
+*   Documentación extendida en `/api-docs`.
+
+**VERSIÓN 2.6.0 - Módulo de Paquetes**
+*   Se agregó la entidad Paquetes con su CRUD completo.
+*   Se añadieron 8 endpoints para operaciones (buscar, crear, borrar, etc.) relacionadas a paquetes.
+*   Se integraron las relaciones en base de datos entre ciudades, transportes y hoteles.
+*   Se incorporaron las nuevas rutas en el módulo Swagger.
+*   Documentación extendida en `/api-docs`.
+
+**VERSIÓN 2.5.0 - Módulo de Viajes y Limpieza MVC**
+*   Se agregó la entidad Viajes con su CRUD completo.
+*   Filtros avanzados de viajes por ciudad de origen y ciudad destino.
+*   Integración de relaciones entre ciudades, transportes y viajes.
+*   Mejoras estrictas en validaciones de fecha para evitar errores de formato (requiere `YYYY-MM-DD HH:mm:ss`).
+*   Limpieza y estandarización total de controladores bajo la arquitectura **MVC + Services + Models**.
+*   Nuevas rutas integradas al módulo Swagger para interacción vía UI.
+
+**VERSIÓN 2.4.0 - Imágenes Dinámicas**
+*   Se agregó la entidad `hoteles_imagenes` para poder manipular dinámicamente la cantidad de imágenes que puede tener un hotel.
+
+**VERSIÓN 2.2.3 - Detalles de Hoteles**
+*   Se agregó la entidad `hoteles_detalles` para consumir características específicas. Retorna: Nombre del hotel, Descripción y Precio por noche por habitación.
+
+**VERSIÓN 2.0.1 - Actualización Crítica y Correcciones Core**
+*   **Actualización importante en la Base de Datos:**
+    *   Tablas nuevas agregadas: `detalles_hoteles`, `imagenes_hoteles`, `reservas`.
+*   **Dependencias eliminadas:**
+    *   Se eliminó la dependencia de "paquetes" hacia "habitaciones" para lograr un diseño mucho más limpio y desacoplado.
+*   **Correcciones en Swagger:**
+    *   Se corrigió la documentación completa de todos los endpoints base.
+    *   Se agregaron los status codes correctos según cada operación.
+    *   Se actualizaron las rutas y los ejemplos.
+    *   Se aseguró que cada endpoint documentado refleje exactamente su comportamiento real en el backend.
+*   **Correcciones internas en el código:**
+    *   Se corrigieron y estandarizaron los endpoints core de: Ciudades, Transporte, Hoteles y Habitaciones.
+    *   Ajuste en controladores y servicios para que respondan con su correspondiente status HTTP, mejorando la consistencia y la depuración de errores.

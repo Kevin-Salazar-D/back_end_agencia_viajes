@@ -12,8 +12,8 @@ const PORT = process.env.PORT || 3000;
 
 //Variables para certificado y llave ssl
 const options = {
-  key : fs.readFileSync("server.key"),
-  cert : fs.readFileSync("server.cert")
+  key : fs.readFileSync("server.key") || "",
+  cert : fs.readFileSync("server.cert") || ""
 };
 
 // Proceso master
