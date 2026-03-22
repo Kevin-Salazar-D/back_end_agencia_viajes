@@ -2,11 +2,19 @@ import cluster from "cluster";
 import os from "os";
 import app from "./app.js";
 import dotenv from "dotenv";
+import fs from "fs";
+import https from "https";
 
 // Leemos el .env
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
+
+//Variables para certificado y llave ssl
+const options = {
+  key : fs.readFileSync("server.key") || "",
+  cert : fs.readFileSync("server.cert") || ""
+};
 
 // Proceso master
 if (cluster.isPrimary) {
@@ -27,14 +35,24 @@ if (cluster.isPrimary) {
   });
 
 } else {
+
+  
   // Middleware para ver qué worker atiende cada petición
   app.use((req, res, next) => {
    // console.log(` Worker ${process.pid} atendió: ${req.method} ${req.url}`);
     next();
   });
 
-  // Iniciar servidor en cada worker
-  app.listen(PORT, () => {
-    //console.log(`Worker ${process.pid} escuchando en http://localhost:${PORT}`);
-  });
+  if(process.env.node_env === "production"){
+    // Iniciar servidor en cada worker
+    app.listen(PORT, () => {
+      //console.log(`Worker ${process.pid} escuchando en http://localhost:${PORT}`);
+    });
+  }else{
+    https.createServer(options, app).listen(PORT, ()=>{
+      console.log(`Worker ${process.pid} en LOCAL escuchando en https://localhost:${PORT}`);
+    });
+  }
+
+  
 }

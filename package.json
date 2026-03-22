@@ -1,6 +1,6 @@
 {
   "name": "back_agencia_viajes",
-  "version": "3.7.1",
+  "version": "3.8.1",
   "type": "module",
   "main": "cluster.js",
   "scripts": {
@@ -18,9 +18,11 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "https": "^1.0.0",
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.1",
     "mysql2": "^3.15.2",
+    "openssl": "^2.0.0",
     "qrcode": "^1.5.4",
     "speakeasy": "^2.0.0",
     "swagger-jsdoc": "^6.2.8",

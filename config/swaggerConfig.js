@@ -6,7 +6,7 @@ const swaggerOptions = {
     openapi: "3.0.0",
     info: {
       title: "API de agencia de viajes",
-      version: "3.7.1",
+      version: "3.8.1",
       description: "Gestiona usuarios, ciudades y hoteles",
     },
     servers: [
@@ -15,7 +15,7 @@ const swaggerOptions = {
         description: "Servidor en produccion"
       },
       { 
-        url: "http://localhost:3000/agenciaViajes",
+        url: "https://localhost:3000/agenciaViajes",
         description: "URL local"
       }
     ],

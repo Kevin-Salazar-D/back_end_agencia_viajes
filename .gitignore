@@ -8,6 +8,8 @@ yarn-error.log*
 
 # Environment variables
 .env
+server.cert
+server.key
 
 # OS files
 .DS_Store
