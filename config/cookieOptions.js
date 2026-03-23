@@ -1,6 +1,6 @@
 const cookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: true,
     sameSite: "none",
     maxAge: 60 * 60 * 1000,
   };
