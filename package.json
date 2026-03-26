@@ -1,6 +1,6 @@
 {
   "name": "back_agencia_viajes",
-  "version": "3.8.1",
+  "version": "3.9.0",
   "type": "module",
   "main": "cluster.js",
   "scripts": {
@@ -16,9 +16,11 @@
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "dompurify": "^3.3.3",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "https": "^1.0.0",
+    "jsdom": "^29.0.1",
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.1",
     "mysql2": "^3.15.2",

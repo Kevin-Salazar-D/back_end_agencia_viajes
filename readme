@@ -31,6 +31,11 @@ Provee una **API REST** robusta que permite gestionar **usuarios, reservas, vuel
 
 ###  Versión 3.x.x (Seguridad, Autenticación y SSL)
 
+**VERSIÓN 3.9.0 (26/03/2026) - Proteccion ataques XSS**
+*  Se agrego un middelwere que sanitiza ataques XSS desde el back-end, para el codigo malisicios con JS.
+*  El middleware intercepta y desinfecta automáticamente las tres vías de entrada: req.body, req.query y req.params.
+*  Bloqueo de pseudo-protocolos maliciosos como javascript: en enlaces <a>
+
 **VERSIÓN 3.8.1 (18/03/2026) - Importación de certificado SSL**
 *   Se agregó la certificación SSL en el archivo `cluster.js` importando librerías y configurando nuestro HTTPS local.
 *   Se crearon los archivos `server.key` y `server.cert` para el uso y validación de este certificado.
