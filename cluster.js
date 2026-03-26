@@ -10,6 +10,12 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
+const isProduction = 
+  process.env.NODE_ENV === "production" || 
+  process.env.node_env === "production" || 
+  process.env.RENDER === "true" ||
+  process.env.RENDER;
+
 // Proceso master
 if (cluster.isPrimary) {
   const numCPUs = process.env.RENDER ? 1 : os.cpus().length;
@@ -34,7 +40,7 @@ if (cluster.isPrimary) {
     next();
   });
 
-  if (process.env.node_env === "production") {
+  if (isProduction) {
     // Iniciar servidor en cada worker
     app.listen(PORT, () => {
       //console.log(`Worker ${process.pid} escuchando en http://localhost:${PORT}`);
