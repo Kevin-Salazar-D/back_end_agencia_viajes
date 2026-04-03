@@ -31,6 +31,14 @@ Provee una **API REST** robusta que permite gestionar **usuarios, reservas, vuel
 
 ###  Versión 3.x.x (Seguridad, Autenticación y SSL)
 
+**VERSIÓN 3.9.0 (02/04/2026) - Correcciones en Módulo de Viajes**
+*   Se corrigió el nombre de la tabla de "viaje" a "viajes" en todas las consultas SQL del modelo.
+*   Se actualizaron los campos en modelos, controladores y servicios para coincidir con la estructura de la tabla (usuario_id, ciudad_origen_id, ciudad_destino_id, hotel_id, transporte_id, fecha_salida, fecha_llegada, total_pagado, estado).
+*   Se cambió JOIN a LEFT JOIN en consultas de mostrar viajes para incluir registros sin transporte asignado.
+*   Se actualizó la documentación en Swagger para reflejar los campos correctos, parámetros y esquemas de requestBody.
+*   Correcciones en validaciones de datos y manejo de errores en el servicio de viajes.
+*   Se removieron referencias a campos inexistentes como "numero_transporte" y se ajustaron las consultas SELECT.
+
 **VERSIÓN 3.8.1 (18/03/2026) - Importación de certificado SSL**
 *   Se agregó la certificación SSL en el archivo `cluster.js` importando librerías y configurando nuestro HTTPS local.
 *   Se crearon los archivos `server.key` y `server.cert` para el uso y validación de este certificado.

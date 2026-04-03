@@ -25,16 +25,19 @@ const ViajeServicio = (modeloViaje) => {
     },
 
     // Mostrar viajes filtrados por ciudad origen y destino
-    mostrarFiltroViaje: async (ciudad_origen, ciudad_destino) => {
+    mostrarFiltroViaje: async (ciudad_origen_id, ciudad_destino_id) => {
+      console.log("Parametros:", ciudad_origen_id, ciudad_destino_id);
       validarDatos(
-        { ciudad_origen, ciudad_destino },
+        { ciudad_origen_id, ciudad_destino_id },
         "Faltaron datos para hacer el filtro de viajes"
       );
 
       const viajesFiltrados = await modeloViaje.mostrarFiltroViaje(
-        ciudad_origen,
-        ciudad_destino
+        ciudad_origen_id,
+        ciudad_destino_id
       );
+
+      console.log("Viajes filtrados:", viajesFiltrados);
 
       validarLista(
         viajesFiltrados,
