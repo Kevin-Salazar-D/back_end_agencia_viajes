@@ -35,7 +35,6 @@ const authenticationServicio = (usuarioModelo) => {
         identificador,
         identificador,
       );
-
       //validamos que exista el usuario
       validarAutorizacion(usuarioEncontrado, "Credenciales incorrectas");
 
@@ -104,7 +103,8 @@ const authenticationServicio = (usuarioModelo) => {
       };
 
       const usuarioCreadoId = await usuarioModelo.crearUsuario(usuarioHash);
-
+      const rol = "user";
+      
       const usuarioFormado = {
         id: usuarioCreadoId,
         usuario: usuarioHash.usuario,
@@ -114,10 +114,11 @@ const authenticationServicio = (usuarioModelo) => {
         telefono: usuarioHash.telefono,
         activacion_dos_pasos: false,
       };
-
+      
+     
       const token = generarToken(
         usuarioFormado.id,
-        usuarioFormado.rol,
+        rol,
         usuarioFormado.usuario,
       );
 

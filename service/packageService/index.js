@@ -50,7 +50,6 @@ const PaquetesServicio = (modeloPaquete) => {
 
     // Mostrar paquete por ID
     mostrarPaqueteID: async (id) => {
-      console.log(id);
       validarDatos(id, "No se proporcionó el id para buscar el paquete");
       const paquete = await modeloPaquete.mostrarPaqueteID(id);
       
