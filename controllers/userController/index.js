@@ -8,6 +8,7 @@ const userController = (servicioUsuario) => {
             res.status(201).json({ message: "Usuario creado exitosamente", usuarioId: resultado.insertId || resultado });
             
         } catch (error) {
+             console.error("🚨 ERROR EN CREAR USUARIO:", error); // <-- Aquí vemos el error real
              res.status(error.status || 500).json({ error: error.message });
         }
     };
@@ -20,6 +21,7 @@ const userController = (servicioUsuario) => {
             res.status(200).json({ message: "Usuario actualizado exitosamente", affectedRows: resultado.affectedRows || resultado });
             
         } catch (error) {
+            console.error("🚨 ERROR EN ACTUALIZAR USUARIO:", error); // <-- Aquí vemos el error real
             res.status(error.status || 500).json({ error: error.message });
         }
     };
@@ -31,6 +33,7 @@ const userController = (servicioUsuario) => {
             res.status(200).json({ message: "Usuario borrado exitosamente", resultado: resultado.affectedRows || resultado });
             
         } catch (error) {
+            console.error("🚨 ERROR EN BORRAR USUARIO:", error); // <-- Aquí vemos el error real
             res.status(error.status || 500).json({ error: error.message });
         }
     };
@@ -40,6 +43,7 @@ const userController = (servicioUsuario) => {
             const usuarios = await servicioUsuario.mostrarTodosUsuarios();
             res.status(200).json(usuarios);
         } catch (error) {
+            console.error("🚨 ERROR EN MOSTRAR USUARIOS:", error); // <-- Aquí vemos el error real
             res.status(500).json({ error: error.message });
         }
     };

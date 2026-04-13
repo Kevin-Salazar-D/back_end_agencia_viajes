@@ -1,8 +1,8 @@
 const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: 60 * 60 * 1000,
-  };
+  httpOnly: true,
+  secure: false,          // en localhost SIEMPRE false
+  sameSite: "lax",        // 👈 CAMBIAR ESTO
+  maxAge: 60 * 60 * 1000,
+};
 
-  export default cookieOptions;
+export default cookieOptions;
