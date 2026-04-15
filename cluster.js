@@ -10,11 +10,11 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
-//Variables para certificado y llave ssl
-const options = {
-  key : fs.readFileSync("server.key") || "",
-  cert : fs.readFileSync("server.cert") || ""
-};
+const isProduction = 
+  process.env.NODE_ENV === "production" || 
+  process.env.node_env === "production" || 
+  process.env.RENDER === "true" ||
+  process.env.RENDER;
 
 // Proceso master
 if (cluster.isPrimary) {
@@ -33,26 +33,29 @@ if (cluster.isPrimary) {
     //console.log(`Worker ${worker.process.pid} murió. Creando nuevo...`);
     cluster.fork();
   });
-
 } else {
-
-  
   // Middleware para ver qué worker atiende cada petición
   app.use((req, res, next) => {
-   // console.log(` Worker ${process.pid} atendió: ${req.method} ${req.url}`);
+    // console.log(` Worker ${process.pid} atendió: ${req.method} ${req.url}`);
     next();
   });
 
-  if(process.env.node_env === "production"){
+  if (isProduction) {
     // Iniciar servidor en cada worker
     app.listen(PORT, () => {
       //console.log(`Worker ${process.pid} escuchando en http://localhost:${PORT}`);
     });
-  }else{
-    https.createServer(options, app).listen(PORT, ()=>{
-      console.log(`Worker ${process.pid} en LOCAL escuchando en https://localhost:${PORT}`);
+  } else {
+    //Variables para certificado y llave ssl
+    const options = {
+      key: fs.readFileSync("server.key") || "",
+      cert: fs.readFileSync("server.cert") || "",
+    };
+
+    https.createServer(options, app).listen(PORT, () => {
+      console.log(
+        `Worker ${process.pid} en LOCAL escuchando en https://localhost:${PORT}`,
+      );
     });
   }
-
-  
 }

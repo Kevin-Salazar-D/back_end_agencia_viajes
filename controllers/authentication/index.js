@@ -79,7 +79,6 @@ const authenticationController = (servicioAuth) => {
       //creamos la QR para que el usuario pueda autenticar
       const { qr } = await servicioAuth.activarDosPasos(userId);
 
-      console.log("Este es el QR");
 
       return res.status(200).json({
         mensaje: "QR creado correctamente",

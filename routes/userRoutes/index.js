@@ -9,14 +9,14 @@ const usuarioRutas = (usuarioControlador) => {
 
   //rutas get 
   router.get("/obtenerTodosUsuarios", verificarJWT, rolesPermitidos(["admin"]), usuarioControlador.mostrarTodosUsuarios);
-  router.get("/buscarUsuarioPorId/:id", verificarJWT, rolesPermitidos(["admin"]), usuarioControlador.buscarUsuarioPorId);
+  router.get("/buscarUsuarioPorId/:id", verificarJWT, rolesPermitidos(["admin", "user"]), usuarioControlador.buscarUsuarioPorId);
   router.get("/buscarUsuarioPorCorreo/:correo",verificarJWT, rolesPermitidos(["admin"]), usuarioControlador.buscarUsuarioPorCorreo);
   // rutas post
   router.post("/crearUsuarios", verificarJWT, rolesPermitidos(["admin"]), usuarioControlador.crearUsuario);
  // rutas put 
   router.put("/actualizarUsuario", verificarJWT, rolesPermitidos(["admin", "user"]), usuarioControlador.actualizarUsuario);
   // rutas delete
-  router.delete("/eliminarUsuario",verificarJWT, rolesPermitidos(["admin"]), usuarioControlador.borrarUsuario);
+  router.delete("/eliminarUsuario",verificarJWT, rolesPermitidos(["admin", "user"]), usuarioControlador.borrarUsuario);
 
   return router;
 };
