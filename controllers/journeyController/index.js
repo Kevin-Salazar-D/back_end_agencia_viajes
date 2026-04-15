@@ -4,19 +4,16 @@ const viajeControlador = (servicioViaje) => {
   // Crear un nuevo viaje
   const crearViaje = async (req, res) => {
     try {
-      const { usuario_id, ciudad_origen_id, ciudad_destino_id, hotel_id, transporte_id, fecha_salida, fecha_llegada, total_pagado, estado } =
+      const { tipo_transporte_id, fecha_salida, fecha_llegada, origen_ciudad_id, destino_ciudad_id, numero_transporte } =
         req.body;
 
       const nuevoViaje = {
-        usuario_id,
-        ciudad_origen_id,
-        ciudad_destino_id,
-        hotel_id,
-        transporte_id,
+        tipo_transporte_id,
         fecha_salida,
         fecha_llegada,
-        total_pagado,
-        estado,
+        origen_ciudad_id,
+        destino_ciudad_id,
+        numero_transporte,
       };
 
       const resultado = await servicioViaje.crearViaje(nuevoViaje);
@@ -34,19 +31,16 @@ const viajeControlador = (servicioViaje) => {
   // Actualizar un viaje
   const actualizarViaje = async (req, res) => {
     try {
-      const { usuario_id, ciudad_origen_id, ciudad_destino_id, hotel_id, transporte_id, fecha_salida, fecha_llegada, total_pagado, estado, id } =
+      const { tipo_transporte_id, fecha_salida, fecha_llegada, origen_ciudad_id, destino_ciudad_id, numero_transporte, id } =
         req.body;
 
       const viajeActualizado = {
-        usuario_id,
-        ciudad_origen_id,
-        ciudad_destino_id,
-        hotel_id,
-        transporte_id,
+        tipo_transporte_id,
         fecha_salida,
         fecha_llegada,
-        total_pagado,
-        estado,
+        origen_ciudad_id,
+        destino_ciudad_id,
+        numero_transporte,
         id,
       };
 
@@ -65,9 +59,9 @@ const viajeControlador = (servicioViaje) => {
   // Mostrar viajes filtrados por ciudad origen y destino
   const mostrarFiltroViaje = async (req, res) => {
     try {
-      const { ciudad_origen_id, ciudad_destino_id } = req.params;
+      const { ciudad_origen, ciudad_destino } = req.params;
 
-      const filtroViajes = await servicioViaje.mostrarFiltroViaje(ciudad_origen_id, ciudad_destino_id);
+      const filtroViajes = await servicioViaje.mostrarFiltroViaje(ciudad_origen, ciudad_destino);
 
       res.status(200).json(filtroViajes);
 

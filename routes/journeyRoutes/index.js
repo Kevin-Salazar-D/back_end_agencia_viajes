@@ -14,7 +14,7 @@ const viajeRutas = (viajeControlador) => {
   router.get( "/mostrarViaje/:id", viajeControlador.mostrarViajeID);
 
   // GET: mostrar viaje filtrado por ciudad origen y destino
-  router.get("/mostrarFiltroViaje/:ciudad_origen_id/:ciudad_destino_id", viajeControlador.mostrarFiltroViaje);
+  router.get("/mostrarFiltroViaje/:ciudad_origen/:ciudad_destino", viajeControlador.mostrarFiltroViaje);
 
   // POST: crear viaje
   router.post(

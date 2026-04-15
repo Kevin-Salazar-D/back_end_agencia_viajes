@@ -40,7 +40,7 @@
 
  /**
   * @swagger
-  * /viajes/mostrarFiltroViaje/{ciudad_origen_id}/{ciudad_destino_id}:
+  * /viajes/mostrarFiltroViaje/{ciudad_origen}/{ciudad_destino}:
   *   get:
   *     tags:
   *       - Viajes
@@ -48,13 +48,13 @@
   *     description: Filtra los viajes basados en los IDs de ciudad de origen y destino.
   *     parameters:
   *       - in: path
-  *         name: ciudad_origen_id
+  *         name: ciudad_origen
   *         required: true
   *         schema:
   *           type: integer
   *         example: 3
   *       - in: path
-  *         name: ciudad_destino_id
+  *         name: ciudad_destino
   *         required: true
   *         schema:
   *           type: integer
@@ -79,46 +79,31 @@
   *           schema:
   *             type: object
   *             required:
-  *               - usuario_id
-  *               - ciudad_origen_id
-  *               - ciudad_destino_id
+  *               - tipo_transporte_id
   *               - fecha_salida
   *               - fecha_llegada
-  *               - total_pagado
-  *               - estado
+  *               - origen_ciudad_id
+  *               - destino_ciudad_id
+  *               - numero_transporte
   *             properties:
-  *               usuario_id:
+  *               tipo_transporte_id:
   *                 type: integer
-  *                 example: 1
-  *               ciudad_origen_id:
-  *                 type: integer
-  *                 example: 3
-  *               ciudad_destino_id:
-  *                 type: integer
-  *                 example: 6
-  *               hotel_id:
-  *                 type: integer
-  *                 nullable: true
-  *                 example: 2
-  *               transporte_id:
-  *                 type: integer
-  *                 nullable: true
   *                 example: 1
   *               fecha_salida:
   *                 type: string
-  *                 format: date-time
   *                 example: "2025-01-15 08:00:00"
   *               fecha_llegada:
   *                 type: string
-  *                 format: date-time
   *                 example: "2025-01-15 12:30:00"
-  *               total_pagado:
-  *                 type: number
-  *                 format: float
-  *                 example: 1500.00
-  *               estado:
+  *               origen_ciudad_id:
+  *                 type: integer
+  *                 example: 3
+  *               destino_ciudad_id:
+  *                 type: integer
+  *                 example: 6
+  *               numero_transporte:
   *                 type: string
-  *                 example: "Pendiente"
+  *                 example: "AERO-777"
   *     responses:
   *       201:
   *         description: Viaje creado exitosamente
@@ -140,49 +125,28 @@
   *             type: object
   *             required:
   *               - id
-  *               - usuario_id
-  *               - ciudad_origen_id
-  *               - ciudad_destino_id
-  *               - fecha_salida
-  *               - fecha_llegada
-  *               - total_pagado
-  *               - estado
   *             properties:
   *               id:
   *                 type: integer
   *                 example: 10
-  *               usuario_id:
+  *               tipo_transporte_id:
   *                 type: integer
-  *                 example: 1
-  *               ciudad_origen_id:
-  *                 type: integer
-  *                 example: 2
-  *               ciudad_destino_id:
-  *                 type: integer
-  *                 example: 4
-  *               hotel_id:
-  *                 type: integer
-  *                 nullable: true
-  *                 example: 3
-  *               transporte_id:
-  *                 type: integer
-  *                 nullable: true
   *                 example: 2
   *               fecha_salida:
   *                 type: string
-  *                 format: date-time
   *                 example: "2025-04-20 09:00:00"
   *               fecha_llegada:
   *                 type: string
-  *                 format: date-time
   *                 example: "2025-04-20 14:30:00"
-  *               total_pagado:
-  *                 type: number
-  *                 format: float
-  *                 example: 2000.00
-  *               estado:
+  *               origen_ciudad_id:
+  *                 type: integer
+  *                 example: 2
+  *               destino_ciudad_id:
+  *                 type: integer
+  *                 example: 4
+  *               numero_transporte:
   *                 type: string
-  *                 example: "Confirmado"
+  *                 example: "BUS-900"
   *     responses:
   *       200:
   *         description: Viaje actualizado correctamente
