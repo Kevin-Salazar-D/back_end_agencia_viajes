@@ -25,19 +25,19 @@
  *             properties:
  *               usuario:
  *                 type: string
- *                 example: "kevin123"
+ *                 example: kevin123
  *               correo:
  *                 type: string
- *                 example: "kevin@email.com"
+ *                 example: kevin@email.com
  *               contra:
  *                 type: string
  *                 example: "12345"
  *               nombre:
  *                 type: string
- *                 example: "Kevin"
+ *                 example: Kevin
  *               apellido:
  *                 type: string
- *                 example: "Salazar"
+ *                 example: Salazar
  *               telefono:
  *                 type: string
  *                 example: "555-1234"
@@ -63,19 +63,29 @@
  *                 example: 1
  *               usuario:
  *                 type: string
- *                 example: "kevin123"
+ *                 example: kevin123
  *               correo:
  *                 type: string
- *                 example: "kevin@email.com"
+ *                 example: kevin@email.com
  *               nombre:
  *                 type: string
- *                 example: "Kevin"
+ *                 example: Kevin
  *               apellido:
  *                 type: string
- *                 example: "Salazar"
+ *                 example: Salazar
  *               telefono:
  *                 type: string
  *                 example: "555-9876"
+ *               genero:
+ *                 type: string
+ *                 example: Masculino
+ *               fecha_nacimiento:
+ *                 type: string
+ *                 format: date
+ *                 example: "1998-10-25"
+ *               nacionalidad:
+ *                 type: string
+ *                 example: MX
  *     responses:
  *       200:
  *         description: Usuario actualizado exitosamente
@@ -99,7 +109,7 @@
  *     responses:
  *       200:
  *         description: Usuario eliminado exitosamente
- * 
+ *
  * /usuarios/buscarUsuarioPorId/{id}:
  *   get:
  *     tags:
@@ -112,7 +122,7 @@
  *         required: true
  *         schema:
  *           type: integer
- *         example: 1
+ *           example: 1
  *     responses:
  *       200:
  *         description: Usuario encontrado exitosamente
@@ -129,7 +139,7 @@
  *         required: true
  *         schema:
  *           type: string
- *         example: juana@email.com
+ *           example: juana@email.com
  *     responses:
  *       200:
  *         description: Usuario encontrado exitosamente

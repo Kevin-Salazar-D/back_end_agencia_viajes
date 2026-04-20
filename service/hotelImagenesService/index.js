@@ -38,7 +38,6 @@ const imagenHotelServicio = (modelImagenHotel) => {
      */
     mostrarImagenesHotel: async (hotel_id) => {
       validarDatos(hotel_id, "Faltó el ID del hotel para mostrar sus imágenes");
-      console.log(hotel_id)
 
       const listaImagenes = await modelImagenHotel.mostrarImagenesHotel(hotel_id);
 
@@ -51,7 +50,6 @@ const imagenHotelServicio = (modelImagenHotel) => {
      * Borrar una imagen específica del hotel por ID.
      */
     borrarImagenHotel: async (id) => {
-                 console.log(id);
       validarDatos(id, "Faltó el ID de la imagen para borrarla");
 
       const filasAfectadas = await modelImagenHotel.borrarImagenHotel(id);

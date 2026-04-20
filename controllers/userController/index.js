@@ -14,13 +14,15 @@ const userController = (servicioUsuario) => {
 
     const actualizarUsuario = async (req, res) => {
         try {
-            const { id, usuario, correo, nombre, apellido, telefono } = req.body;
-            const usuarioActualizar = { id, usuario, correo,  nombre, apellido, telefono };
+            const { id, usuario, correo, nombre, apellido, telefono,genero,fecha_nacimiento,nacionalidad } = req.body;
+
+            const usuarioActualizar = { id, usuario, correo,  nombre, apellido, telefono, genero, fecha_nacimiento, nacionalidad };
             const resultado = await servicioUsuario.actualizarUsuario(usuarioActualizar);
-            res.status(200).json({ message: "Usuario actualizado exitosamente", affectedRows: resultado.affectedRows || resultado });
+            res.status(200).json({ mensaje: "Usuario actualizado exitosamente", affectedRows: resultado.affectedRows || resultado });
             
         } catch (error) {
-            res.status(error.status || 500).json({ error: error.message });
+            
+            res.status(error.status || 500).json({ status: error.status, error: error.message });
         }
     };
 
