@@ -4,6 +4,8 @@ import { Router } from "express";
 import verificarJWT  from "../../middlewares/authMiddlewares.js";
 import rolesPermitidos from "../../middlewares/rolesPermitidos.js";
 
+import encriptacionDatos from "../../middlewares/encriptacionDatos.js";
+
 const hotelesRutas = (hotelControlador) => {
   const router = Router();  
 
