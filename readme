@@ -31,9 +31,6 @@ Provee una **API REST** robusta que permite gestionar **usuarios, reservas, vuel
 
 ###  Versión 3.x.x (Seguridad, Autenticación y SSL)
 
-**VERSION 3.9.0 (29/04/26) -Modificación de endpoint viajes (mostrar todos los viajes)**
-*   Se agregó los id´s de ciudad origen y destino.
-
 **VERSIÓN 3.8.1 (18/03/2026) - Importación de certificado SSL**
 *   Se agregó la certificación SSL en el archivo `cluster.js` importando librerías y configurando nuestro HTTPS local.
 *   Se crearon los archivos `server.key` y `server.cert` para el uso y validación de este certificado.
