@@ -127,14 +127,18 @@ const mostrarTodosLosViajes = async () => {
   try {
     const sqlQuery = `
       SELECT 
-        v.id, v.fecha_salida, v.fecha_llegada, v.numero_transporte,
+        v.*,
+        u.nombre AS usuario,
         t.nombre AS transporte, 
         c1.nombre AS ciudad_origen,
-        c2.nombre AS ciudad_destino
-      FROM viaje v
-      JOIN transporte t ON v.tipo_transporte_id = t.id
-      JOIN ciudades c1 ON v.origen_ciudad_id = c1.id
-      JOIN ciudades c2 ON v.destino_ciudad_id = c2.id
+        c2.nombre AS ciudad_destino,
+        h.nombre AS hotel
+      FROM viajes v
+      JOIN usuarios u ON v.usuario_id = u.id
+      LEFT JOIN transporte t ON v.transporte_id = t.id
+      JOIN ciudades c1 ON v.ciudad_origen_id = c1.id
+      JOIN ciudades c2 ON v.ciudad_destino_id = c2.id
+      LEFT JOIN hoteles h ON v.hotel_id = h.id
       ORDER BY v.id DESC;
     `;
 
