@@ -32,6 +32,16 @@ const borrarCiudad = async (req, res) => {
              res.status(error.status || 500).json({ error: error.message });
         }
     };
+const borrarCiudadLogico = async (req, res) => {
+        try {
+            const { id } = req.body;
+            const resultado = await servicioCiudad.borrarCiudadLogico(id);
+            res.status(200).json({ message: "Se ha borrado la ciudad exitosamente", resultado: resultado });
+            
+        } catch (error) {
+             res.status(error.status || 500).json({ error: error.message });
+        }
+    };
 const mostrarTodasCiudades = async (req, res) => {
         try {
             const ciudades  = await servicioCiudad.mostrarTodasCiudades();
@@ -40,7 +50,7 @@ const mostrarTodasCiudades = async (req, res) => {
              res.status(error.status || 500).json({ error: error.message });
         }
     };
-            return { crearCiudad, actualizarCiudad, borrarCiudad, mostrarTodasCiudades };
+            return { crearCiudad, actualizarCiudad, borrarCiudad, mostrarTodasCiudades, borrarCiudadLogico };
 
 }
 

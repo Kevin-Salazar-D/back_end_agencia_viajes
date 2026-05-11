@@ -51,7 +51,25 @@ const actualizarCiudad = async (cityData) => {
   }
 };
 
-//borramos una ciudad
+
+
+//mostramos todas las ciudades disponibles
+const mostrarTodasCiudades = async ()=>{
+try {
+    const sqlQuery = `
+    SELECT * FROM ciudades
+    WHERE estado = 'activo'
+    ORDER BY id ASC;
+
+    `;
+    const [rows] = await mysqlCliente.query(sqlQuery);
+    return rows; //Devolvemos todas las filas obtenidas por la consulta
+ } catch (error) {
+    console.error("Error obteniendo las ciudades:", error); 
+ } 
+
+}
+
 const borrarCiudad = async (id)=>{
  try {
     const sqlQuery = `
@@ -65,23 +83,21 @@ const borrarCiudad = async (id)=>{
     
  }
 }
-
-//mostramos todas las ciudades disponibles
-const mostrarTodasCiudades = async ()=>{
-try {
+//Agregar borrado logico
+const borradoCiudesLogico  = async (id) =>{
+  try {
     const sqlQuery = `
-    SELECT * FROM ciudades
-    ORDER BY id ASC;
-
+      UPDATE ciudades 
+      SET estado = 'inactivo'
+      WHERE id = ?
     `;
-    const [rows] = await mysqlCliente.query(sqlQuery);
-    return rows; //Devolvemos todas las filas obtenidas por la consulta
- } catch (error) {
-    console.error("Error obteniendo las ciudades:", error); 
- } 
-
-}
- 
+    const [result] = await mysqlCliente.query(sqlQuery, [id]);
     
-export default { crearCiudad, actualizarCiudad, borrarCiudad, mostrarTodasCiudades };
+    return result.affectedRows; 
+  } catch (error) {
+    validarErrorModelo(error, "No se pudo borrar la ciudad");
+  }
+}
+    
+export default { crearCiudad, actualizarCiudad, borrarCiudad, mostrarTodasCiudades, borradoCiudesLogico };
 

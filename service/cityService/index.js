@@ -1,4 +1,5 @@
 import validarDatos from "../../utils/validarDatos.js";
+import validarFilaAfectada from "../../utils/validarFilaAfectada.js";
 
 const cityService = (modelo) => {
     return {
@@ -19,6 +20,13 @@ const cityService = (modelo) => {
             validarDatos(id, "Falta el ID de la ciudad a eliminar");
             const filasAfectadas = await modelo.borrarCiudad(id);
             if (filasAfectadas === 0) throw new Error("No se encontró la ciudad con el ID proporcionado");
+            return filasAfectadas;
+        },
+
+        borrarCiudadLogico: async (id)=>{
+            validarDatos(id, "Falta el ID de la ciudad a eliminar");
+            const filasAfectadas = await modelo.borradoCiudesLogico(id);
+            validarFilaAfectada(filasAfectadas, "No se encontro la ciudad a borrar");
             return filasAfectadas;
         },
 
