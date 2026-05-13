@@ -31,6 +31,8 @@
  *                     type: integer
  *                   asientos_disponibles:
  *                     type: integer
+ *                   descripcion:
+ *                     type: string
  *                   estatus:
  *                     type: integer
  *
@@ -67,6 +69,7 @@
  *               - modelo
  *               - capacidad
  *               - asientos_disponibles
+ *               - descripcion    
  *               - precio
  *             properties:
  *               tipo:
@@ -87,6 +90,9 @@
  *               asientos_disponibles:
  *                 type: integer
  *                 example: 18
+ *               descripcion:
+ *                 type: string
+ *                 example: "Van de pasajeros para traslados turísticos"
  *     responses:
  *       201:
  *         description: Transporte creado exitosamente
@@ -126,6 +132,9 @@
  *               asientos_disponibles:
  *                 type: integer
  *                 example: 145
+ *               descripcion:
+ *                 type: string
+ *                 example: "Avión de pasajeros para vuelos nacionales"
  *     responses:
  *       200:
  *         description: Transporte actualizado exitosamente

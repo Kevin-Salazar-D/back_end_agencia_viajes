@@ -10,7 +10,7 @@ const rolesPermitidos = (roles) => {
 
     //recuperamos el rol del JWT
     const role = req.usuario.rol;
-    //comparamos que sea un rol valido
+    //comparamos que sea un rol valido admin usruario
     if (!roles.includes(role)) {
       return res.status(403).json({
         mensaje: "Accesoo denegado",

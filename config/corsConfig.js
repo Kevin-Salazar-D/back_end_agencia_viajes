@@ -1,11 +1,19 @@
 import cors from "cors";
 
+const urlProduccion = process.env.FRONTEND_URL;
+
 const corsInfo = {
-  // Permitimos ambos puertos por si Vite decide cambiar entre ellos
-  origin: ["http://localhost:5173", "http://localhost:5174"], 
+  origin: [
+    'http://localhost:5173', 
+    'https://localhost:5173', 
+    'http://192.168.100.15:5173', 
+    'https://192.168.100.15:5173', 
+    urlProduccion
+  ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  //autorizar por falta de token
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true // Útil si vas a usar cookies o sesiones más adelante
+  credentials: true 
 }
 
 export default cors(corsInfo);

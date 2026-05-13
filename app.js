@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import sanitizer from "./middlewares/sanitizer.js";
 
 // --- Modelos ---
 import userModel from "./model/userModelMysql/index.js";
@@ -71,8 +72,10 @@ const app = express();
 // --- MIDDLEWARES ---
 app.use(express.json());
 app.use(morgan("dev"));
+
 app.use(corsConfig);
 app.use(cookieParser());
+app.use(sanitizer);
 
 // --- INYECCIÓN DE DEPENDENCIAS ---
 

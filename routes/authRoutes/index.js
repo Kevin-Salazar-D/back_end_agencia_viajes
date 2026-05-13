@@ -16,6 +16,7 @@ const authRoutes = (authController) => {
     router.post("/cerrarSesion", verificarTokem, authController.logout);
     router.post("/activarDosPasos", verificarTokem, authController.activarDosPasos); 
     router.post("/confirmarDosPasos", verificarTokem, authController.confirmarDosPasos); 
+    router.get("/perfil", verificarTokem, authController.perfil); 
 
     return router;
 };

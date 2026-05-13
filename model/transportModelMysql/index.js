@@ -8,8 +8,8 @@ const mysqlCliente = conexionMysql;
 const crearTransporte = async (transporteData) => {
   try {
     const sqlQuery = `
-        INSERT INTO transporte (tipo, nombre, modelo, capacidad, precio, asientos_disponibles, estatus)
-        VALUES (?, ?, ?, ?, ?, ?,?) `;
+        INSERT INTO transporte (tipo, nombre, modelo, capacidad, precio, asientos_disponibles, descripcion, estatus)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?) `;
     const [result] = await mysqlCliente.query(sqlQuery, [
       transporteData.tipo,
       transporteData.nombre,
@@ -17,6 +17,7 @@ const crearTransporte = async (transporteData) => {
       transporteData.capacidad,
       transporteData.precio,
       transporteData.asientos_disponibles,
+      transporteData.descripcion,
       transporteData.estatus,
     ]);
     return result.insertId; //Devolvemos el ID generado automaticamente
@@ -30,7 +31,7 @@ const actualizarTransporte = async (transporteData) => {
   try {
     const sqlQuery = ` 
         UPDATE transporte
-        SET tipo = ?, nombre = ?, modelo = ?, capacidad = ?, precio = ? asientos_disponibles = ?
+        SET tipo = ?, nombre = ?, modelo = ?, capacidad = ?, precio = ? asientos_disponibles = ?, descripcion = ?
         WHERE id = ? `;
     const [result] = await mysqlCliente.query(sqlQuery, [
       transporteData.tipo,
@@ -39,6 +40,7 @@ const actualizarTransporte = async (transporteData) => {
       transporteData.capacidad,
       transporteData.precio,
       transporteData.asientos_disponibles,
+      transporteData.descripcion,
       transporteData.id,
     ]);
     console.log("Filas afectadas:", result.affectedRows);

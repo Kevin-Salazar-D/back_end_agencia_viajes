@@ -15,6 +15,8 @@ const ciudadRutas = (controladorCiudad) => {
   router.put('/actualizarCiudad', verificarJWT, rolesPermitidos(["admin"]), controladorCiudad.actualizarCiudad);
   //delete
   router.delete('/borrarCiudad',  verificarJWT, rolesPermitidos(["admin"]), controladorCiudad.borrarCiudad);
+  router.patch('/desactivar',  verificarJWT, rolesPermitidos(["admin"]), controladorCiudad.borrarCiudadLogico);
+
   return router;
 }
 

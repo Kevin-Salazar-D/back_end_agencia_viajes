@@ -168,7 +168,7 @@ const mostrarPaqueteID = async (id) => {
         LEFT JOIN hoteles h ON p.hotel_id = h.id
         LEFT JOIN ciudades c ON p.ciudad_id = c.id
         LEFT JOIN transporte t ON p.transporte_id = t.id
-        WHERE p.id = 2
+        WHERE p.id = ?
         ORDER BY p.id;`;
     const [rows] = await mysqlCliente.query(sqlQuery, [id]);
     return rows[0] || null; // devuelve un solo paquete o null si no existe

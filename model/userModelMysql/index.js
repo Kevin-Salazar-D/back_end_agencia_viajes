@@ -44,7 +44,8 @@ const actualizarUsuario = async (usuarioDB) => {
   try {
     const sqlQuery = `
       UPDATE usuarios
-      SET usuario = ?, correo = ?, nombre = ?, apellido = ?, telefono = ?
+      SET usuario = ?, correo = ?, nombre = ?, apellido = ?, telefono = ?, 
+          genero = ?, fecha_nacimiento = ?, nacionalidad = ?
       WHERE id = ?
     `;
     const [result] = await mysqlCliente.query(sqlQuery, [
@@ -53,17 +54,15 @@ const actualizarUsuario = async (usuarioDB) => {
       usuarioDB.nombre,
       usuarioDB.apellido,
       usuarioDB.telefono,
-      usuarioDB.id, // Necesario para identificar el usuario a actualizar
+      usuarioDB.genero,
+      usuarioDB.fecha_nacimiento,
+      usuarioDB.nacionalidad,
+      usuarioDB.id,
     ]);
 
-    return result.affectedRows; // Cuántas filas se actualizaron
+    return result.affectedRows;
   } catch (error) {
-    validarErrorModelo(
-      error,
-      "Se duplico un campo, no puede ser igual el correo o usuario",
-    );
-
-    throw error;
+    validarErrorModelo(error);
   }
 };
 
@@ -111,9 +110,14 @@ const mostrarTodosUsuarios = async () => {
 const buscarUsuarioPorCorreo = async (correo, usuario) => {
   try {
     const sqlQuery = `
-      SELECT * FROM usuarios
+      SELECT id, usuario, correo, contra, nombre, apellido, telefono, rol,
+             genero, fecha_nacimiento, nacionalidad, 
+             activacion_dos_pasos,
+             creacion_usuario,
+             avatar_usuario
+      FROM usuarios
       WHERE correo = ? OR usuario = ?
-       LIMIT 1
+      LIMIT 1
     `;
     const [rows] = await mysqlCliente.query(sqlQuery, [correo, usuario]);
     return rows[0] || null;
@@ -126,17 +130,20 @@ const buscarUsuarioPorCorreo = async (correo, usuario) => {
 const buscarUsuariosID = async (usuario_id) => {
   try {
     const sqlQuery = `
-   SELECT id, usuario, correo, nombre, apellido, telefono, rol,
+      SELECT id, usuario, correo, nombre, apellido, telefono, rol,
+             genero, fecha_nacimiento, nacionalidad, 
              secreto_temporal_dos_pasos,
              secreto_dos_pasos,
-             activacion_dos_pasos
+             activacion_dos_pasos,
+             creacion_usuario,
+             avatar_usuario
       FROM usuarios
       WHERE id = ?
       LIMIT 1
-   `;
+    `;
 
     const [rows] = await mysqlCliente.query(sqlQuery, [usuario_id]);
-    
+
     return rows[0];
   } catch (error) {
     validarErrorModelo(
@@ -190,5 +197,5 @@ export default {
   buscarUsuarioPorCorreo,
   guardarSecretoTemporal2FA,
   buscarUsuariosID,
-  guardarSecreto2FA
+  guardarSecreto2FA,
 };

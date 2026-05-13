@@ -1,5 +1,6 @@
 import validarDatos from "../../utils/validarDatos.js";
 import generarToken from "../../utils/generarToken.js";
+import validarCorreo from "../../utils/validarCorreo.js";
 import validarAutorizacion from "../../utils/validarAutorizacion.js";
 import generarCodigoAutorizacion from "../../utils/generarCodigoAutenticacion.js";
 
@@ -8,7 +9,6 @@ import qRCode from "qrcode";
 import speakeasy from "speakeasy";
 
 const authenticationServicio = (usuarioModelo) => {
-
   const formatearUsuario = (usuario) => ({
     id: usuario.id,
     nombre: usuario.nombre,
@@ -17,11 +17,10 @@ const authenticationServicio = (usuarioModelo) => {
     usuario: usuario.usuario,
     telefono: usuario.telefono,
     rol: usuario.rol,
-    activacion_dos_pasos: usuario.activacion_dos_pasos
+    activacion_dos_pasos: usuario.activacion_dos_pasos,
   });
 
   return {
-
     login: async (dataLogin) => {
       //validamos que los datos ingresados esten cbien
       validarDatos(dataLogin, "Faltan datos para el login");
@@ -36,7 +35,6 @@ const authenticationServicio = (usuarioModelo) => {
         identificador,
         identificador,
       );
-
       //validamos que exista el usuario
       validarAutorizacion(usuarioEncontrado, "Credenciales incorrectas");
 
@@ -59,7 +57,11 @@ const authenticationServicio = (usuarioModelo) => {
       }
 
       //generamos el token de autorizacion
-      const token = generarToken(usuarioEncontrado.id, usuarioEncontrado.rol);
+      const token = generarToken(
+        usuarioEncontrado.id,
+        usuarioEncontrado.rol,
+        usuarioEncontrado.usuario,
+      );
 
       return {
         token,
@@ -72,6 +74,12 @@ const authenticationServicio = (usuarioModelo) => {
       validarDatos(dataCuenta, "Faltan datos para el registro");
 
       const { correo, usuario } = dataCuenta;
+    
+
+      validarCorreo(
+        correo,
+        "Correo ingresado incorrectamente intente de nuevo.",
+      );
 
       //verificamos que el usuario no esta registrado previamente
       const usuarioExistente = await usuarioModelo.buscarUsuarioPorCorreo(
@@ -95,7 +103,8 @@ const authenticationServicio = (usuarioModelo) => {
       };
 
       const usuarioCreadoId = await usuarioModelo.crearUsuario(usuarioHash);
-
+      const rol = "user";
+      
       const usuarioFormado = {
         id: usuarioCreadoId,
         usuario: usuarioHash.usuario,
@@ -103,11 +112,15 @@ const authenticationServicio = (usuarioModelo) => {
         nombre: usuarioHash.nombre,
         apellido: usuarioHash.apellido,
         telefono: usuarioHash.telefono,
-        rol: "user",
-        activacion_dos_pasos: false
+        activacion_dos_pasos: false,
       };
-
-      const token = generarToken(usuarioCreadoId, usuarioFormado.rol);
+      
+     
+      const token = generarToken(
+        usuarioFormado.id,
+        rol,
+        usuarioFormado.usuario,
+      );
 
       return {
         token,
@@ -117,14 +130,21 @@ const authenticationServicio = (usuarioModelo) => {
 
     activarDosPasos: async (userId) => {
       validarDatos({ userId }, "Error al obtener el usuario");
-     
 
       //obtenemos los datos del usuario
       const usuario = await usuarioModelo.buscarUsuariosID(userId);
-      console.log("Datos del usuario: ", usuario);
 
       //validamos si se encontro el usuario
       validarAutorizacion(usuario, "Usuario no encontrado");
+
+      //Validamos que este activado los dos pasos
+      if (usuario.activacion_dos_pasos === 1) {
+        const error = new Error(
+          "La autenticación en dos pasos ya está activada",
+        );
+        error.status = 400; 
+        throw error;
+      }
 
       // generamos el codigo de autorizacion
       const secret = generarCodigoAutorizacion({
@@ -154,7 +174,7 @@ const authenticationServicio = (usuarioModelo) => {
       //validamos que exista un secreto temporal
       validarAutorizacion(
         usuario.secreto_temporal_dos_pasos,
-        "No hay activacion pendiente"
+        "No hay activacion pendiente",
       );
 
       // verificamos el codigo sea correcto
@@ -179,10 +199,52 @@ const authenticationServicio = (usuarioModelo) => {
         resultado: resultado,
       };
     },
-  
+
     verificarAuth2FA: async (usuario_id, codigo) => {
       //validamos si los datos llegaron
       validarDatos({ usuario_id, codigo }, "Error al obtener id o usuario ");
+
+      //buscamos al usuario solicitado
+      const usuarioEncontrado =
+        await usuarioModelo.buscarUsuariosID(usuario_id);
+
+      //validamos si se encontro el usuario
+      validarAutorizacion(usuarioEncontrado, "No se encontro el usuario");
+
+      //validamos si tiene el 2FA activado
+      validarAutorizacion(
+        usuarioEncontrado.activacion_dos_pasos,
+        "Este usuario no tiene 2FA activado",
+      );
+
+      //Verificacmos que el codigo sea correcto
+      const verificado = speakeasy.totp.verify({
+        secret: usuarioEncontrado.secreto_dos_pasos,
+        encoding: "base32",
+        token: codigo,
+        window: 1,
+      });
+
+      //validamos si el codigo es correcto
+      validarAutorizacion(verificado, "Este codigo esta mal. Intente de nuevo");
+
+      //generamos el token de autorizacion
+      const token = generarToken(
+        usuarioEncontrado.id,
+        usuarioEncontrado.rol,
+        usuarioEncontrado.usuario,
+      );
+
+      return {
+        token,
+        usuario: formatearUsuario(usuarioEncontrado),
+      };
+    },
+
+    //traemos la informacion del perfil del usuario
+    perfil: async (usuario_id) => {
+      //validamos si los datos llegaron
+      validarDatos(usuario_id, "Error al obtener el ID del usuario ");
 
       //buscamos al usuario solicitado
       const usuario = await usuarioModelo.buscarUsuariosID(usuario_id);
@@ -190,35 +252,8 @@ const authenticationServicio = (usuarioModelo) => {
       //validamos si se encontro el usuario
       validarAutorizacion(usuario, "No se encontro el usuario");
 
-      //validamos si tiene el 2FA activado
-      validarAutorizacion(
-        usuario.activacion_dos_pasos,
-        "Este usuario no tiene 2FA activado"
-      );
-
-      //Verificacmos que el codigo sea correcto
-      const verificado = speakeasy.totp.verify({
-        secret: usuario.secreto_dos_pasos,
-        encoding: "base32",
-        token: codigo,
-        window: 1,
-      });
-
-      //validamos si el codigo es correcto
-      validarAutorizacion(
-        verificado,
-        "Este codigo esta mal. Intente de nuevo"
-      );
-
-      //generamos el token de autorizacion
-      const token = generarToken(usuario.id, usuario.rol);
-
-      return {
-        token,
-        usuario: formatearUsuario(usuario)
-      };
-    }
-    
+      return formatearUsuario(usuario);
+    },
   };
 };
 

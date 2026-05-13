@@ -6,11 +6,18 @@ const swaggerOptions = {
     openapi: "3.0.0",
     info: {
       title: "API de agencia de viajes",
-      version: "3.4.0",
+      version: "3.9.0",
       description: "Gestiona usuarios, ciudades y hoteles",
     },
     servers: [
-      { url: "http://localhost:3000/agenciaViajes" }
+      {
+        url: 'https://back-end-agencia-viajes.onrender.com/agenciaViajes',
+        description: "Servidor en produccion"
+      },
+      { 
+        url: "https://localhost:3000/agenciaViajes",
+        description: "URL local"
+      }
     ],
 
     components: {

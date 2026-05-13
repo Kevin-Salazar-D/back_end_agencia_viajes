@@ -8,21 +8,21 @@ const userController = (servicioUsuario) => {
             res.status(201).json({ message: "Usuario creado exitosamente", usuarioId: resultado.insertId || resultado });
             
         } catch (error) {
-             console.error("🚨 ERROR EN CREAR USUARIO:", error); // <-- Aquí vemos el error real
              res.status(error.status || 500).json({ error: error.message });
         }
     };
 
     const actualizarUsuario = async (req, res) => {
         try {
-            const { id, usuario, correo, nombre, apellido, telefono } = req.body;
-            const usuarioActualizar = { id, usuario, correo,  nombre, apellido, telefono };
+            const { id, usuario, correo, nombre, apellido, telefono,genero,fecha_nacimiento,nacionalidad } = req.body;
+
+            const usuarioActualizar = { id, usuario, correo,  nombre, apellido, telefono, genero, fecha_nacimiento, nacionalidad };
             const resultado = await servicioUsuario.actualizarUsuario(usuarioActualizar);
-            res.status(200).json({ message: "Usuario actualizado exitosamente", affectedRows: resultado.affectedRows || resultado });
+            res.status(200).json({ mensaje: "Usuario actualizado exitosamente", affectedRows: resultado.affectedRows || resultado });
             
         } catch (error) {
-            console.error("🚨 ERROR EN ACTUALIZAR USUARIO:", error); // <-- Aquí vemos el error real
-            res.status(error.status || 500).json({ error: error.message });
+            
+            res.status(error.status || 500).json({ status: error.status, error: error.message });
         }
     };
 
@@ -33,7 +33,6 @@ const userController = (servicioUsuario) => {
             res.status(200).json({ message: "Usuario borrado exitosamente", resultado: resultado.affectedRows || resultado });
             
         } catch (error) {
-            console.error("🚨 ERROR EN BORRAR USUARIO:", error); // <-- Aquí vemos el error real
             res.status(error.status || 500).json({ error: error.message });
         }
     };
@@ -43,12 +42,31 @@ const userController = (servicioUsuario) => {
             const usuarios = await servicioUsuario.mostrarTodosUsuarios();
             res.status(200).json(usuarios);
         } catch (error) {
-            console.error("🚨 ERROR EN MOSTRAR USUARIOS:", error); // <-- Aquí vemos el error real
             res.status(500).json({ error: error.message });
         }
     };
 
-    return { crearUsuario, actualizarUsuario, borrarUsuario, mostrarTodosUsuarios };
+    const buscarUsuarioPorId = async (req, res) => {
+        try{
+            const { id } = req.params;
+            const resultado = await servicioUsuario.buscarUsuarioPorId(id);
+            res.status(200).json({message: "Usuario encontrado", usuario: resultado});
+        }catch(error){
+            res.status(error.status|| 500).json({error: error.message});
+        }
+    };
+
+    const buscarUsuarioPorCorreo = async (req, res) => {
+        try{
+            const { correo } = req.params;
+            const resultado = await servicioUsuario.buscarUsuarioPorCorreo(correo);
+            res.status(200).json({message: "Usuario encontrado", usuario: resultado});
+        }catch(error){
+            res.status(error.status|| 500).json({error: error.message});
+        }
+    }
+
+    return { crearUsuario, actualizarUsuario, borrarUsuario, mostrarTodosUsuarios, buscarUsuarioPorId, buscarUsuarioPorCorreo };
 };
 
 export default userController;
