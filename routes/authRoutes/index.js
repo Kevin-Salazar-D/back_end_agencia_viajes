@@ -11,6 +11,8 @@ const authRoutes = (authController) => {
     router.post("/crearCuenta", authController.crearCuenta); 
     router.post("/verificarAuth2FA", authController.verificarAuth2FA); 
 
+    // Ruta para refrescar el token (NUEVA)
+    router.get("/refresh", authController.refresh);
 
     //ruta protegida
     router.post("/cerrarSesion", verificarTokem, authController.logout);

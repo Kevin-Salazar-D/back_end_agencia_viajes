@@ -131,8 +131,16 @@ const authenticationServicio = (usuarioModelo) => {
         usuarioFormado.usuario,
       );
 
+      // AGREGADO: Generación del refreshToken
+      const refreshToken = generarRefreshToken(
+        usuarioFormado.id,
+        rol,
+        usuarioFormado.usuario,
+      );
+
       return {
         token,
+        refreshToken, // AGREGADO: Se retorna junto con el token normal
         usuario: formatearUsuario(usuarioFormado),
       };
     },
