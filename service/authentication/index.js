@@ -3,10 +3,12 @@ import generarToken from "../../utils/generarToken.js";
 import validarCorreo from "../../utils/validarCorreo.js";
 import validarAutorizacion from "../../utils/validarAutorizacion.js";
 import generarCodigoAutorizacion from "../../utils/generarCodigoAutenticacion.js";
+import generarRefreshToken from "../../utils/generarRefreshToken.js";
 
 import bcrypt from "bcryptjs";
 import qRCode from "qrcode";
 import speakeasy from "speakeasy";
+import jwt from "jsonwebtoken";
 
 const authenticationServicio = (usuarioModelo) => {
   const formatearUsuario = (usuario) => ({
@@ -58,14 +60,21 @@ const authenticationServicio = (usuarioModelo) => {
 
       //generamos el token de autorizacion
       const token = generarToken(
-        usuarioEncontrado.id,
-        usuarioEncontrado.rol,
-        usuarioEncontrado.usuario,
+      usuarioEncontrado.id,
+      usuarioEncontrado.rol,
+      usuarioEncontrado.usuario,
+      );
+
+      const refreshToken = generarRefreshToken(
+      usuarioEncontrado.id,
+      usuarioEncontrado.rol,
+      usuarioEncontrado.usuario,
       );
 
       return {
-        token,
-        usuario: formatearUsuario(usuarioEncontrado),
+      token,
+      refreshToken,
+      usuario: formatearUsuario(usuarioEncontrado),
       };
     },
 
@@ -115,7 +124,7 @@ const authenticationServicio = (usuarioModelo) => {
         activacion_dos_pasos: false,
       };
       
-     
+      
       const token = generarToken(
         usuarioFormado.id,
         rol,
@@ -230,14 +239,21 @@ const authenticationServicio = (usuarioModelo) => {
 
       //generamos el token de autorizacion
       const token = generarToken(
-        usuarioEncontrado.id,
-        usuarioEncontrado.rol,
-        usuarioEncontrado.usuario,
+      usuarioEncontrado.id,
+      usuarioEncontrado.rol,
+      usuarioEncontrado.usuario,
+      );
+
+      const refreshToken = generarRefreshToken(
+      usuarioEncontrado.id,
+      usuarioEncontrado.rol,
+      usuarioEncontrado.usuario,
       );
 
       return {
-        token,
-        usuario: formatearUsuario(usuarioEncontrado),
+      token,
+      refreshToken,
+      usuario: formatearUsuario(usuarioEncontrado),
       };
     },
 
@@ -253,6 +269,34 @@ const authenticationServicio = (usuarioModelo) => {
       validarAutorizacion(usuario, "No se encontro el usuario");
 
       return formatearUsuario(usuario);
+    },
+
+    refreshToken: async (refreshToken) => {
+      return new Promise((resolve, reject) => {
+        jwt.verify(
+          refreshToken,
+          process.env.JWT_REFRESH_SECRET,
+          (error, decoded) => {
+            if (error) {
+              const err = new Error(
+                "Refresh token inválido o expirado"
+              );
+
+              err.status = 403;
+
+              return reject(err);
+            }
+
+            const nuevoToken = generarToken(
+              decoded.id,
+              decoded.rol,
+              decoded.usuario,
+            );
+
+            resolve(nuevoToken);
+          },
+        );
+      });
     },
   };
 };
