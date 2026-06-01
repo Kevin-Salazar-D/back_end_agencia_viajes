@@ -1,4 +1,5 @@
 import cookieOptions from "../../config/cookieOptions.js";
+
 const authenticationController = (servicioAuth) => {
   const login = async (req, res) => {
     try {
@@ -18,8 +19,13 @@ const authenticationController = (servicioAuth) => {
         });
       }
 
-      //creamoos la cookie
+      //creamos la cookie
       res.cookie("token", datoUsuario.token, cookieOptions);
+
+      res.cookie("refreshToken", datoUsuario.refreshToken, {
+        ...cookieOptions,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
 
       res.status(200).json({
         message: "Has accedido correctamente a tu cuenta",
@@ -47,7 +53,12 @@ const authenticationController = (servicioAuth) => {
       const cuentaCreada = await servicioAuth.crearCuenta(nuevoUsuario);
 
       res.cookie("token", cuentaCreada.token, cookieOptions);
-
+      
+      res.cookie("refreshToken", cuentaCreada.refreshToken, {
+        ...cookieOptions,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+      
       res.status(201).json({
         message: "Cuenta creada correctamente",
         usuario: cuentaCreada.usuario,
@@ -60,6 +71,7 @@ const authenticationController = (servicioAuth) => {
   const logout = (req, res) => {
     try {
       res.clearCookie("token", cookieOptions);
+      res.clearCookie("refreshToken", cookieOptions);
 
       return res.status(200).json({
         message: "Sesión cerrada correctamente",
@@ -78,7 +90,6 @@ const authenticationController = (servicioAuth) => {
 
       //creamos la QR para que el usuario pueda autenticar
       const { qr } = await servicioAuth.activarDosPasos(userId);
-
 
       return res.status(200).json({
         mensaje: "QR creado correctamente",
@@ -122,8 +133,13 @@ const authenticationController = (servicioAuth) => {
         codigo,
       );
 
-      //creamos la cookies para el usuario
+      //creamos las cookies para el usuario
       res.cookie("token", verificacionCuenta.token, cookieOptions);
+
+      res.cookie("refreshToken", verificacionCuenta.refreshToken, {
+        ...cookieOptions,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
 
       //si todo esta bien mandamos un 200
       res.status(200).json({
@@ -140,13 +156,36 @@ const authenticationController = (servicioAuth) => {
 
   const perfil = async (req, res) => {
     try {
-        
-      //traemos lod datos del usuario
-      const usuarioAuntenticado =  await servicioAuth.perfil(req.usuario.id);
+      //traemos los datos del usuario
+      const usuarioAuntenticado = await servicioAuth.perfil(req.usuario.id);
 
       res.status(200).json({
         message: "Datos del usuario",
         usuario: usuarioAuntenticado,
+      });
+    } catch (error) {
+      return res.status(error.status || 500).json({
+        error: error.message,
+      });
+    }
+  };
+
+  const refresh = async (req, res) => {
+    try {
+      const refreshToken = req.cookies.refreshToken;
+
+      if (!refreshToken) {
+        return res.status(401).json({
+          error: "Refresh token requerido",
+        });
+      }
+
+      const nuevoToken = await servicioAuth.refreshToken(refreshToken);
+
+      res.cookie("token", nuevoToken, cookieOptions);
+
+      return res.status(200).json({
+        message: "Token renovado correctamente",
       });
     } catch (error) {
       return res.status(error.status || 500).json({
@@ -162,7 +201,8 @@ const authenticationController = (servicioAuth) => {
     activarDosPasos,
     confirmarDosPasos,
     verificarAuth2FA,
-    perfil
+    perfil,
+    refresh
   };
 };
 
