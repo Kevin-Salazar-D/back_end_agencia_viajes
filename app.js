@@ -3,7 +3,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import sanitizer from "./middlewares/sanitizer.js";
 
-// --- Modelos ---
+// Modelos
 import userModel from "./model/userModelMysql/index.js";
 import cityModel from "./model/cityModelMysql/index.js";
 import hotelModel from "./model/hotelModelMysql/index.js";
@@ -16,7 +16,7 @@ import packageModel from "./model/packegeModelMysql/index.js";
 import reservationModel from "./model/reservationMysql/index.js";
 import payModel from "./model/payModelMysql/index.js";
 
-// --- Servicios ---
+// Servicios
 import userService from "./service/userService/index.js";
 import cityService from "./service/cityService/index.js";
 import hotelService from "./service/hotelService/index.js";
@@ -30,7 +30,7 @@ import reservationService from "./service/reservationService/index.js";
 import payService from "./service/payService/idnex.js";
 import authService from "./service/authentication/index.js";
 
-// --- Controladores ---
+// Controladores
 import userController from "./controllers/userController/index.js";
 import cityController from "./controllers/cityController/index.js";
 import hotelController from "./controllers/hotelController/index.js";
@@ -44,7 +44,7 @@ import reservationController from "./controllers/reservationController/index.js"
 import payControlloer from "./controllers/payController/index.js";
 import authController from "./controllers/authentication/index.js";
 
-// --- Rutas (factories) ---
+// Rutas
 import { 
   usuarioRutasFactory, 
   ciudadRutasFactory, 
@@ -57,90 +57,74 @@ import {
   packageRutasFactory,
   reservationFactory,
   payFactory,
-  authRutasFactory
+  authRutasFactory,
+  chatRutasFactory
 } from "./routes/index.js";
 
-// Swagger
 import setupSwagger from "./config/swaggerConfig.js";
-
-// CORS
 import corsConfig from "./config/corsConfig.js";
 
 const app = express();
-//const PUERTO = 3000;
 
-// --- MIDDLEWARES ---
+// Middlewares
 app.use(express.json());
 app.use(morgan("dev"));
-
 app.use(corsConfig);
 app.use(cookieParser());
 app.use(sanitizer);
 
-// --- INYECCIÓN DE DEPENDENCIAS ---
-
-// Usuarios
+// Inyección de dependencias
 const usuarioServicio = userService(userModel);
 const usuarioControlador = userController(usuarioServicio);
 const usuarioRutas = usuarioRutasFactory(usuarioControlador);
 
-// Ciudades
 const ciudadServicio = cityService(cityModel);
 const ciudadControlador = cityController(ciudadServicio);
 const ciudadRutas = ciudadRutasFactory(ciudadControlador);
 
-// Hoteles
 const hotelServicio = hotelService(hotelModel);
 const hotelControlador = hotelController(hotelServicio);
 const hotelRutas = hotelRutasFactory(hotelControlador);
 
-// Habitaciones
 const habitacionServicio = roomService(roomModel);
 const habitacionControlador = roomController(habitacionServicio);
 const habitacionRutas = roomRutasFactory(habitacionControlador);
 
-// Transportes
 const transportServicio = transportService(transportModel);
 const transportControlador = transportController(transportServicio);
 const transportRutas = transportFactory(transportControlador);
 
-// Detalles de Hoteles
 const hotelDetallesServicio = hotelDetailsService(hotelDetailsMysql);
 const hotelDetallesControlador = hotelDetailsController(hotelDetallesServicio);
 const hotelDetallesRutas = hotelDetailsFactory(hotelDetallesControlador);
 
-// Imágenes de hoteles 
 const hotelImagenServicio = hotelImagenesService(hotelImagenesMysql);
 const hotelImagenesControlador = hotelImagenesController(hotelImagenServicio);
 const hotelImagenRutas = hotelesImagenesFactory(hotelImagenesControlador);
 
-// Viajes
 const viajeServicio = journeyService(journeyModel);
 const viajeControlador = journeyController(viajeServicio);
 const viajeRutas = journeyRutasFactory(viajeControlador);
 
-// paquetes
 const paquetesServicio = packageService(packageModel);
 const paqueteControlador = packageController(paquetesServicio);
 const paqueteRutas = packageRutasFactory(paqueteControlador);
 
-// reservaciones
-const reservacionServicio = reservationService(reservationModel,habitacionServicio);
+const reservacionServicio = reservationService(reservationModel, habitacionServicio);
 const reservacionControlador = reservationController(reservacionServicio);
 const reservacionRutas = reservationFactory(reservacionControlador);
 
-// PAGOS
 const pagosServicio = payService(payModel);
 const pagosControlador = payControlloer(pagosServicio);
 const pagosRutas = payFactory(pagosControlador);
 
-
-//Autorizacion
 const autorizacionServicio = authService(userModel);
 const autorizacionControlador = authController(autorizacionServicio);
-const autorizacionRutas = authRutasFactory(autorizacionControlador)
+const autorizacionRutas = authRutasFactory(autorizacionControlador);
 
-// --- RUTAS PRINCIPALES ---
+const chatRutas = chatRutasFactory(hotelServicio, paquetesServicio); 
+
+// Rutas principales
 app.use("/agenciaViajes/usuarios", usuarioRutas);
 app.use("/agenciaViajes/ciudades", ciudadRutas);
 app.use("/agenciaViajes/hoteles", hotelRutas);
@@ -153,15 +137,8 @@ app.use("/agenciaViajes/paquetes", paqueteRutas);
 app.use("/agenciaViajes/reservaciones", reservacionRutas);
 app.use("/agenciaViajes/pagos", pagosRutas);
 app.use("/agenciaViajes/autenticacion", autorizacionRutas);
+app.use("/agenciaViajes/chat", chatRutas); 
 
-
-// Swagger
 setupSwagger(app);
 
-// --- INICIO DEL SERVIDOR ---
-//app.listen(PUERTO, () => {
- // console.log(`Servidor arrancando en http://localhost:${PUERTO}`);
-//});
-
-//exportamos la app principal
 export default app;

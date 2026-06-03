@@ -5,17 +5,15 @@ import hotelRutasFactory from "./hotelRoutes/index.js";
 import roomRutasFactory from "./roomRoutes/index.js";
 import transportFactory from "./transportRoutes/index.js";
 import hotelDetailsFactory from "./hotelDetailsRutes/index.js";
-import hotelesImagenesFactory from "./hotelImageRutes/indeX.js";
+import hotelesImagenesFactory from "./hotelImageRutes/indeX.js"; 
 import journeyRutasFactory from "./journeyRoutes/index.js";
-import packageRutasFactory from "./packageRoutes/index.js"
+import packageRutasFactory from "./packageRoutes/index.js";
 import reservationFactory from "./reservationRoutes/index.js";
 import payFactory from "./payRoute/index.js";
 import authRutasFactory from "./authRoutes/index.js";
+import chatRutasFactory from "./chatRoutes/index.js";
 
 const router = Router();
-
-
-
 
 export default router;
 export { 
@@ -30,5 +28,6 @@ export {
     packageRutasFactory,
     reservationFactory,
     payFactory,
-    authRutasFactory
+    authRutasFactory,
+    chatRutasFactory 
 }; 
